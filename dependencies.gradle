@@ -1,0 +1,17 @@
+ext {
+    //Base libraries
+    retrofit_version = '2.3.0'
+    retrofit = [
+            gson: "com.squareup.retrofit2:converter-gson:$retrofit_version",
+            base: "com.squareup.retrofit2:retrofit:$retrofit_version",
+            rxjava: "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version",
+            interceptor:  "com.squareup.okhttp3:logging-interceptor:3.10.0"
+    ]
+
+    joda_java_version = '2.9.3'
+    joda = [ java: "joda-time:joda-time:$joda_java_version"]
+
+    //Unit Tests
+    junit_version = '4.12'
+    junit = [ "junit:junit:$junit_version" ]
+}

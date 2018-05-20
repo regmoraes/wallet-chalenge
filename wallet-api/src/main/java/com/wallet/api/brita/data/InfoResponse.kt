@@ -1,0 +1,13 @@
+package com.wallet.api.brita.data
+
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
+import javax.annotation.Generated
+
+@Generated("com.robohorse.robopojogenerator")
+data class InfoResponse(
+
+		@Expose(serialize = false)
+		@field:SerializedName("value")
+		val values: List<Value>
+)

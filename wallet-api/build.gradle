@@ -1,0 +1,12 @@
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+apply from: rootProject.file('dependencies.gradle')
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation retrofit.values()
+    implementation joda.java
+
+    testImplementation junit
+}
