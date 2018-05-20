@@ -11,7 +11,7 @@ import io.reactivex.Single
 interface WalletsDao {
 
     @Query("SELECT * FROM wallets")
-    fun getWallets(): Single<WalletEntity>
+    fun getWallets(): Single<List<WalletEntity>>
 
     @Query("SELECT * FROM wallets WHERE currency = :currency")
     fun getWalletByCurrency(currency: String): Single<WalletEntity>

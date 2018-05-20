@@ -4,6 +4,7 @@ import com.regmoraes.wallet.di.ViewScope
 import com.regmoraes.wallet.di.module.WalletModule
 import com.regmoraes.wallet.presentation.market.MarketFragment
 import com.regmoraes.wallet.presentation.transactions.TransactionsHistoryFragment
+import com.regmoraes.wallet.presentation.wallet.WalletFragment
 import dagger.Subcomponent
 
 
@@ -16,4 +17,5 @@ interface ViewComponent {
 
     fun inject(marketFragment: MarketFragment)
     fun inject(transactionsHistoryFragment: TransactionsHistoryFragment)
+    fun inject(walletFragment: WalletFragment)
 }

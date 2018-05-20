@@ -4,6 +4,7 @@ import com.regmoraes.wallet.di.ViewScope
 import com.wallet.core.WalletCore
 import com.wallet.core.WalletCoreBuilder
 import com.wallet.core.currency.CurrencyManager
+import com.wallet.core.currency.data.Currency
 import com.wallet.core.market.MarketManager
 import com.wallet.core.receipt.ReceiptManager
 import com.wallet.core.receipt.ReceiptRepository
@@ -20,10 +21,18 @@ class WalletModule {
 
     @Provides
     @ViewScope
-    fun providesWalletCore(walletRepository: WalletRepository,
+    fun providesBaseCurrency() : Currency {
+
+        return Currency.BRL
+    }
+
+    @Provides
+    @ViewScope
+    fun providesWalletCore(baseCurrency: Currency,
+                           walletRepository: WalletRepository,
                            receiptRepository: ReceiptRepository) : WalletCore {
 
-        return WalletCoreBuilder.build(walletRepository, receiptRepository)
+        return WalletCoreBuilder.build(baseCurrency, walletRepository, receiptRepository)
     }
 
     @Provides

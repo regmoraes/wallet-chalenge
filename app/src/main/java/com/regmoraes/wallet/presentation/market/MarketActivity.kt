@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import com.regmoraes.wallet.R
 import com.regmoraes.wallet.databinding.ActivityPricesBinding
 import com.regmoraes.wallet.presentation.transactions.TransactionsHistoryFragment
+import com.regmoraes.wallet.presentation.wallet.WalletFragment
 
 
 class MarketActivity : AppCompatActivity() {
@@ -32,7 +33,7 @@ class MarketActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.action_transactions -> selectedFragment = TransactionsHistoryFragment.newInstance()
                 R.id.action_market -> selectedFragment = MarketFragment.newInstance()
-                //R.id.action_wallet -> selectedFragment = ItemTwoFragment.newInstance()
+                R.id.action_wallet -> selectedFragment = WalletFragment.newInstance()
             }
 
             val transaction = supportFragmentManager.beginTransaction()

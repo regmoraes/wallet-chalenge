@@ -13,6 +13,11 @@ import java.math.BigDecimal
 class WalletManager (private val baseCurrency: Currency,
                      private val walletRepository: WalletRepository) {
 
+    fun getWallets(): Single<List<Wallet>> {
+
+        return walletRepository.getWallets()
+    }
+
     fun getWallet(currency: Currency): Single<Wallet> {
 
         return walletRepository.getWallet(currency)

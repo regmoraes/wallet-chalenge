@@ -33,12 +33,13 @@ class MarketViewModel(private val marketManager: MarketManager,
     fun getWalletTotalAmount() {
 
         disposables.add(
-                walletManager.getTotalBalance()
+                walletManager.getBaseWallet()
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
-                                { totalAmount ->
-                                    walletTotalAmountResource.postValue(Resource.success(totalAmount)) },
+                                { baseWallet ->
+                                    walletTotalAmountResource
+                                        .postValue(Resource.success(baseWallet.amount)) },
                                 { error ->
                                     walletTotalAmountResource.postValue(Resource.error(error))
                                 }
@@ -81,12 +82,13 @@ class MarketViewModel(private val marketManager: MarketManager,
 
         disposables.add(
                 sellOperation
-                        .flatMap { walletManager.getTotalBalance() }
+                        .flatMap { walletManager.getBaseWallet() }
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
-                                { totalAmount ->
-                                    walletTotalAmountResource.postValue(Resource.success(totalAmount)) },
+                                { baseWallet ->
+                                    walletTotalAmountResource
+                                        .postValue(Resource.success(baseWallet.amount)) },
                                 { error ->
                                     walletTotalAmountResource.postValue(Resource.error(error))
                                 }

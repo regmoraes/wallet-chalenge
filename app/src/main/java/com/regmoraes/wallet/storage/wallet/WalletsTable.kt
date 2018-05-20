@@ -1,6 +1,7 @@
 package com.regmoraes.wallet.storage.wallet
 
 import com.wallet.core.currency.data.Currency
+import com.wallet.core.wallet.data.Wallet
 import com.wallet.core.wallet.data.WalletRepository
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -11,21 +12,24 @@ import java.math.BigDecimal
  **/
 class WalletsTable(private val walletsDao: WalletsDao) : WalletRepository {
 
-    override fun getCurrencyBalance(currency: Currency): Single<BigDecimal> {
+    override fun getWallet(currency: Currency): Single<Wallet> {
 
-        return walletsDao.getWalletByCurrency(currency.name).map { wallet -> BigDecimal(wallet.amount) }
+        return walletsDao.getWalletByCurrency(currency.name)
+            .map { walletEntity -> WalletMapper.toWallet(walletEntity) }
     }
 
-    override fun getTotalBalance(): Single<BigDecimal> {
+    override fun getWallets(): Single<List<Wallet>> {
 
-        return getCurrencyBalance(Currency.BRL)
+        return walletsDao.getWallets().map { walletEntities ->
+            walletEntities.map { it -> WalletMapper.toWallet(it) }
+        }
     }
 
     override fun credit(currency: Currency, value: BigDecimal): Completable {
 
-        return getCurrencyBalance(currency).flatMapCompletable { currentBalance ->
+        return getWallet(currency).flatMapCompletable { wallet ->
 
-            val updatedBalance = currentBalance.plus(value)
+            val updatedBalance = wallet.amount.plus(value)
 
             val walletEntity = WalletEntity(currency.name, updatedBalance.toPlainString())
 
@@ -35,9 +39,9 @@ class WalletsTable(private val walletsDao: WalletsDao) : WalletRepository {
 
     override fun debit(currency: Currency, value: BigDecimal): Completable {
 
-        return getCurrencyBalance(currency).flatMapCompletable { currentBalance ->
+        return getWallet(currency).flatMapCompletable { wallet ->
 
-            val updatedBalance = currentBalance.minus(value)
+            val updatedBalance = wallet.amount.minus(value)
 
             val walletEntity = WalletEntity(currency.name, updatedBalance.toPlainString())
 

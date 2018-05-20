@@ -12,6 +12,8 @@ interface WalletRepository {
 
     fun getWallet(currency: Currency): Single<Wallet>
 
+    fun getWallets(): Single<List<Wallet>>
+
     fun credit(currency: Currency, value: BigDecimal): Completable
 
     fun debit(currency: Currency, value: BigDecimal): Completable
