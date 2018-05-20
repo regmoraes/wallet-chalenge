@@ -1,1 +1,1 @@
-include ':wallet-api', ':wallet-core'
+include ':app', ':wallet-api', ':wallet-core'

@@ -1,4 +1,16 @@
 ext {
+
+    //Support Libraries
+    supportLibrary_version = '27.1.1'
+    supportLibrary = [
+            v4: "com.android.support:support-v4:$supportLibrary_version",
+            apcompat: "com.android.support:appcompat-v7:$supportLibrary_version",
+            cardView: "com.android.support:cardview-v7:$supportLibrary_version",
+            recyclerView: "com.android.support:recyclerview-v7:$supportLibrary_version",
+            design: "com.android.support:design:$supportLibrary_version",
+            constraint: 'com.android.support.constraint:constraint-layout:1.0.2'
+    ]
+
     //Base libraries
     retrofit_version = '2.3.0'
     retrofit = [
@@ -9,7 +21,10 @@ ext {
     ]
 
     joda_java_version = '2.9.3'
-    joda = [ java: "joda-time:joda-time:$joda_java_version"]
+    joda_android_version = '2.9.9.4'
+    joda = [ java: "joda-time:joda-time:$joda_java_version",
+             android: "net.danlew:android.joda:$joda_android_version"
+    ]
 
     dagger2_version = '2.16'
     dagger2 = [
@@ -17,8 +32,25 @@ ext {
             compiler: "com.google.dagger:dagger-compiler:$dagger2_version"
     ]
 
+    // Android Architecture Components
+    archComponents_version = '1.1.1'
+    archComponents = [
+            extensions: "android.arch.lifecycle:extensions:$archComponents_version",
+            compiler: "android.arch.lifecycle:compiler:$archComponents_version"
+    ]
+
+    def room_version = '1.1.0'
+    room = [
+            runtime: "android.arch.persistence.room:runtime:$room_version",
+            rxjava: "android.arch.persistence.room:rxjava2:$room_version",
+            compiler: "android.arch.persistence.room:compiler:$room_version",
+    ]
+
     rxJava_version = '2.1.12'
-    reactivex = [ java: "io.reactivex.rxjava2:rxjava:$rxJava_version" ]
+    rxAndroid_version = '2.0.2'
+    reactivex = [ java: "io.reactivex.rxjava2:rxjava:$rxJava_version",
+                  android: "io.reactivex.rxjava2:rxandroid:$rxAndroid_version"
+    ]
 
     //Unit Tests
     junit_version = '4.12'
@@ -28,4 +60,11 @@ ext {
     mockito = [ base: "org.mockito:mockito-core:$mockito_version"]
 
     kotlin_test = ["org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"]
+
+    //Instrumentation Tests
+    espresso_version = '3.0.2'
+    espresso = [
+            runner: "com.android.support.test:runner:1.0.2",
+            core: "com.android.support.test.espresso:espresso-core:$espresso_version"
+    ]
 }
