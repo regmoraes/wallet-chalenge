@@ -10,9 +10,7 @@ import java.math.BigDecimal
  **/
 interface WalletRepository {
 
-    fun getCurrencyBalance(currency: Currency): Single<BigDecimal>
-
-    fun getTotalBalance(): Single<BigDecimal>
+    fun getWallet(currency: Currency): Single<Wallet>
 
     fun credit(currency: Currency, value: BigDecimal): Completable
 

@@ -2,6 +2,7 @@ package com.wallet.core.wallet
 
 import com.wallet.core.BaseTest
 import com.wallet.core.currency.data.Currency
+import com.wallet.core.wallet.data.Wallet
 import com.wallet.core.wallet.data.WalletRepository
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -22,27 +23,26 @@ class WalletManagerTests : BaseTest() {
 
     override fun setUp() {
         super.setUp()
-        walletManager = WalletManager(walletRepositoryMock)
+        walletManager = WalletManager(Currency.BRL, walletRepositoryMock)
     }
 
     @Test
     fun callTo_debit_shouldCall_debit_inRepository() {
 
-        val currency = Currency.BITCOIN
-        val currencyBalance = BigDecimal(100)
+        val wallet = Wallet(Currency.BITCOIN, BigDecimal(100))
 
         val amountToDebit = BigDecimal(10)
 
-        `when`(walletRepositoryMock.debit(currency, amountToDebit)).then { Completable.complete() }
-        `when`(walletRepositoryMock.getCurrencyBalance(currency)).then { Single.just(currencyBalance) }
+        `when`(walletRepositoryMock.debit(wallet.currency, amountToDebit)).then { Completable.complete() }
+        `when`(walletRepositoryMock.getWallet(wallet.currency)).then { Single.just(wallet) }
 
-        walletManager.debit(currency, amountToDebit)
+        walletManager.debit(wallet.currency, amountToDebit)
             .test()
             .await()
             .assertNoErrors()
             .assertComplete()
 
-        verify(walletRepositoryMock, times(1)).debit(currency, amountToDebit)
+        verify(walletRepositoryMock, times(1)).debit(wallet.currency, amountToDebit)
         verify(walletRepositoryMock, never()).credit(any(), any())
     }
 
@@ -51,12 +51,11 @@ class WalletManagerTests : BaseTest() {
 
         val amountToDebit = BigDecimal(100)
 
-        val currency = Currency.BRITA
-        val currencyBalance = BigDecimal(10)
+        val wallet = Wallet(Currency.BRITA, BigDecimal(10))
 
-        `when`(walletRepositoryMock.getCurrencyBalance(currency)).then { Single.just(currencyBalance) }
+        `when`(walletRepositoryMock.getWallet(wallet.currency)).then { Single.just(wallet) }
 
-        walletManager.debit(currency, amountToDebit)
+        walletManager.debit(wallet.currency, amountToDebit)
             .test()
             .await()
             .assertError(IllegalStateException::class.java)

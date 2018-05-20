@@ -1,6 +1,7 @@
 package com.wallet.core.wallet
 
 import com.wallet.core.currency.data.Currency
+import com.wallet.core.wallet.data.Wallet
 import com.wallet.core.wallet.data.WalletRepository
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -9,16 +10,17 @@ import java.math.BigDecimal
 /**
  *   Copyright {2018} {Rômulo Eduardo G. Moraes}
  **/
-class WalletManager (private val walletRepository: WalletRepository) {
+class WalletManager (private val baseCurrency: Currency,
+                     private val walletRepository: WalletRepository) {
 
-    fun getCurrencyBalance(currency: Currency): Single<BigDecimal> {
+    fun getWallet(currency: Currency): Single<Wallet> {
 
-        return walletRepository.getCurrencyBalance(currency)
+        return walletRepository.getWallet(currency)
     }
 
-    fun getTotalBalance(): Single<BigDecimal> {
+    fun getBaseWallet(): Single<Wallet> {
 
-        return walletRepository.getTotalBalance()
+        return walletRepository.getWallet(baseCurrency)
     }
 
     fun credit(currency: Currency, value: BigDecimal): Completable {
@@ -28,11 +30,11 @@ class WalletManager (private val walletRepository: WalletRepository) {
 
     fun debit(currency: Currency, value: BigDecimal): Completable {
 
-        return getCurrencyBalance(currency).flatMapCompletable { currentMoney ->
+        return getWallet(currency).flatMapCompletable { wallet ->
 
-            if(currentMoney < value) {
+            if(wallet.amount < value) {
                 Completable.error(
-                    IllegalStateException("Not enough money to debit $value. You have $currentMoney"))
+                    IllegalStateException("Not enough money to debit $value. You have ${wallet.amount}"))
             } else {
                 walletRepository.debit(currency, value)
             }
