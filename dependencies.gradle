@@ -11,7 +11,21 @@ ext {
     joda_java_version = '2.9.3'
     joda = [ java: "joda-time:joda-time:$joda_java_version"]
 
+    dagger2_version = '2.16'
+    dagger2 = [
+            base: "com.google.dagger:dagger:$dagger2_version",
+            compiler: "com.google.dagger:dagger-compiler:$dagger2_version"
+    ]
+
+    rxJava_version = '2.1.12'
+    reactivex = [ java: "io.reactivex.rxjava2:rxjava:$rxJava_version" ]
+
     //Unit Tests
     junit_version = '4.12'
     junit = [ "junit:junit:$junit_version" ]
+
+    mockito_version = '2.17.0'
+    mockito = [ base: "org.mockito:mockito-core:$mockito_version"]
+
+    kotlin_test = ["org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"]
 }
