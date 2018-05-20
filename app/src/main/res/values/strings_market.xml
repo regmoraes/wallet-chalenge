@@ -4,4 +4,8 @@
     <string name="buy">Buy</string>
     <string name="sell">Sell</string>
     <string name="exchange">Exchange</string>
+
+    <string name="transaction_buy_format">Bought %1$s using %2$s</string>
+    <string name="transaction_sell_format">Sold %1$s for %2$s</string>
+    <string name="transaction_exchange_format">Exchanged %1$s for %2$s</string>
 </resources>
