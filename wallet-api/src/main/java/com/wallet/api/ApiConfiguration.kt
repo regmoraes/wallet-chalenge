@@ -28,8 +28,8 @@ internal object ApiConfiguration {
 
     private val okHttpClient: OkHttpClient = OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
-            .readTimeout(1, TimeUnit.MINUTES)
-            .connectTimeout(1, TimeUnit.MINUTES)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .connectTimeout(10, TimeUnit.SECONDS)
             .build()
 
     fun buildRetrofit(baseUrl: String): Retrofit {
