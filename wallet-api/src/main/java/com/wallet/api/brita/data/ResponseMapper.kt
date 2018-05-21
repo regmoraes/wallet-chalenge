@@ -11,9 +11,10 @@ import java.math.BigDecimal
  **/
 fun InfoResponse.toCurrencyInfo() : CurrencyInfo {
 
-    val tipoBoletim = "Fechamento PTAX"
+    val ptax = "Fechamento PTAX"
+    val intermediario = "Intermediário"
 
-    val value = values.find { it.tipoBoletim == tipoBoletim }
+    val value = values.findLast { it.tipoBoletim == ptax || it.tipoBoletim == intermediario}
 
     return if (value != null) {
 
