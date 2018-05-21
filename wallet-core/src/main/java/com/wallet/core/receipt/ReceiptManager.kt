@@ -2,6 +2,7 @@ package com.wallet.core.receipt
 
 import com.wallet.core.currency.data.Currency
 import com.wallet.core.market.OperationType
+import io.reactivex.Flowable
 import io.reactivex.Single
 import java.math.BigDecimal
 import java.util.*
@@ -11,7 +12,7 @@ import java.util.*
  **/
 class ReceiptManager(private val receiptRepository: ReceiptRepository) {
 
-    fun getReceipts(): Single<List<Receipt>> {
+    fun getReceipts(): Flowable<List<Receipt>> {
 
         return receiptRepository.getReceipts()
     }

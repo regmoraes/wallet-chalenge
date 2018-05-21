@@ -14,13 +14,14 @@ import com.regmoraes.wallet.WalletApp
 import com.regmoraes.wallet.databinding.FragmentTransactionsHistoryBinding
 import com.regmoraes.wallet.di.component.ViewComponent
 import com.regmoraes.wallet.presentation.Status
+import com.wallet.core.receipt.Receipt
 import kotlinx.android.synthetic.main.fragment_transactions_history.view.*
 import javax.inject.Inject
 
 /**
  * A placeholder fragment containing a simple view.
  */
-class TransactionsHistoryFragment : Fragment() {
+class TransactionsHistoryFragment : Fragment(), TransactionHistoryContract.View {
 
     private var component: ViewComponent? = null
     private lateinit var viewBinding: FragmentTransactionsHistoryBinding
@@ -61,13 +62,36 @@ class TransactionsHistoryFragment : Fragment() {
 
         viewModel.receiptsResource.observe(this, Observer { resource ->
 
-            if(resource != null && resource.status == Status.SUCCESS) {
-                transactionsHistoryAdapter.setData(resource.data)
+            if(resource != null) {
+
+                when(resource.status) {
+
+                    Status.LOADING -> {}
+                    Status.SUCCESS -> {
+
+                        if(resource.data == null || resource.data.isEmpty())
+                            showEmptyReceiptsMessage()
+                        else
+                            showReceipts(resource.data)
+                    }
+                    Status.ERROR -> showEmptyReceiptsMessage() }
             }
         })
 
         viewModel.getReceipts()
 
+    }
+
+    override fun showReceipts(receipt: List<Receipt>?) {
+        viewBinding.textViewReceiptsErrorMessage.visibility = View.GONE
+        viewBinding.recyclerViewReceipts.visibility = View.VISIBLE
+
+        transactionsHistoryAdapter.setData(receipt)
+    }
+
+    override fun showEmptyReceiptsMessage() {
+        viewBinding.textViewReceiptsErrorMessage.visibility = View.VISIBLE
+        viewBinding.recyclerViewReceipts.visibility = View.GONE
     }
 
     override fun onDestroy() {

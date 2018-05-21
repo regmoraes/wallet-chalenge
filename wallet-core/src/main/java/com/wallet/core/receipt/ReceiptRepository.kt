@@ -1,6 +1,7 @@
 package com.wallet.core.receipt
 
 import io.reactivex.Completable
+import io.reactivex.Flowable
 import io.reactivex.Single
 
 /**
@@ -8,7 +9,7 @@ import io.reactivex.Single
  **/
 interface ReceiptRepository {
 
-    fun getReceipts(): Single<List<Receipt>>
+    fun getReceipts(): Flowable<List<Receipt>>
 
     fun saveReceipt(receipt: Receipt): Completable
 }

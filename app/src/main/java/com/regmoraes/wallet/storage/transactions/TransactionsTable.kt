@@ -5,6 +5,7 @@ import com.regmoraes.wallet.storage.transactions.TransactionMapper.toReceipt
 import com.wallet.core.receipt.Receipt
 import com.wallet.core.receipt.ReceiptRepository
 import io.reactivex.Completable
+import io.reactivex.Flowable
 import io.reactivex.Single
 
 /**
@@ -12,7 +13,7 @@ import io.reactivex.Single
  **/
 class TransactionsTable(private val transactionsDao: TransactionsDao) : ReceiptRepository {
 
-    override fun getReceipts(): Single<List<Receipt>> {
+    override fun getReceipts(): Flowable<List<Receipt>> {
 
         return transactionsDao.getTransactions()
             .map { transactions -> transactions.map { it -> toReceipt(it) } }

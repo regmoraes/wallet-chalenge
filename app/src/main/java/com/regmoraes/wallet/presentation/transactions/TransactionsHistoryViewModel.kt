@@ -12,11 +12,12 @@ import io.reactivex.schedulers.Schedulers
 /**
  *   Copyright {2018} {Rômulo Eduardo G. Moraes}
  **/
-class TransactionsHistoryViewModel(private val receiptManager: ReceiptManager) : ViewModel() {
+class TransactionsHistoryViewModel(private val receiptManager: ReceiptManager) : ViewModel(),
+TransactionHistoryContract.ViewModel {
 
     private val disposables = CompositeDisposable()
 
-    val receiptsResource = MutableLiveData<Resource<List<Receipt>>>()
+    override val receiptsResource = MutableLiveData<Resource<List<Receipt>>>()
 
     fun getReceipts() {
 
@@ -24,10 +25,10 @@ class TransactionsHistoryViewModel(private val receiptManager: ReceiptManager) :
                 receiptManager.getReceipts()
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .doOnSubscribe { receiptsResource.setValue(Resource.loading()) }
+                        .doOnSubscribe { receiptsResource.postValue(Resource.loading()) }
                         .subscribe(
-                                { receipts -> receiptsResource.setValue(Resource.success(receipts)) },
-                                { error -> receiptsResource.setValue(Resource.error(error)) }
+                                { receipts -> receiptsResource.postValue(Resource.success(receipts)) },
+                                { error -> receiptsResource.postValue(Resource.error(error)) }
                         )
         )
     }

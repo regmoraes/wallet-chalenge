@@ -26,14 +26,18 @@ class MarketActivity : AppCompatActivity() {
 
     private fun setUpFragments() {
 
+        val marketFragment = MarketFragment.newInstance()
+        val walletFragment =  WalletFragment.newInstance()
+        val transactionsHistoryFragment = TransactionsHistoryFragment.newInstance()
+
         viewBinding.bottomNavigation.setOnNavigationItemSelectedListener { item ->
 
             var selectedFragment: Fragment? = null
 
             when (item.itemId) {
-                R.id.action_transactions -> selectedFragment = TransactionsHistoryFragment.newInstance()
-                R.id.action_market -> selectedFragment = MarketFragment.newInstance()
-                R.id.action_wallet -> selectedFragment = WalletFragment.newInstance()
+                R.id.action_transactions -> selectedFragment = transactionsHistoryFragment
+                R.id.action_market -> selectedFragment = marketFragment
+                R.id.action_wallet -> selectedFragment = walletFragment
             }
 
             val transaction = supportFragmentManager.beginTransaction()
@@ -44,7 +48,7 @@ class MarketActivity : AppCompatActivity() {
 
         //Manually displaying the first fragment - one time only
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.content, MarketFragment.newInstance())
+        transaction.replace(R.id.content, marketFragment)
         transaction.commit()
 
         //Used to select an item programmatically
