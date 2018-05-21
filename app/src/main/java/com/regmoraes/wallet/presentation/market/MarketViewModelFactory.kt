@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProvider
 import com.wallet.core.currency.CurrencyManager
 import com.wallet.core.market.MarketManager
 import com.wallet.core.wallet.WalletManager
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -18,6 +19,7 @@ class MarketViewModelFactory @Inject
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MarketViewModel::class.java)) {
 
+            Timber.d("ViewModel Created")
             return MarketViewModel(marketManager, currencyManager, walletManager) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

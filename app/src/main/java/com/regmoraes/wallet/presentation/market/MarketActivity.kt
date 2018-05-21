@@ -21,7 +21,9 @@ class MarketActivity : AppCompatActivity() {
 
         setSupportActionBar(viewBinding.toolbar)
 
-        setUpFragments()
+        if(savedInstanceState == null) {
+            setUpFragments()
+        }
     }
 
     private fun setUpFragments() {

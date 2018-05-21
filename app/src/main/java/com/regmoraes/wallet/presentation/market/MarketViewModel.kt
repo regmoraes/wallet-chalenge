@@ -23,12 +23,19 @@ class MarketViewModel(private val marketManager: MarketManager,
 
     private val disposables = CompositeDisposable()
 
-    val walletTotalAmountResource = MutableLiveData<Resource<BigDecimal>>()
-
+    val walletBaseCurrencyAmountResource = MutableLiveData<Resource<BigDecimal>>()
     val britaInfoResource = MutableLiveData<Resource<CurrencyInfo>>()
     val bitcoinInfoResource = MutableLiveData<Resource<CurrencyInfo>>()
+    val currenciesInfoResource = MutableLiveData<Resource<List<CurrencyInfo>>>()
+    val currenciesInfo = mutableListOf<CurrencyInfo>()
 
-    fun getWalletTotalAmount() {
+    init {
+
+        getAllCurrenciesTodayPrice()
+        getWalletTotalAmount()
+    }
+
+    private fun getWalletTotalAmount() {
 
         disposables.add(
                 walletManager.getBaseWallet()
@@ -36,10 +43,10 @@ class MarketViewModel(private val marketManager: MarketManager,
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
                                 { baseWallet ->
-                                    walletTotalAmountResource
+                                    walletBaseCurrencyAmountResource
                                         .postValue(Resource.success(baseWallet.amount)) },
                                 { error ->
-                                    walletTotalAmountResource.postValue(Resource.error(error))
+                                    walletBaseCurrencyAmountResource.postValue(Resource.error(error))
                                 }
                         )
         )
@@ -62,7 +69,7 @@ class MarketViewModel(private val marketManager: MarketManager,
 //                        .observeOn(AndroidSchedulers.mainThread())
 //                        .subscribe(
 //                                { getWalletTotalAmount() },
-//                                { error -> walletTotalAmountResource.postValue(Resource.error(error)) }
+//                                { error -> walletBaseCurrencyAmountResource.postValue(Resource.error(error)) }
 //                        )
 //        )
 //    }
@@ -85,10 +92,10 @@ class MarketViewModel(private val marketManager: MarketManager,
 //                        .observeOn(AndroidSchedulers.mainThread())
 //                        .subscribe(
 //                                { baseWallet ->
-//                                    walletTotalAmountResource
+//                                    walletBaseCurrencyAmountResource
 //                                        .postValue(Resource.success(baseWallet.amount)) },
 //                                { error ->
-//                                    walletTotalAmountResource.postValue(Resource.error(error))
+//                                    walletBaseCurrencyAmountResource.postValue(Resource.error(error))
 //                                }
 //                        )
 //        )
@@ -99,22 +106,24 @@ class MarketViewModel(private val marketManager: MarketManager,
         val todayInstant = Calendar.getInstance().timeInMillis
 
         disposables.add(
-                currencyManager.getAllCurrenciesInfo(todayInstant)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .doOnSubscribe { britaInfoResource.setValue(Resource.loading()) }
-                        .subscribe(
-                                { currencyInfo ->
+                    currencyManager.getAllCurrenciesInfo(todayInstant)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(
+                                    { currencyInfo ->
 
-                                    Timber.d(Resource.success(currencyInfo).toString())
-                                },
-                                { error ->  Timber.d(error) }
-                        )
-        )
+                                        currenciesInfo.add(currencyInfo)
+
+                                        currenciesInfoResource.postValue(Resource.success(currenciesInfo))
+                                    },
+                                    { error -> Timber.d(error) }
+                            )
+            )
     }
 
     override fun onCleared() {
         disposables.clear()
+
         super.onCleared()
     }
 }
