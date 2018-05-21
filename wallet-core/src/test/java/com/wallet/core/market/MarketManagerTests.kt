@@ -41,7 +41,7 @@ class MarketManagerTests : BaseTest() {
         val currencyToCreditInfo = CurrencyInfo(Currency.BITCOIN, BigDecimal(10), 0L)
         val amountToExchange = BigDecimal(1)
         val currencyToCreditAmount =
-            exchangeCalculator.exchange(currencyToDebitInfo.price, currencyToCreditInfo.price, amountToExchange)
+            exchangeCalculator.exchange(currencyToDebitInfo.price!!, currencyToCreditInfo.price!!, amountToExchange)
 
         val expectedReceipt = Receipt(currencyToDebitInfo.currency, currencyToDebitAmount,
             currencyToCreditInfo.currency, currencyToCreditAmount, OperationType.EXCHANGE, 0L)
@@ -70,7 +70,7 @@ class MarketManagerTests : BaseTest() {
         `when`(currencyToCreditInfo.currency).then { Currency.BITCOIN }
 
         val currencyToDebit = Currency.BRL
-        val currencyToDebitAmount = currencyToCreditInfo.price * currencyToCreditAmount
+        val currencyToDebitAmount = currencyToCreditInfo.price!! * currencyToCreditAmount
 
         val expectedReceipt = Receipt(currencyToDebit, currencyToDebitAmount,
                 currencyToCreditInfo.currency, currencyToCreditAmount, OperationType.BUY, 0L)
@@ -99,7 +99,7 @@ class MarketManagerTests : BaseTest() {
         `when`(currencyToDebitInfo.currency).then { Currency.BITCOIN }
 
         val currencyToCredit = Currency.BRL
-        val currencyToCreditAmount = currencyToDebitInfo.price * currencyToDebitAmount
+        val currencyToCreditAmount = currencyToDebitInfo.price!! * currencyToDebitAmount
 
         val expectedReceipt = Receipt(currencyToDebitInfo.currency, currencyToDebitAmount,
             currencyToCredit, currencyToCreditAmount, OperationType.SELL, 0L)

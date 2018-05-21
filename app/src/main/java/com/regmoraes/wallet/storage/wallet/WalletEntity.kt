@@ -13,7 +13,7 @@ import java.math.BigDecimal
 @Entity(tableName = "wallets")
 data class WalletEntity(@PrimaryKey
                         @NotNull
-                        @ColumnInfo(name = "currency")
+                        @ColumnInfo(name = "code")
                         val currency: String,
 
                         @ColumnInfo(name = "amount")

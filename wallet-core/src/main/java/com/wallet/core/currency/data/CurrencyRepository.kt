@@ -1,5 +1,6 @@
 package com.wallet.core.currency.data
 
+import io.reactivex.Flowable
 import io.reactivex.Single
 
 /**
@@ -10,5 +11,7 @@ interface CurrencyRepository {
     interface Remote {
 
         fun getInfoByDate(currency: Currency, instant: Long): Single<CurrencyInfo>
+
+        fun getAllCurrenciesInfo(instant: Long): Flowable<CurrencyInfo>
     }
 }

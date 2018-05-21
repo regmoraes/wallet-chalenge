@@ -5,6 +5,7 @@ import com.regmoraes.wallet.di.component.AppComponent
 import com.regmoraes.wallet.di.component.DaggerAppComponent
 import com.regmoraes.wallet.di.module.AndroidModule
 import net.danlew.android.joda.JodaTimeAndroid
+import timber.log.Timber
 
 
 /**
@@ -22,6 +23,10 @@ class WalletApp : Application() {
             .build()
 
         initJodaTime()
+
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
     }
 
     private fun initJodaTime() {

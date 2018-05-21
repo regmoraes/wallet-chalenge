@@ -1,6 +1,8 @@
 package com.wallet.core.currency.data
 
 import com.wallet.api.CurrencyApi
+import com.wallet.core.currency.toCurrency
+import io.reactivex.Flowable
 import io.reactivex.Single
 import java.math.BigDecimal
 import java.util.*
@@ -9,32 +11,25 @@ import java.util.*
  *   Copyright {2018} {Rômulo Eduardo G. Moraes}
  **/
 class CurrencyApiManager(private val apis: HashMap<Currency, CurrencyApi>):
-    CurrencyRepository.Remote {
+        CurrencyRepository.Remote {
 
     override fun getInfoByDate(currency: Currency, instant: Long): Single<CurrencyInfo> {
 
-       return when(currency) {
+        return  apis[currency]!!
+                .getInfoByInstant(instant)
+                .map { (code, price, date) ->
+                    CurrencyInfo(code.toCurrency(), price, date)
+                }
 
-            Currency.BITCOIN -> {
+    }
 
-                apis[Currency.BITCOIN]!!
-                    .getInfoByInstant(instant)
-                    .map { (price, date) -> CurrencyInfo(Currency.BITCOIN, price, date) }
-            }
+    override fun getAllCurrenciesInfo(instant: Long): Flowable<CurrencyInfo> {
 
-           Currency.BRITA -> {
+        val apis = apis.values.map { it.getInfoByInstant(instant) }
 
-               apis[Currency.BRITA]!!
-                       .getInfoByInstant(instant)
-                       .map { (price, date) -> CurrencyInfo(Currency.BRITA, price, date) }
-           }
+        return Single.concat(apis).map { (code, price, date) ->
 
-           Currency.BRL -> {
-
-               val currencyInfo = CurrencyInfo(Currency.BRL, BigDecimal(1), Calendar.getInstance().timeInMillis)
-
-               Single.just(currencyInfo)
-           }
+            CurrencyInfo(code.toCurrency(), price, date)
         }
     }
 }

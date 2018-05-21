@@ -3,6 +3,7 @@ package com.wallet.core.currency
 import com.wallet.core.currency.data.Currency
 import com.wallet.core.currency.data.CurrencyInfo
 import com.wallet.core.currency.data.CurrencyRepository
+import io.reactivex.Flowable
 import io.reactivex.Single
 
 /**
@@ -13,5 +14,10 @@ class CurrencyManager(private val currencyRepository: CurrencyRepository.Remote)
     fun getCurrencyInfoByInstant(currency: Currency, instant: Long): Single<CurrencyInfo> {
 
         return currencyRepository.getInfoByDate(currency, instant)
+    }
+
+    fun getAllCurrenciesInfo(instant: Long): Flowable<CurrencyInfo> {
+
+        return currencyRepository.getAllCurrenciesInfo(instant)
     }
 }

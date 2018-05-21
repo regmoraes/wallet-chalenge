@@ -39,6 +39,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation (project(":wallet-core"), { exclude group: 'joda-time' })
 
+    implementation timber
     implementation archComponents.extensions
     implementation dagger2.base
     implementation supportLibrary.values()

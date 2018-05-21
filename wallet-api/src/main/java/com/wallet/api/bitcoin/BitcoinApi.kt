@@ -6,12 +6,13 @@ import com.wallet.api.CurrencyInfo
 import com.wallet.api.bitcoin.data.toCurrencyInfo
 import io.reactivex.Single
 import okhttp3.HttpUrl
-import retrofit2.HttpException
 
 /**
  *   Copyright {2018} {Rômulo Eduardo G. Moraes}
  **/
 class BitcoinApi: CurrencyApi {
+
+    private val currencyCode = "BITCOIN"
 
     private val retrofit = ApiConfiguration.buildRetrofit(baseUrl)
     private val baseRestService = retrofit.create(BitcoinRestService::class.java)
@@ -21,21 +22,22 @@ class BitcoinApi: CurrencyApi {
         //instant ignored
 
         val url = HttpUrl.parse(baseUrl)!!
-            .newBuilder()
-            .addPathSegment("BTC")
-            .addPathSegment("ticker")
-            .build()
-            .toString()
+                .newBuilder()
+                .addPathSegment("BTC")
+                .addPathSegment("ticker")
+                .build()
+                .toString()
 
-        return baseRestService.getInfo(url).map { response ->
+        return baseRestService.getInfo(url)
+                .map { response ->
 
-            if(response.isSuccessful) {
+                    if(response.isSuccessful) {
+                        response.body()!!.toCurrencyInfo()
 
-                response.body()!!.toCurrencyInfo()
-
-            } else
-                throw HttpException(response)
-        }
+                    } else
+                        CurrencyInfo(currencyCode, null, null)
+                }
+                .onErrorReturn { CurrencyInfo(currencyCode, null, null) }
     }
 
     companion object {

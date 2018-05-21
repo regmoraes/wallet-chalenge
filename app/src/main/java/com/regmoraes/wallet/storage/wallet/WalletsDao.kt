@@ -13,7 +13,7 @@ interface WalletsDao {
     @Query("SELECT * FROM wallets")
     fun getWallets(): Single<List<WalletEntity>>
 
-    @Query("SELECT * FROM wallets WHERE currency = :currency")
+    @Query("SELECT * FROM wallets WHERE code = :currency")
     fun getWalletByCurrency(currency: String): Single<WalletEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

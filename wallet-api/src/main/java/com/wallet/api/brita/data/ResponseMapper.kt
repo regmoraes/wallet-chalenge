@@ -20,7 +20,7 @@ fun InfoResponse.toCurrencyInfo() : CurrencyInfo {
         val price = BigDecimal.valueOf(value.cotacaoCompra)
         val date = value.dataHoraCotacao.asDateTimeToLong(BritaApi.DATE_TIME_RESPONSE_PATTERN)
 
-        CurrencyInfo(price, date)
+        CurrencyInfo("BRITA", price, date)
 
     } else {
         throw IllegalStateException("No value available in response")

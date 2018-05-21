@@ -10,5 +10,5 @@ fun InfoResponse.toCurrencyInfo() : CurrencyInfo {
 
     val price = BigDecimal(ticker.last)
 
-    return CurrencyInfo(price, ticker.date)
+    return CurrencyInfo("BITCOIN", price, ticker.date)
 }

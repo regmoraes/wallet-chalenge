@@ -51,7 +51,7 @@ class WalletManagerTests : BaseTest() {
 
         val amountToDebit = BigDecimal(100)
 
-        val wallet = Wallet(Currency.BRITA, BigDecimal(10))
+        val wallet = Wallet(Currency.BITCOIN, BigDecimal(10))
 
         `when`(walletRepositoryMock.getWallet(wallet.currency)).then { Single.just(wallet) }
 

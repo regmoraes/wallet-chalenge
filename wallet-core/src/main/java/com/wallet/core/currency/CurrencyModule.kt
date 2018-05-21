@@ -8,7 +8,6 @@ import com.wallet.core.currency.data.CurrencyApiManager
 import com.wallet.core.currency.data.CurrencyRepository
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 
 /**
  *   Copyright {2017} {Rômulo Eduardo G. Moraes}

@@ -18,7 +18,7 @@ class MarketManager(private val walletManager: WalletManager,
 
     fun exchange(from: CurrencyInfo, to: CurrencyInfo, amount: BigDecimal): Single<Receipt> {
 
-        val exchangedAmount = exchangeCalculator.exchange(from.price, to.price, amount)
+        val exchangedAmount = exchangeCalculator.exchange(from.price!!, to.price!!, amount)
 
         return executeTransaction(from.currency, amount, to.currency, exchangedAmount,
             OperationType.EXCHANGE)
@@ -26,7 +26,7 @@ class MarketManager(private val walletManager: WalletManager,
 
     fun buy(currencyInfo: CurrencyInfo, amount: BigDecimal): Single<Receipt> {
 
-        val valueToDebit = currencyInfo.price * amount
+        val valueToDebit = currencyInfo.price!! * amount
 
         return executeTransaction(Currency.BRL, valueToDebit,
             currencyInfo.currency, amount, OperationType.BUY)
@@ -34,7 +34,7 @@ class MarketManager(private val walletManager: WalletManager,
 
     fun sell(currencyInfo: CurrencyInfo, amount: BigDecimal): Single<Receipt> {
 
-        val valueToCredit = currencyInfo.price * amount
+        val valueToCredit = currencyInfo.price!! * amount
 
         return executeTransaction(currencyInfo.currency, amount, Currency.BRL, valueToCredit,
             OperationType.SELL)

@@ -3,6 +3,7 @@ package com.wallet.api.brita
 import com.wallet.api.ApiConfiguration
 import com.wallet.api.CurrencyApi
 import com.wallet.api.CurrencyInfo
+import com.wallet.api.bitcoin.data.toCurrencyInfo
 import com.wallet.api.brita.data.toCurrencyInfo
 import com.wallet.api.toDateTimeString
 import io.reactivex.Single
@@ -15,6 +16,7 @@ import java.math.BigDecimal
  **/
 class BritaApi: CurrencyApi {
 
+    private val currencyCode = "BRITA"
     private val retrofit = ApiConfiguration.buildRetrofit(baseUrl)
     private val baseRestService = retrofit.create(BritaRestService::class.java)
 
@@ -31,15 +33,16 @@ class BritaApi: CurrencyApi {
                 .build()
                 .toString()
 
-        return baseRestService.getInfo(url).map { response ->
+        return baseRestService.getInfo(url)
+                .map { response ->
 
-            if(response.isSuccessful) {
+                    if(response.isSuccessful) {
+                        response.body()!!.toCurrencyInfo()
 
-                response.body()!!.toCurrencyInfo()
-
-            } else
-                throw HttpException(response)
-        }
+                    } else
+                        CurrencyInfo(currencyCode, null, null)
+                }
+                .onErrorReturn { CurrencyInfo(currencyCode, null, null) }
     }
 
     companion object {

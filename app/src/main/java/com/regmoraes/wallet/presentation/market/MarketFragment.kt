@@ -77,14 +77,14 @@ class MarketFragment : Fragment() {
 
             val amount = viewBinding.editTextAmount.text.toString()
 
-            viewModel.buy(Currency.BITCOIN, amount)
+            //viewModel.buy(Currency.BITCOIN, amount)
         }
 
         viewBinding.buttonSell.setOnClickListener {
 
             val amount = viewBinding.editTextAmount.text.toString()
 
-            viewModel.sell(Currency.BITCOIN, amount)
+            //viewModel.sell(Currency.BITCOIN, amount)
         }
     }
 
