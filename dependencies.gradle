@@ -74,9 +74,10 @@ ext {
     mockwebserver_verison = '3.9.1'
     orchestrator_version = '1.0.2'
     espresso = [
-            core: "com.android.support.test.espresso:espresso-core:$espresso_version",
             runner: "com.android.support.test:runner:$supportTest_version",
             rules: "com.android.support.test:rules:$supportTest_version",
+            core: "com.android.support.test.espresso:espresso-core:$espresso_version",
+            contrib: "com.android.support.test.espresso:espresso-contrib:$espresso_version",
             rxidler:  "com.squareup.rx.idler:rx2-idler:$rxIdler_version",
             hamcrest: "org.hamcrest:hamcrest-library:$hamcrest_version",
             mockwebserver: "com.squareup.okhttp3:mockwebserver:$mockwebserver_verison",

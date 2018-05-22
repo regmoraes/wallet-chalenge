@@ -18,8 +18,7 @@
           package="com.regmoraes.wallet">
     <uses-permission android:name="android.permission.INTERNET"/>
     <application>
-        <activity android:name=".SingleFragmentActivity">
-        </activity>
+        <activity android:name=".SingleFragmentActivity"/>
     </application>
 
 </manifest>

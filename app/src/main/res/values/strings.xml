@@ -5,7 +5,7 @@
 
     <string name="transaction_buying_format">Buying %1$s</string>
     <string name="transaction_selling_format">Selling %1$s</string>
-    <string name="transaction_exchanging_format">Exchanging %1$s for %2$s?</string>
+    <string name="transaction_exchanging_format">Exchanging %1$s for %2$s</string>
 
     <string name="transaction_amount_hint_format">Quantity to %s</string>
     <string name="transaction_invalid_amount_message">Please, enter a value greater than 0</string>

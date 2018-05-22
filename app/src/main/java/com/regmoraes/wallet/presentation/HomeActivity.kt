@@ -43,14 +43,14 @@ class HomeActivity : AppCompatActivity() {
             }
 
             val transaction = supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.content, selectedFragment)
+            transaction.replace(R.id.container, selectedFragment)
             transaction.commit()
             true
         }
 
         //Manually displaying the first fragment - one time only
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.content, marketFragment)
+        transaction.replace(R.id.container, marketFragment)
         transaction.commit()
 
         //Used to select an item programmatically

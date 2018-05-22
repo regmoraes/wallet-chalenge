@@ -28,7 +28,7 @@ open class MarketViewModel(private val marketManager: MarketManager,
     private val walletBaseCurrencyAmountResource = MutableLiveData<Resource<BigDecimal>>()
     private val currenciesInfoResource = MutableLiveData<Resource<List<CurrencyInfo>>>()
 
-    val currenciesInfo = mutableListOf<CurrencyInfo>()
+    private val currenciesInfo = mutableListOf<CurrencyInfo>()
 
     init {
 
@@ -36,7 +36,9 @@ open class MarketViewModel(private val marketManager: MarketManager,
         getWalletTotalAmount()
     }
 
-    private fun getAllCurrenciesTodayPrice() {
+    fun getAllCurrenciesTodayPrice() {
+
+        currenciesInfo.clear()
 
         val todayInstant = Calendar.getInstance().timeInMillis
 
@@ -44,9 +46,9 @@ open class MarketViewModel(private val marketManager: MarketManager,
                 currencyManager.getAllCurrenciesInfo(todayInstant)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
+                        .doOnSubscribe { currenciesInfoResource.postValue(Resource.loading()) }
                         .subscribe(
                                 { currencyInfo ->
-
                                     currenciesInfo.add(currencyInfo)
                                     currenciesInfoResource.postValue(Resource.success(currenciesInfo))
                                 },

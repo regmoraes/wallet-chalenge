@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -24,7 +25,8 @@ import javax.inject.Inject
  * A placeholder fragment containing a simple view.
  */
 class MarketFragment : Fragment(), MarketCurrencyInfoAdapter.OnItemClickListener,
-        TransactionConfirmationDialogFragment.OnDialogFragmentClicked {
+        TransactionConfirmationDialogFragment.OnDialogFragmentClicked,
+    SwipeRefreshLayout.OnRefreshListener {
 
     private var component: ViewComponent? = null
     private lateinit var viewBinding: FragmentMarketBinding
@@ -51,6 +53,8 @@ class MarketFragment : Fragment(), MarketCurrencyInfoAdapter.OnItemClickListener
 
         viewBinding.recyclerViewMarket.layoutManager = layoutManager
         viewBinding.recyclerViewMarket.adapter = adapter
+
+        viewBinding.swipeRefreshMarket.setOnRefreshListener(this)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -67,14 +71,9 @@ class MarketFragment : Fragment(), MarketCurrencyInfoAdapter.OnItemClickListener
 
                 when (resource.status) {
 
-                    Status.SUCCESS -> {
-
-                        adapter.setData(resource.data)
-                    }
-                    else -> {
-
-                        Toast.makeText(context, resource.error?.message, Toast.LENGTH_SHORT).show()
-                    }
+                    Status.LOADING -> showLoadingCurrenciesProgress()
+                    Status.SUCCESS -> showCurrenciesInfo(resource.data)
+                    else -> Toast.makeText(context, resource.error?.message, Toast.LENGTH_SHORT).show()
                 }
             }
         })
@@ -136,6 +135,21 @@ class MarketFragment : Fragment(), MarketCurrencyInfoAdapter.OnItemClickListener
 
         if(fromCurrency != null && operationType != null)
             viewModel.exchange(fromCurrency, toCurrency.toCurrencyEnum(), amount)
+    }
+
+    private fun showLoadingCurrenciesProgress() {
+        viewBinding.swipeRefreshMarket.isRefreshing = true
+        viewBinding.recyclerViewMarket.visibility = View.GONE
+    }
+
+    private fun showCurrenciesInfo(currencies: List<CurrencyInfo>?) {
+        viewBinding.swipeRefreshMarket.isRefreshing = false
+        viewBinding.recyclerViewMarket.visibility = View.VISIBLE
+        adapter.setData(currencies)
+    }
+
+    override fun onRefresh() {
+        viewModel.getAllCurrenciesTodayPrice()
     }
 
     override fun onDestroy() {
