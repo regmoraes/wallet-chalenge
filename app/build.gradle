@@ -53,7 +53,9 @@ dependencies {
 
     testImplementation junit
     testImplementation kotlin_test
+    testImplementation mockito.core
 
-    androidTestImplementation (espresso.values() - espresso.orchestrator)
+    androidTestImplementation (mockito.android, espresso.values() - espresso.orchestrator)
+
     androidTestUtil espresso.orchestrator
 }

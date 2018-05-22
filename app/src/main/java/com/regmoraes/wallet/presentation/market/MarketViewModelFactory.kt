@@ -11,7 +11,7 @@ import javax.inject.Inject
 /**
  * Copyright {2018} {Rômulo Eduardo G. Moraes}
  */
-class MarketViewModelFactory @Inject
+open class MarketViewModelFactory @Inject
     constructor(private val marketManager: MarketManager,
                 private val currencyManager: CurrencyManager,
                 private val walletManager: WalletManager) : ViewModelProvider.Factory {

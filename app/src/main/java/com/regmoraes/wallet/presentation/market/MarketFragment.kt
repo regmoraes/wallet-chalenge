@@ -3,6 +3,7 @@ package com.regmoraes.wallet.presentation.market
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.support.annotation.VisibleForTesting
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -10,7 +11,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.regmoraes.wallet.WalletApp
 import com.regmoraes.wallet.databinding.FragmentMarketBinding
+import com.regmoraes.wallet.di.ComponentProvider
 import com.regmoraes.wallet.di.component.ViewComponent
+import com.regmoraes.wallet.di.module.WalletModule
 import com.regmoraes.wallet.presentation.Status
 import com.wallet.core.currency.data.CurrencyInfo
 import com.wallet.core.currency.toCurrencyEnum
@@ -53,12 +56,12 @@ class MarketFragment : Fragment(), MarketCurrencyInfoAdapter.OnItemClickListener
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        component = (activity?.application as WalletApp).appComponent.marketComponent()
+        component = (activity?.application as ComponentProvider).getViewComponent()
         component?.inject(this)
 
         viewModel = ViewModelProviders.of(activity!!, viewModelFactory).get(MarketViewModel::class.java)
 
-        viewModel.currenciesInfoResource.observe(activity!!, Observer { resource ->
+        viewModel.getCurrencyInfoResource().observe(activity!!, Observer { resource ->
 
             if(resource != null) {
 
@@ -68,6 +71,7 @@ class MarketFragment : Fragment(), MarketCurrencyInfoAdapter.OnItemClickListener
 
                         adapter.setData(resource.data)
                     }
+                    else -> {}
                 }
             }
         })

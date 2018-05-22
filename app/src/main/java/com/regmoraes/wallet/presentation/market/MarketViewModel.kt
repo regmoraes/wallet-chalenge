@@ -1,5 +1,6 @@
 package com.regmoraes.wallet.presentation.market
 
+import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.regmoraes.wallet.R.string.amount
@@ -12,6 +13,7 @@ import com.wallet.core.wallet.WalletManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import net.danlew.android.joda.JodaTimeAndroid.init
 import timber.log.Timber
 import java.math.BigDecimal
 import java.util.*
@@ -19,16 +21,16 @@ import java.util.*
 /**
  *   Copyright {2018} {Rômulo Eduardo G. Moraes}
  **/
-class MarketViewModel(private val marketManager: MarketManager,
-                      private val currencyManager: CurrencyManager,
-                      private val walletManager: WalletManager) : ViewModel() {
+open class MarketViewModel(private val marketManager: MarketManager,
+                           private val currencyManager: CurrencyManager,
+                           private val walletManager: WalletManager) : ViewModel() {
 
     private val disposables = CompositeDisposable()
 
     val walletBaseCurrencyAmountResource = MutableLiveData<Resource<BigDecimal>>()
     val britaInfoResource = MutableLiveData<Resource<CurrencyInfo>>()
     val bitcoinInfoResource = MutableLiveData<Resource<CurrencyInfo>>()
-    val currenciesInfoResource = MutableLiveData<Resource<List<CurrencyInfo>>>()
+    private val currenciesInfoResource = MutableLiveData<Resource<List<CurrencyInfo>>>()
     val currenciesInfo = mutableListOf<CurrencyInfo>()
 
     init {
@@ -128,6 +130,8 @@ class MarketViewModel(private val marketManager: MarketManager,
                 )
         )
     }
+
+    open fun getCurrencyInfoResource() : LiveData<Resource<List<CurrencyInfo>>> = currenciesInfoResource
 
     override fun onCleared() {
         disposables.clear()

@@ -1,5 +1,6 @@
 package com.regmoraes.wallet.presentation.transactions
 
+import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.regmoraes.wallet.presentation.Resource
@@ -12,12 +13,15 @@ import io.reactivex.schedulers.Schedulers
 /**
  *   Copyright {2018} {Rômulo Eduardo G. Moraes}
  **/
-class TransactionsHistoryViewModel(private val receiptManager: ReceiptManager) : ViewModel(),
-TransactionHistoryContract.ViewModel {
+open class TransactionsHistoryViewModel(private val receiptManager: ReceiptManager) : ViewModel() {
 
     private val disposables = CompositeDisposable()
 
-    override val receiptsResource = MutableLiveData<Resource<List<Receipt>>>()
+    private val receiptsResource = MutableLiveData<Resource<List<Receipt>>>()
+
+    init {
+        getReceipts()
+    }
 
     fun getReceipts() {
 
@@ -32,6 +36,8 @@ TransactionHistoryContract.ViewModel {
                         )
         )
     }
+
+    open fun getReceiptsResource(): LiveData<Resource<List<Receipt>>> = receiptsResource
 
     override fun onCleared() {
         disposables.clear()

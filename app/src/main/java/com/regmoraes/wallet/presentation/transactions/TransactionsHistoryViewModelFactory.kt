@@ -8,7 +8,7 @@ import javax.inject.Inject
 /**
  * Copyright {2018} {Rômulo Eduardo G. Moraes}
  */
-class TransactionsHistoryViewModelFactory @Inject
+open class TransactionsHistoryViewModelFactory @Inject
     constructor(private val receiptManager: ReceiptManager) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

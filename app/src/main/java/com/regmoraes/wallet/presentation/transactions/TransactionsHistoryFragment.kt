@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.regmoraes.wallet.WalletApp
 import com.regmoraes.wallet.databinding.FragmentTransactionsHistoryBinding
+import com.regmoraes.wallet.di.ComponentProvider
 import com.regmoraes.wallet.di.component.ViewComponent
 import com.regmoraes.wallet.presentation.Status
 import com.wallet.core.receipt.Receipt
@@ -21,7 +22,7 @@ import javax.inject.Inject
 /**
  * A placeholder fragment containing a simple view.
  */
-class TransactionsHistoryFragment : Fragment(), TransactionHistoryContract.View {
+class TransactionsHistoryFragment : Fragment() {
 
     private var component: ViewComponent? = null
     private lateinit var viewBinding: FragmentTransactionsHistoryBinding
@@ -55,12 +56,13 @@ class TransactionsHistoryFragment : Fragment(), TransactionHistoryContract.View 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        component = (activity?.application as WalletApp).appComponent.marketComponent()
+        component = (activity?.application as ComponentProvider).getViewComponent()
         component?.inject(this)
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(TransactionsHistoryViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, viewModelFactory)
+            .get(TransactionsHistoryViewModel::class.java)
 
-        viewModel.receiptsResource.observe(this, Observer { resource ->
+        viewModel.getReceiptsResource().observe(this, Observer { resource ->
 
             if(resource != null) {
 
@@ -77,19 +79,16 @@ class TransactionsHistoryFragment : Fragment(), TransactionHistoryContract.View 
                     Status.ERROR -> showEmptyReceiptsMessage() }
             }
         })
-
-        viewModel.getReceipts()
-
     }
 
-    override fun showReceipts(receipt: List<Receipt>?) {
+    private fun showReceipts(receipt: List<Receipt>?) {
         viewBinding.textViewReceiptsErrorMessage.visibility = View.GONE
         viewBinding.recyclerViewReceipts.visibility = View.VISIBLE
 
         transactionsHistoryAdapter.setData(receipt)
     }
 
-    override fun showEmptyReceiptsMessage() {
+    private  fun showEmptyReceiptsMessage() {
         viewBinding.textViewReceiptsErrorMessage.visibility = View.VISIBLE
         viewBinding.recyclerViewReceipts.visibility = View.GONE
     }

@@ -59,8 +59,10 @@ ext {
     junit_version = '4.12'
     junit = [ "junit:junit:$junit_version" ]
 
-    mockito_version = '2.17.0'
-    mockito = [ base: "org.mockito:mockito-core:$mockito_version"]
+    mockito_version = '2.18.3'
+    mockito = [ core: "org.mockito:mockito-core:$mockito_version",
+                android: "org.mockito:mockito-android:$mockito_version"
+    ]
 
     kotlin_test = ["org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"]
 
@@ -77,6 +79,7 @@ ext {
             rules: "com.android.support.test:rules:$supportTest_version",
             rxidler:  "com.squareup.rx.idler:rx2-idler:$rxIdler_version",
             hamcrest: "org.hamcrest:hamcrest-library:$hamcrest_version",
+            mockwebserver: "com.squareup.okhttp3:mockwebserver:$mockwebserver_verison",
             orchestrator: "com.android.support.test:orchestrator:$supportTest_version"
     ]
 }
