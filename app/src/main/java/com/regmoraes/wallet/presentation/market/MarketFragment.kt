@@ -9,11 +9,14 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import com.regmoraes.wallet.R
 import com.regmoraes.wallet.WalletApp
 import com.regmoraes.wallet.databinding.FragmentMarketBinding
 import com.regmoraes.wallet.di.ComponentProvider
 import com.regmoraes.wallet.di.component.ViewComponent
 import com.regmoraes.wallet.di.module.WalletModule
+import com.regmoraes.wallet.presentation.HomeActivity
 import com.regmoraes.wallet.presentation.Status
 import com.wallet.core.currency.data.CurrencyInfo
 import com.wallet.core.currency.toCurrencyEnum
@@ -24,7 +27,7 @@ import javax.inject.Inject
  * A placeholder fragment containing a simple view.
  */
 class MarketFragment : Fragment(), MarketCurrencyInfoAdapter.OnItemClickListener,
-    TransactionConfirmationDialogFragment.OnDialogFragmentClicked {
+        TransactionConfirmationDialogFragment.OnDialogFragmentClicked {
 
     private var component: ViewComponent? = null
     private lateinit var viewBinding: FragmentMarketBinding
@@ -71,32 +74,29 @@ class MarketFragment : Fragment(), MarketCurrencyInfoAdapter.OnItemClickListener
 
                         adapter.setData(resource.data)
                     }
-                    else -> {}
+                    else -> {
+
+                        Toast.makeText(context, resource.error?.message, Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         })
 
-//        viewModel.walletBaseCurrencyAmountResource.observe(this, Observer { resource ->
-//
-//            if(resource != null) {
-//
-//                when(resource.status) {
-//
-//                    Status.SUCCESS -> {
-//
-//                        viewBinding.textViewWalletTotalAmount.text =
-//                                String.format(getString(R.string.amount), resource.data.toString())
-//                    }
-//
-//                    Status.ERROR -> {
-//                        Toast.makeText(context, resource.error?.message, Toast.LENGTH_SHORT)
-//                            .show()
-//                    }
-//
-//                    else -> {}
-//                }
-//            }
-//        })
+        viewModel.getWalletBaseCurrencyAmoutResource().observe(this, Observer { resource ->
+
+            if(resource != null) {
+
+                when(resource.status) {
+
+                    Status.SUCCESS -> {
+                        (activity as HomeActivity).supportActionBar?.subtitle =
+                                String.format(getString(R.string.amount), resource.data.toString())
+                    }
+
+                    else -> {  (activity as HomeActivity).supportActionBar?.subtitle = null }
+                }
+            }
+        })
     }
 
 
@@ -104,12 +104,13 @@ class MarketFragment : Fragment(), MarketCurrencyInfoAdapter.OnItemClickListener
     override fun onOperationClicked(currencyInfo: CurrencyInfo, operationType: OperationType) {
 
         pendingTransaction = PendingTransaction(currencyInfo = currencyInfo,
-            operationType = operationType)
+                operationType = operationType)
 
-        val transactionDialog = TransactionConfirmationDialogFragment.newInstance(currencyInfo.currency.name, operationType.name)
+        val transactionDialog =
+                TransactionConfirmationDialogFragment.newInstance(currencyInfo.currency.name, operationType.name)
         transactionDialog.setTargetFragment(this, 300)
         transactionDialog.show(activity!!.supportFragmentManager,
-            TransactionConfirmationDialogFragment::class.java.simpleName)
+                TransactionConfirmationDialogFragment::class.java.simpleName)
 
     }
 
