@@ -128,7 +128,7 @@ open class MarketViewModel(private val marketManager: MarketManager,
     }
 
     open fun getCurrencyInfoResource() : LiveData<Resource<List<CurrencyInfo>>> = currenciesInfoResource
-    open fun getWalletBaseCurrencyAmoutResource() : LiveData<Resource<BigDecimal>> = walletBaseCurrencyAmountResource
+    open fun getWalletBaseCurrencyAmountResource() : LiveData<Resource<BigDecimal>> = walletBaseCurrencyAmountResource
 
     override fun onCleared() {
         disposables.clear()

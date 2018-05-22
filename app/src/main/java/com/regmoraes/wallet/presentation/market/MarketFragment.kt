@@ -3,7 +3,6 @@ package com.regmoraes.wallet.presentation.market
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.annotation.VisibleForTesting
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -11,11 +10,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.regmoraes.wallet.R
-import com.regmoraes.wallet.WalletApp
 import com.regmoraes.wallet.databinding.FragmentMarketBinding
 import com.regmoraes.wallet.di.ComponentProvider
 import com.regmoraes.wallet.di.component.ViewComponent
-import com.regmoraes.wallet.di.module.WalletModule
 import com.regmoraes.wallet.presentation.HomeActivity
 import com.regmoraes.wallet.presentation.Status
 import com.wallet.core.currency.data.CurrencyInfo
@@ -82,7 +79,7 @@ class MarketFragment : Fragment(), MarketCurrencyInfoAdapter.OnItemClickListener
             }
         })
 
-        viewModel.getWalletBaseCurrencyAmoutResource().observe(this, Observer { resource ->
+        viewModel.getWalletBaseCurrencyAmountResource().observe(activity!!, Observer { resource ->
 
             if(resource != null) {
 

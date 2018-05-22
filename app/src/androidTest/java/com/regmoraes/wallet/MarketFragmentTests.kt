@@ -30,6 +30,7 @@ import java.math.BigDecimal
 class MarketFragmentTests {
 
     private val currencyInfoResource = MutableLiveData<Resource<List<CurrencyInfo>>>()
+    private val walletBaseCurrencyAmountResource = MutableLiveData<Resource<BigDecimal>>()
 
     @Rule
     @JvmField
@@ -45,6 +46,7 @@ class MarketFragmentTests {
 
         `when`(viewModelFactoryMock.create(MarketViewModel::class.java)).then { viewModelMock }
         `when`(viewModelMock.getCurrencyInfoResource()).then { currencyInfoResource }
+        `when`(viewModelMock.getWalletBaseCurrencyAmountResource()).then { walletBaseCurrencyAmountResource }
 
         fragment.viewModelFactory = viewModelFactoryMock
 

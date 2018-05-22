@@ -33,7 +33,6 @@ import java.math.BigDecimal
 @RunWith(AndroidJUnit4::class)
 class TransactionsFragmentTests {
 
-
     private val receiptsResource = MutableLiveData<Resource<List<Receipt>>>()
 
     @Rule
