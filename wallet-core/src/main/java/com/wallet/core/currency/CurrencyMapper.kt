@@ -5,7 +5,7 @@ import com.wallet.core.currency.data.Currency
 /**
  *   Copyright {2018} {Rômulo Eduardo G. Moraes}
  **/
-fun String.toCurrency(): Currency {
+fun String.toCurrencyEnum(): Currency {
 
     return when (this) {
 

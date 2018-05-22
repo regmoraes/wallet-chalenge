@@ -1,6 +1,7 @@
 package com.wallet.core.market
 
 import java.math.BigDecimal
+import java.math.MathContext
 
 /**
  * Copyright PEBMED Apps 2018
@@ -17,6 +18,6 @@ class ExchangeCalculator {
     private fun calculateExchangeRate(fromCurrencyPrice: BigDecimal,
                         toCurrencyPrice: BigDecimal) : BigDecimal {
 
-        return fromCurrencyPrice.divide(toCurrencyPrice)
+        return fromCurrencyPrice.divide(toCurrencyPrice, MathContext.DECIMAL128)
     }
 }

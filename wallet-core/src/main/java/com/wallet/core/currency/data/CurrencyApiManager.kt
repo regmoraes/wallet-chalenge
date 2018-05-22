@@ -1,10 +1,9 @@
 package com.wallet.core.currency.data
 
 import com.wallet.api.CurrencyApi
-import com.wallet.core.currency.toCurrency
+import com.wallet.core.currency.toCurrencyEnum
 import io.reactivex.Flowable
 import io.reactivex.Single
-import java.math.BigDecimal
 import java.util.*
 
 /**
@@ -18,7 +17,7 @@ class CurrencyApiManager(private val apis: HashMap<Currency, CurrencyApi>):
         return  apis[currency]!!
                 .getInfoByInstant(instant)
                 .map { (code, price, date) ->
-                    CurrencyInfo(code.toCurrency(), price, date)
+                    CurrencyInfo(code.toCurrencyEnum(), price, date)
                 }
 
     }
@@ -29,7 +28,7 @@ class CurrencyApiManager(private val apis: HashMap<Currency, CurrencyApi>):
 
         return Single.concat(apis).map { (code, price, date) ->
 
-            CurrencyInfo(code.toCurrency(), price, date)
+            CurrencyInfo(code.toCurrencyEnum(), price, date)
         }
     }
 }

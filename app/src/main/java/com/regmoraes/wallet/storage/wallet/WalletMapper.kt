@@ -1,6 +1,6 @@
 package com.regmoraes.wallet.storage.wallet
 
-import com.wallet.core.currency.toCurrency
+import com.wallet.core.currency.toCurrencyEnum
 import com.wallet.core.wallet.data.Wallet
 import java.math.BigDecimal
 
@@ -12,7 +12,7 @@ object WalletMapper {
 
     fun toWallet(walletEntity: WalletEntity): Wallet {
 
-        val currency = walletEntity.currency.toCurrency()
+        val currency = walletEntity.currency.toCurrencyEnum()
         val amount = BigDecimal(walletEntity.amount)
 
         return Wallet(currency, amount)

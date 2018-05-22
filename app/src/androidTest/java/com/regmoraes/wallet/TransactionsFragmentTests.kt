@@ -9,7 +9,7 @@ import android.support.test.runner.AndroidJUnit4
 import com.regmoraes.wallet.di.StorageTestModule
 import com.regmoraes.wallet.di.component.DaggerAppComponent
 import com.regmoraes.wallet.di.module.AndroidModule
-import com.regmoraes.wallet.presentation.market.MarketActivity
+import com.regmoraes.wallet.presentation.HomeActivity
 import com.regmoraes.wallet.presentation.transactions.TransactionsHistoryFragment
 import com.wallet.core.currency.data.Currency
 import com.wallet.core.currency.data.CurrencyInfo
@@ -36,8 +36,8 @@ class TransactionsFragmentTests {
 
     @Rule
     @JvmField
-    val activityTesRule: ActivityTestRule<MarketActivity> =
-        object: ActivityTestRule<MarketActivity>(MarketActivity::class.java) {
+    val activityTesRule: ActivityTestRule<HomeActivity> =
+        object: ActivityTestRule<HomeActivity>(HomeActivity::class.java) {
 
             override fun beforeActivityLaunched() {
                 super.beforeActivityLaunched()

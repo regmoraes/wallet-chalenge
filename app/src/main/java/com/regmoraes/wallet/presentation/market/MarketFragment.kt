@@ -12,19 +12,25 @@ import com.regmoraes.wallet.WalletApp
 import com.regmoraes.wallet.databinding.FragmentMarketBinding
 import com.regmoraes.wallet.di.component.ViewComponent
 import com.regmoraes.wallet.presentation.Status
+import com.wallet.core.currency.data.CurrencyInfo
+import com.wallet.core.currency.toCurrencyEnum
+import com.wallet.core.market.OperationType
 import javax.inject.Inject
 
 /**
  * A placeholder fragment containing a simple view.
  */
-class MarketFragment : Fragment() {
+class MarketFragment : Fragment(), MarketCurrencyInfoAdapter.OnItemClickListener,
+    TransactionConfirmationDialogFragment.OnDialogFragmentClicked {
 
     private var component: ViewComponent? = null
     private lateinit var viewBinding: FragmentMarketBinding
 
     @Inject lateinit var viewModelFactory: MarketViewModelFactory
     lateinit var viewModel: MarketViewModel
-    var adapter = MarketCurrencyInfoAdapter()
+    var adapter = MarketCurrencyInfoAdapter(this)
+
+    private lateinit var pendingTransaction: PendingTransaction
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -89,23 +95,46 @@ class MarketFragment : Fragment() {
 //        })
     }
 
-//    override fun onResume() {
-//        super.onResume()
-//
-//        viewBinding.buttonBuy.setOnClickListener {
-//
-//            val amount = viewBinding.editTextAmount.text.toString()
-//
-//            //viewModel.buy(Currency.BITCOIN, amount)
-//        }
-//
-//        viewBinding.buttonSell.setOnClickListener {
-//
-//            val amount = viewBinding.editTextAmount.text.toString()
-//
-//            //viewModel.sell(Currency.BITCOIN, amount)
-//        }
-//    }
+
+
+    override fun onOperationClicked(currencyInfo: CurrencyInfo, operationType: OperationType) {
+
+        pendingTransaction = PendingTransaction(currencyInfo = currencyInfo,
+            operationType = operationType)
+
+        val transactionDialog = TransactionConfirmationDialogFragment.newInstance(currencyInfo.currency.name, operationType.name)
+        transactionDialog.setTargetFragment(this, 300)
+        transactionDialog.show(activity!!.supportFragmentManager,
+            TransactionConfirmationDialogFragment::class.java.simpleName)
+
+    }
+
+    override fun onConfirmBuyOrSellTransaction(amount: String) {
+
+        pendingTransaction.amount = amount
+
+        val currencyInfo = pendingTransaction.currencyInfo
+        val operationType = pendingTransaction.operationType
+
+        if(currencyInfo != null && operationType != null) {
+
+            if(operationType == OperationType.SELL)
+                viewModel.sell(currencyInfo.currency, amount)
+            else
+                viewModel.buy(currencyInfo.currency, amount)
+        }
+    }
+
+    override fun onConfirmExchangeTransaction(toCurrency: String, amount: String) {
+
+        pendingTransaction.amount = amount
+
+        val fromCurrency = pendingTransaction.currencyInfo?.currency
+        val operationType = pendingTransaction.operationType
+
+        if(fromCurrency != null && operationType != null)
+            viewModel.exchange(fromCurrency, toCurrency.toCurrencyEnum(), amount)
+    }
 
     override fun onDestroy() {
         super.onDestroy()

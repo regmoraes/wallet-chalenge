@@ -1,4 +1,4 @@
-package com.regmoraes.wallet.presentation.market
+package com.regmoraes.wallet.presentation
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -6,11 +6,12 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import com.regmoraes.wallet.R
 import com.regmoraes.wallet.databinding.ActivityPricesBinding
+import com.regmoraes.wallet.presentation.market.MarketFragment
 import com.regmoraes.wallet.presentation.transactions.TransactionsHistoryFragment
 import com.regmoraes.wallet.presentation.wallet.WalletFragment
 
 
-class MarketActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity() {
 
     private lateinit var viewBinding: ActivityPricesBinding
 
@@ -26,7 +27,8 @@ class MarketActivity : AppCompatActivity() {
 
     private fun setUpFragments() {
 
-        val marketFragment = MarketFragment.newInstance()
+        val marketFragment =
+            MarketFragment.newInstance()
         val walletFragment =  WalletFragment.newInstance()
         val transactionsHistoryFragment = TransactionsHistoryFragment.newInstance()
 
@@ -54,8 +56,4 @@ class MarketActivity : AppCompatActivity() {
         //Used to select an item programmatically
         //bottomNavigationView.getMenu().getItem(2).setChecked(true);
     }
-
-
-
-
 }

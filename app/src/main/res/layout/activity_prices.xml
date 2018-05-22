@@ -6,7 +6,7 @@
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.market.MarketActivity">
+        tools:context=".presentation.HomeActivity">
 
         <android.support.design.widget.AppBarLayout
             style="@style/WalletTheme.AppBarLayout">

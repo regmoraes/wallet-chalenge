@@ -2,8 +2,10 @@ package com.regmoraes.wallet.presentation.market
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import com.regmoraes.wallet.R.string.amount
 import com.regmoraes.wallet.presentation.Resource
 import com.wallet.core.currency.CurrencyManager
+import com.wallet.core.currency.data.Currency
 import com.wallet.core.currency.data.CurrencyInfo
 import com.wallet.core.market.MarketManager
 import com.wallet.core.wallet.WalletManager
@@ -38,87 +40,93 @@ class MarketViewModel(private val marketManager: MarketManager,
     private fun getWalletTotalAmount() {
 
         disposables.add(
-                walletManager.getBaseWallet()
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                                { baseWallet ->
-                                    walletBaseCurrencyAmountResource
-                                        .postValue(Resource.success(baseWallet.amount)) },
-                                { error ->
-                                    walletBaseCurrencyAmountResource.postValue(Resource.error(error))
-                                }
-                        )
+            walletManager.getBaseWallet()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    { baseWallet ->
+                        walletBaseCurrencyAmountResource
+                            .postValue(Resource.success(baseWallet.amount)) },
+                    { error ->
+                        walletBaseCurrencyAmountResource.postValue(Resource.error(error))
+                    }
+                )
         )
     }
 
-//    fun buy(currency: Currency, amount: String) {
-//
-//        val buyOperation: Single<Receipt> = when(currency) {
-//
-//            Currency.BTC -> marketManager.buy(bitcoinInfoResource.value?.data!!,
-//                    amount.toBigDecimal())
-//
-//            else -> marketManager.buy(britaInfoResource.value?.data!!,
-//                    amount.toBigDecimal())
-//        }
-//
-//        disposables.add(
-//                buyOperation
-//                        .subscribeOn(Schedulers.io())
-//                        .observeOn(AndroidSchedulers.mainThread())
-//                        .subscribe(
-//                                { getWalletTotalAmount() },
-//                                { error -> walletBaseCurrencyAmountResource.postValue(Resource.error(error)) }
-//                        )
-//        )
-//    }
+    fun buy(currency: Currency, amount: String) {
 
-//    fun sell(currency: Currency, amount: String) {
-//
-//        val sellOperation: Single<Receipt> = when(currency) {
-//
-//            Currency.BTC -> marketManager.sell(bitcoinInfoResource.value?.data!!,
-//                    amount.toBigDecimal())
-//
-//            else -> marketManager.sell(britaInfoResource.value?.data!!,
-//                    amount.toBigDecimal())
-//        }
-//
-//        disposables.add(
-//                sellOperation
-//                        .flatMap { walletManager.getBaseWallet() }
-//                        .subscribeOn(Schedulers.io())
-//                        .observeOn(AndroidSchedulers.mainThread())
-//                        .subscribe(
-//                                { baseWallet ->
-//                                    walletBaseCurrencyAmountResource
-//                                        .postValue(Resource.success(baseWallet.amount)) },
-//                                { error ->
-//                                    walletBaseCurrencyAmountResource.postValue(Resource.error(error))
-//                                }
-//                        )
-//        )
-//    }
+        val currencyInfo = currenciesInfo.find { it.currency == currency }
+
+        if(currencyInfo != null) {
+
+            disposables.add(
+                marketManager.buy(currencyInfo, amount.toBigDecimal())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                        { getWalletTotalAmount() },
+                        { error -> walletBaseCurrencyAmountResource.postValue(Resource.error(error)) }
+                    )
+            )
+        }
+    }
+
+    fun sell(currency: Currency, amount: String) {
+
+        val currencyInfo = currenciesInfo.find { it.currency == currency }
+
+        if(currencyInfo != null) {
+
+            disposables.add(
+                marketManager.sell(currencyInfo, amount.toBigDecimal())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                        { getWalletTotalAmount() },
+                        { error -> walletBaseCurrencyAmountResource.postValue(Resource.error(error)) }
+                    )
+            )
+        }
+    }
+
+    fun exchange(fromCurrency: Currency, toCurrency: Currency, amount: String) {
+
+        val fromCurrencyInfo = currenciesInfo.find { it.currency == fromCurrency }
+        val toCurrencyInfo = currenciesInfo.find { it.currency == toCurrency }
+
+        if(fromCurrencyInfo != null && toCurrencyInfo != null) {
+
+            disposables.add(
+                marketManager.exchange(fromCurrencyInfo, toCurrencyInfo, amount.toBigDecimal())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                        { getWalletTotalAmount() },
+                        { error -> walletBaseCurrencyAmountResource.postValue(Resource.error(error)) }
+                    )
+            )
+        }
+    }
 
     fun getAllCurrenciesTodayPrice() {
 
         val todayInstant = Calendar.getInstance().timeInMillis
 
         disposables.add(
-                    currencyManager.getAllCurrenciesInfo(todayInstant)
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(
-                                    { currencyInfo ->
+            currencyManager.getAllCurrenciesInfo(todayInstant)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    { currencyInfo ->
 
-                                        currenciesInfo.add(currencyInfo)
+                        currenciesInfo.add(currencyInfo)
 
-                                        currenciesInfoResource.postValue(Resource.success(currenciesInfo))
-                                    },
-                                    { error -> Timber.d(error) }
-                            )
-            )
+                        currenciesInfoResource.postValue(Resource.success(currenciesInfo))
+                    },
+                    { error -> Timber.d(error) }
+                )
+        )
     }
 
     override fun onCleared() {

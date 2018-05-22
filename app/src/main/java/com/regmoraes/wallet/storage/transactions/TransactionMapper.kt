@@ -1,6 +1,6 @@
 package com.regmoraes.wallet.storage.transactions
 
-import com.wallet.core.currency.toCurrency
+import com.wallet.core.currency.toCurrencyEnum
 import com.wallet.core.receipt.Receipt
 import com.wallet.core.receipt.toTransactionType
 import java.math.BigDecimal
@@ -13,8 +13,8 @@ object TransactionMapper {
 
     fun toReceipt(transaction: TransactionEntity): Receipt {
 
-        return Receipt(transaction.debitCurrency.toCurrency(), BigDecimal(transaction.debitAmount),
-            transaction.creditCurrency.toCurrency(), BigDecimal(transaction.creditAmount),
+        return Receipt(transaction.debitCurrency.toCurrencyEnum(), BigDecimal(transaction.debitAmount),
+            transaction.creditCurrency.toCurrencyEnum(), BigDecimal(transaction.creditAmount),
             transaction.operationType.toTransactionType(), transaction.date)
     }
 
