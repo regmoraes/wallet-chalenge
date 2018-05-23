@@ -40,6 +40,6 @@ class TransactionsHistoryAdapter : RecyclerView.Adapter<TransactionsHistoryAdapt
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val binding = AdapterTransactionHistoryItemBinding.bind(itemView)
+        val binding: AdapterTransactionHistoryItemBinding = AdapterTransactionHistoryItemBinding.bind(itemView)
     }
 }

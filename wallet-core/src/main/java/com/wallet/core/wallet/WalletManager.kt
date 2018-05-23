@@ -6,7 +6,6 @@ import com.wallet.core.wallet.data.WalletRepository
 import io.reactivex.Completable
 import io.reactivex.Single
 import java.math.BigDecimal
-import javax.naming.InsufficientResourcesException
 
 /**
  *   Copyright {2018} {Rômulo Eduardo G. Moraes}

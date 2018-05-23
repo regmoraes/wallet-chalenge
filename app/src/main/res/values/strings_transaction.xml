@@ -1,6 +1,9 @@
 <resources>
 
+    <string name="transaction_menu_item">Transactions</string>
+
     <string name="transaction_history_amount_format">\$ %s</string>
+    <string name="transaction_invalid_amount_message">Please, enter a value greater than 0</string>
 
     <string name="transaction_empty">You have no transactions yet. Let\'s start shopping!</string>
 
@@ -12,8 +15,6 @@
     <string name="transaction_pending_sell_format">Selling %1$s</string>
     <string name="transaction_pending_exchange_format">Exchanging %1$s for %2$s</string>
     <string name="transaction_pending_amount_hint_format">Quantity to %s</string>
-
-    <string name="transaction_invalid_amount_message">Please, enter a value greater than 0</string>
 
     <string name="transaction_finished_successfully">Transaction finished successfully</string>
     <string name="transaction_finished_no_funds">You don\'t have enough funds</string>

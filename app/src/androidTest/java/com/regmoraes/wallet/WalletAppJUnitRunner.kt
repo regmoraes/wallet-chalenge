@@ -2,10 +2,8 @@ package com.regmoraes.wallet
 
 import android.app.Application
 import android.content.Context
-import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnitRunner
 import com.squareup.rx2.idler.Rx2Idler
-import com.wallet.core.WalletCore
 import io.reactivex.plugins.RxJavaPlugins
 
 /**

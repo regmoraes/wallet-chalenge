@@ -1,5 +1,9 @@
 <resources>
+
+    <string name="market_menu_item">Market</string>
+
     <string name="amount">R$ %s</string>
+
     <string name="market_currency_title_format">%1$s/%2$s</string>
     <string name="market_currency_price_format">%1$s %2$s</string>
     <string name="market_currency_fetch_error">Cannot fetch currency info</string>

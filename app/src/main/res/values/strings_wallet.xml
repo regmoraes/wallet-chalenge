@@ -1,3 +1,4 @@
 <resources>
+    <string name="wallet_menu_item">Wallet</string>
     <string name="wallet_balance_format">\$ %s</string>
 </resources>

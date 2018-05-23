@@ -44,7 +44,7 @@ class MarketCurrencyInfoAdapter(private val listener: OnItemClickListener)
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
-        val binding = AdapterMarketItemBinding.bind(itemView)
+        val binding: AdapterMarketItemBinding = AdapterMarketItemBinding.bind(itemView)
 
         init {
             binding.buttonBuy.setOnClickListener(this)

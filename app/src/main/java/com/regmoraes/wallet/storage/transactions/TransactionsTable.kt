@@ -6,7 +6,6 @@ import com.wallet.core.receipt.Receipt
 import com.wallet.core.receipt.ReceiptRepository
 import io.reactivex.Completable
 import io.reactivex.Flowable
-import io.reactivex.Single
 
 /**
  *   Copyright {2018} {Rômulo Eduardo G. Moraes}

@@ -5,19 +5,19 @@
         android:id="@+id/action_transactions"
         android:enabled="true"
         android:icon="@drawable/ic_history"
-        android:title="Transactions"
+        android:title="@string/transaction_menu_item"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_market"
         android:enabled="true"
         android:icon="@drawable/ic_shopping"
-        android:title="Market"
+        android:title="@string/market_menu_item"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_wallet"
         android:enabled="true"
         android:icon="@drawable/ic_account_balance_wallet"
-        android:title="Wallet"
+        android:title="@string/wallet_menu_item"
         app:showAsAction="ifRoom" />
 </menu>

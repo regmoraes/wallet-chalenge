@@ -3,13 +3,10 @@ package com.wallet.api.brita
 import com.wallet.api.ApiConfiguration
 import com.wallet.api.CurrencyApi
 import com.wallet.api.CurrencyInfo
-import com.wallet.api.bitcoin.data.toCurrencyInfo
 import com.wallet.api.brita.data.toCurrencyInfo
 import com.wallet.api.toDateTimeString
 import io.reactivex.Single
 import okhttp3.HttpUrl
-import retrofit2.HttpException
-import java.math.BigDecimal
 
 /**
  *   Copyright {2018} {Rômulo Eduardo G. Moraes}

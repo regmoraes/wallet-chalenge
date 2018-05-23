@@ -3,7 +3,6 @@ package com.regmoraes.wallet.di.module
 import android.content.Context
 import com.regmoraes.wallet.storage.AppDatabase
 import com.regmoraes.wallet.storage.transactions.TransactionsTable
-import com.regmoraes.wallet.storage.transactions.TransactionsTest
 import com.regmoraes.wallet.storage.wallet.WalletsTable
 import com.wallet.core.receipt.ReceiptRepository
 import com.wallet.core.wallet.data.WalletRepository

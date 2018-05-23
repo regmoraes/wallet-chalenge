@@ -1,4 +1,4 @@
-package com.wallet.core.market;
+package com.wallet.core.market
 
 import com.wallet.core.BaseTest
 import com.wallet.core.currency.data.Currency

@@ -2,7 +2,6 @@ package com.regmoraes.wallet.di.component
 
 import com.regmoraes.wallet.di.module.AndroidModule
 import com.regmoraes.wallet.di.module.StorageModule
-import com.regmoraes.wallet.di.module.WalletModule
 import dagger.Component
 import javax.inject.Singleton
 

@@ -9,30 +9,20 @@ import com.wallet.core.currency.CurrencyManager
 import com.wallet.core.currency.data.Currency
 import com.wallet.core.currency.data.CurrencyInfo
 import com.wallet.core.market.MarketManager
-import com.wallet.core.receipt.Receipt
-import com.wallet.core.wallet.WalletManager
-import io.reactivex.SingleObserver
-import io.reactivex.SingleOnSubscribe
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import org.reactivestreams.Subscriber
-import org.reactivestreams.Subscription
 import timber.log.Timber
-import java.math.BigDecimal
 import java.util.*
 
 /**
  *   Copyright {2018} {Rômulo Eduardo G. Moraes}
  **/
 open class MarketViewModel(private val marketManager: MarketManager,
-                           private val currencyManager: CurrencyManager,
-                           private val walletManager: WalletManager) : ViewModel() {
+                           private val currencyManager: CurrencyManager) : ViewModel() {
 
     private val disposables = CompositeDisposable()
 
-    private val walletBaseCurrencyAmountResource = MutableLiveData<Resource<BigDecimal>>()
     private val currenciesInfoResource = MutableLiveData<Resource<List<CurrencyInfo>>>()
     private val transactionFinishedEvent = SingleLiveEvent<Resource<Boolean>>()
 
@@ -117,7 +107,6 @@ open class MarketViewModel(private val marketManager: MarketManager,
     }
 
     open fun getCurrencyInfoResource() : LiveData<Resource<List<CurrencyInfo>>> = currenciesInfoResource
-    open fun getWalletBaseCurrencyAmountResource() : LiveData<Resource<BigDecimal>> = walletBaseCurrencyAmountResource
     open fun getTransactionFinishedEvent() : LiveData<Resource<Boolean>> = transactionFinishedEvent
 
 

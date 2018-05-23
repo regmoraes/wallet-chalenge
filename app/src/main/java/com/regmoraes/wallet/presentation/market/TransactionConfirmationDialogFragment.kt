@@ -2,7 +2,6 @@ package com.regmoraes.wallet.presentation.market
 
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
-import android.text.style.TtsSpan.ARG_CURRENCY
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View

@@ -10,13 +10,10 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.regmoraes.wallet.WalletApp
 import com.regmoraes.wallet.databinding.FragmentWalletBinding
 import com.regmoraes.wallet.di.ComponentProvider
 import com.regmoraes.wallet.di.component.ViewComponent
-import com.regmoraes.wallet.di.module.WalletModule
 import com.regmoraes.wallet.presentation.Status
-import kotlinx.android.synthetic.main.fragment_transactions_history.view.*
 import javax.inject.Inject
 
 /**

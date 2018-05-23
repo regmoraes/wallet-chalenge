@@ -2,8 +2,6 @@ package com.regmoraes.wallet.presentation.wallet
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-import com.regmoraes.wallet.presentation.transactions.TransactionsHistoryViewModel
-import com.wallet.core.receipt.ReceiptManager
 import com.wallet.core.wallet.WalletManager
 import javax.inject.Inject
 

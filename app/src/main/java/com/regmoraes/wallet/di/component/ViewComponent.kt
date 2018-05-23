@@ -5,7 +5,6 @@ import com.regmoraes.wallet.di.module.WalletModule
 import com.regmoraes.wallet.presentation.market.MarketFragment
 import com.regmoraes.wallet.presentation.transactions.TransactionsHistoryFragment
 import com.regmoraes.wallet.presentation.wallet.WalletFragment
-import dagger.Component
 import dagger.Subcomponent
 
 
