@@ -9,12 +9,14 @@
 
         <TextView
             android:id="@+id/textView_title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:padding="8dp"
+            android:textAllCaps="true"
+            android:textColor="@color/textColorPrimaryInverse"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/editText_amount"
             app:layout_constraintEnd_toEndOf="parent"
@@ -45,7 +47,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
+            android:background="@color/colorAccent"
             android:text="@string/confirm"
+            android:textColor="@color/textColorPrimaryInverse"
             app:layout_constraintBaseline_toBaselineOf="@+id/button_cancel"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -56,7 +60,9 @@
             android:layout_marginBottom="16dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
+            android:background="@null"
             android:text="@string/cancel"
+            android:textColor="@color/colorError"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editText_amount" />
