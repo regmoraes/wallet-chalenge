@@ -18,10 +18,15 @@ class MarketManager(private val walletManager: WalletManager,
 
     fun exchange(from: CurrencyInfo, to: CurrencyInfo, amount: BigDecimal): Single<Receipt> {
 
-        val exchangedAmount = exchangeCalculator.exchange(from.price!!, to.price!!, amount)
+        return if(from.price != null && to.price != null) {
 
-        return executeTransaction(from.currency, amount, to.currency, exchangedAmount,
-            OperationType.EXCHANGE)
+            val exchangedAmount = exchangeCalculator.exchange(from.price, to.price, amount)
+
+            executeTransaction(from.currency, amount, to.currency, exchangedAmount, OperationType.EXCHANGE)
+
+        } else {
+            Single.error(IllegalArgumentException("All prices must be != null"))
+        }
     }
 
     fun buy(currencyInfo: CurrencyInfo, amount: BigDecimal): Single<Receipt> {

@@ -58,7 +58,7 @@ class WalletManagerTests : BaseTest() {
         walletManager.debit(wallet.currency, amountToDebit)
             .test()
             .await()
-            .assertError(IllegalStateException::class.java)
+            .assertError(InsufficientFundsException::class.java)
             .assertNotComplete()
 
         verify(walletRepositoryMock, never()).debit(any(), any())

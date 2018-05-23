@@ -14,19 +14,18 @@ import com.regmoraes.wallet.R
 import com.regmoraes.wallet.databinding.FragmentMarketBinding
 import com.regmoraes.wallet.di.ComponentProvider
 import com.regmoraes.wallet.di.component.ViewComponent
-import com.regmoraes.wallet.presentation.HomeActivity
 import com.regmoraes.wallet.presentation.Status
-import com.wallet.core.currency.data.Currency
 import com.wallet.core.currency.data.CurrencyInfo
 import com.wallet.core.currency.toCurrencyEnum
 import com.wallet.core.market.OperationType
+import com.wallet.core.wallet.InsufficientFundsException
 import javax.inject.Inject
 
 /**
  * A placeholder fragment containing a simple view.
  */
 class MarketFragment : Fragment(), MarketCurrencyInfoAdapter.OnItemClickListener,
-        TransactionConfirmationDialogFragment.OnDialogFragmentClicked,
+    TransactionConfirmationDialogFragment.OnDialogFragmentClicked,
     SwipeRefreshLayout.OnRefreshListener {
 
     private var component: ViewComponent? = null
@@ -78,18 +77,44 @@ class MarketFragment : Fragment(), MarketCurrencyInfoAdapter.OnItemClickListener
                 }
             }
         })
+
+        viewModel.getTransactionFinishedEvent().observe(activity!!, Observer { resource ->
+
+            if(resource != null) {
+
+                when (resource.status) {
+
+                    Status.SUCCESS ->
+                        Toast.makeText(context, R.string.transaction_finished_successfully, Toast.LENGTH_LONG).show()
+
+                    Status.ERROR -> {
+
+                        when (resource.error) {
+
+                            is InsufficientFundsException ->
+                                Toast.makeText(context, R.string.transaction_finished_no_funds, Toast.LENGTH_LONG).show()
+
+                            else ->
+                                Toast.makeText(context, R.string.transaction_finished_no_funds, Toast.LENGTH_LONG).show()
+                        }
+                    }
+
+                    Status.LOADING -> {}
+                }
+            }
+        })
     }
 
     override fun onOperationClicked(currencyInfo: CurrencyInfo, operationType: OperationType) {
 
         pendingTransaction = PendingTransaction(currencyInfo = currencyInfo,
-                operationType = operationType)
+            operationType = operationType)
 
         val transactionDialog =
-                TransactionConfirmationDialogFragment.newInstance(currencyInfo.currency.name, operationType.name)
+            TransactionConfirmationDialogFragment.newInstance(currencyInfo.currency.name, operationType.name)
         transactionDialog.setTargetFragment(this, 300)
         transactionDialog.show(activity!!.supportFragmentManager,
-                TransactionConfirmationDialogFragment::class.java.simpleName)
+            TransactionConfirmationDialogFragment::class.java.simpleName)
 
     }
 

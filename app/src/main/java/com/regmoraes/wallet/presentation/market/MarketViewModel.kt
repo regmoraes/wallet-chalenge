@@ -4,14 +4,21 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.regmoraes.wallet.presentation.Resource
+import com.regmoraes.wallet.presentation.SingleLiveEvent
 import com.wallet.core.currency.CurrencyManager
 import com.wallet.core.currency.data.Currency
 import com.wallet.core.currency.data.CurrencyInfo
 import com.wallet.core.market.MarketManager
+import com.wallet.core.receipt.Receipt
 import com.wallet.core.wallet.WalletManager
+import io.reactivex.SingleObserver
+import io.reactivex.SingleOnSubscribe
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import org.reactivestreams.Subscriber
+import org.reactivestreams.Subscription
 import timber.log.Timber
 import java.math.BigDecimal
 import java.util.*
@@ -27,6 +34,7 @@ open class MarketViewModel(private val marketManager: MarketManager,
 
     private val walletBaseCurrencyAmountResource = MutableLiveData<Resource<BigDecimal>>()
     private val currenciesInfoResource = MutableLiveData<Resource<List<CurrencyInfo>>>()
+    private val transactionFinishedEvent = SingleLiveEvent<Resource<Boolean>>()
 
     private val currenciesInfo = mutableListOf<CurrencyInfo>()
 
@@ -41,17 +49,17 @@ open class MarketViewModel(private val marketManager: MarketManager,
         val todayInstant = Calendar.getInstance().timeInMillis
 
         disposables.add(
-                currencyManager.getAllCurrenciesInfo(todayInstant)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .doOnSubscribe { currenciesInfoResource.postValue(Resource.loading()) }
-                        .subscribe(
-                                { currencyInfo ->
-                                    currenciesInfo.add(currencyInfo)
-                                    currenciesInfoResource.postValue(Resource.success(currenciesInfo))
-                                },
-                                { error -> Timber.d(error) }
-                        )
+            currencyManager.getAllCurrenciesInfo(todayInstant)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { currenciesInfoResource.postValue(Resource.loading()) }
+                .subscribe(
+                    { currencyInfo ->
+                        currenciesInfo.add(currencyInfo)
+                        currenciesInfoResource.postValue(Resource.success(currenciesInfo))
+                    },
+                    { error -> Timber.d(error) }
+                )
         )
     }
 
@@ -66,8 +74,8 @@ open class MarketViewModel(private val marketManager: MarketManager,
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
-                        {  },
-                        { error -> walletBaseCurrencyAmountResource.postValue(Resource.error(error)) }
+                        { transactionFinishedEvent.postValue(Resource.success(null)) },
+                        { error -> transactionFinishedEvent.postValue(Resource.error(error)) }
                     )
             )
         }
@@ -84,8 +92,8 @@ open class MarketViewModel(private val marketManager: MarketManager,
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
-                        {  },
-                        { error -> walletBaseCurrencyAmountResource.postValue(Resource.error(error)) }
+                        { transactionFinishedEvent.postValue(Resource.success(null)) },
+                        { error -> transactionFinishedEvent.postValue(Resource.error(error)) }
                     )
             )
         }
@@ -98,20 +106,20 @@ open class MarketViewModel(private val marketManager: MarketManager,
 
         if(fromCurrencyInfo != null && toCurrencyInfo != null) {
 
-            disposables.add(
-                marketManager.exchange(fromCurrencyInfo, toCurrencyInfo, amount.toBigDecimal())
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-                        {  },
-                        { error -> walletBaseCurrencyAmountResource.postValue(Resource.error(error)) }
-                    )
-            )
+            marketManager.exchange(fromCurrencyInfo, toCurrencyInfo, amount.toBigDecimal())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    { transactionFinishedEvent.postValue(Resource.success(null)) },
+                    { error -> transactionFinishedEvent.postValue(Resource.error(error)) }
+                )
         }
     }
 
     open fun getCurrencyInfoResource() : LiveData<Resource<List<CurrencyInfo>>> = currenciesInfoResource
     open fun getWalletBaseCurrencyAmountResource() : LiveData<Resource<BigDecimal>> = walletBaseCurrencyAmountResource
+    open fun getTransactionFinishedEvent() : LiveData<Resource<Boolean>> = transactionFinishedEvent
+
 
     override fun onCleared() {
         disposables.clear()

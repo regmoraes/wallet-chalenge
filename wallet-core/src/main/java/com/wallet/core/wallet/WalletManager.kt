@@ -6,6 +6,7 @@ import com.wallet.core.wallet.data.WalletRepository
 import io.reactivex.Completable
 import io.reactivex.Single
 import java.math.BigDecimal
+import javax.naming.InsufficientResourcesException
 
 /**
  *   Copyright {2018} {Rômulo Eduardo G. Moraes}
@@ -39,7 +40,7 @@ class WalletManager (private val baseCurrency: Currency,
 
             if(wallet.amount < value) {
                 Completable.error(
-                    IllegalStateException("Not enough money to debit $value. You have ${wallet.amount}"))
+                    InsufficientFundsException("Not enough money to debit $value. You have ${wallet.amount}"))
             } else {
                 walletRepository.debit(currency, value)
             }

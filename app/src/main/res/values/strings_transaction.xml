@@ -14,4 +14,8 @@
     <string name="transaction_pending_amount_hint_format">Quantity to %s</string>
 
     <string name="transaction_invalid_amount_message">Please, enter a value greater than 0</string>
+
+    <string name="transaction_finished_successfully">Transaction finished successfully</string>
+    <string name="transaction_finished_no_funds">You don\'t have enough funds</string>
+    <string name="transaction_finished_error">Cannot process transaction</string>
 </resources>

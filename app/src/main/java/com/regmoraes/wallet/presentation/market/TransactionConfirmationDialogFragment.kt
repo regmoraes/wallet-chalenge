@@ -2,6 +2,7 @@ package com.regmoraes.wallet.presentation.market
 
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
+import android.text.style.TtsSpan.ARG_CURRENCY
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -80,8 +81,12 @@ class TransactionConfirmationDialogFragment : DialogFragment() {
 
             when(operationType) {
 
-                OperationType.EXCHANGE.name ->
-                    listener.onConfirmExchangeTransaction(getCurrencyExchangingFor(), amount)
+                OperationType.EXCHANGE.name -> {
+
+                    val a = getCurrencyExchangingFor()
+
+                    listener.onConfirmExchangeTransaction(a, amount)
+                }
 
                 else -> listener.onConfirmBuyOrSellTransaction(amount)
             }
@@ -103,9 +108,9 @@ class TransactionConfirmationDialogFragment : DialogFragment() {
         fun onConfirmExchangeTransaction(toCurrency: String, amount: String)
     }
 
-    private fun getCurrencyExchangingFor(): String = when (currency) {
+    private fun getCurrencyExchangingFor() = when (currency) {
 
-        Currency.BITCOIN -> Currency.BRITA.name
+        Currency.BITCOIN.name -> Currency.BRITA.name
         else -> Currency.BITCOIN.name
     }
 

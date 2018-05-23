@@ -8,6 +8,7 @@ import android.support.test.espresso.matcher.ViewMatchers.*
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import com.regmoraes.wallet.presentation.Resource
+import com.regmoraes.wallet.presentation.SingleLiveEvent
 import com.regmoraes.wallet.presentation.market.MarketFragment
 import com.regmoraes.wallet.presentation.market.MarketViewModel
 import com.regmoraes.wallet.presentation.market.MarketViewModelFactory
@@ -34,7 +35,8 @@ import java.math.BigDecimal
 class MarketFragmentTests {
 
     private val currenciesInfoResource = MutableLiveData<Resource<List<CurrencyInfo>>>()
-    private val walletBaseCurrencyAmountResource = MutableLiveData<Resource<BigDecimal>>()
+    private val transactionFinishedEvent = SingleLiveEvent<Resource<Boolean>>()
+
 
     @Rule
     @JvmField
@@ -49,7 +51,7 @@ class MarketFragmentTests {
 
         `when`(viewModelFactoryMock.create(MarketViewModel::class.java)).then { viewModelMock }
         `when`(viewModelMock.getCurrencyInfoResource()).then { currenciesInfoResource }
-        `when`(viewModelMock.getWalletBaseCurrencyAmountResource()).then { walletBaseCurrencyAmountResource }
+        `when`(viewModelMock.getTransactionFinishedEvent()).then { transactionFinishedEvent }
 
         fragment.viewModelFactory = viewModelFactoryMock
 
