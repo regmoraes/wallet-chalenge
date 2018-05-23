@@ -61,14 +61,12 @@ class WalletFragment : Fragment() {
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(WalletViewModel::class.java)
 
-        viewModel.walletsResource.observe(this, Observer { resource ->
+        viewModel.getWalletsResource().observe(this, Observer { resource ->
 
             if(resource != null && resource.status == Status.SUCCESS) {
                 walletsAdapter.setData(resource.data)
             }
         })
-
-        viewModel.getWallets()
     }
 
     override fun onDestroy() {

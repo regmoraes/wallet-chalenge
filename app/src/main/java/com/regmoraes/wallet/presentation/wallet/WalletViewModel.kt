@@ -1,5 +1,6 @@
 package com.regmoraes.wallet.presentation.wallet
 
+import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.regmoraes.wallet.presentation.Resource
@@ -12,13 +13,17 @@ import io.reactivex.schedulers.Schedulers
 /**
  *   Copyright {2018} {Rômulo Eduardo G. Moraes}
  **/
-class WalletViewModel(private val walletManager: WalletManager) : ViewModel() {
+open class WalletViewModel(private val walletManager: WalletManager) : ViewModel() {
 
     private val disposables = CompositeDisposable()
 
-    val walletsResource = MutableLiveData<Resource<List<Wallet>>>()
+    private val walletsResource = MutableLiveData<Resource<List<Wallet>>>()
 
-    fun getWallets() {
+    init {
+        getWallets()
+    }
+
+    private fun getWallets() {
 
         disposables.add(
                 walletManager.getWallets()
@@ -31,6 +36,8 @@ class WalletViewModel(private val walletManager: WalletManager) : ViewModel() {
                         )
         )
     }
+
+    open fun getWalletsResource(): LiveData<Resource<List<Wallet>>> = walletsResource
 
     override fun onCleared() {
         disposables.clear()

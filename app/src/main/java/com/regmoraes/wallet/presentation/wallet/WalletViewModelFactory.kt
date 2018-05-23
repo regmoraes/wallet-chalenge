@@ -10,7 +10,7 @@ import javax.inject.Inject
 /**
  * Copyright {2018} {Rômulo Eduardo G. Moraes}
  */
-class WalletViewModelFactory @Inject
+open class WalletViewModelFactory @Inject
     constructor(private val walletManager: WalletManager) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
