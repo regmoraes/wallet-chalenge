@@ -14,7 +14,7 @@ import com.regmoraes.wallet.presentation.market.MarketViewModel
 import com.regmoraes.wallet.presentation.market.MarketViewModelFactory
 import com.wallet.core.currency.data.Currency
 import com.wallet.core.currency.data.CurrencyInfo
-import com.wallet.core.market.OperationType
+import com.wallet.core.market.data.OperationType
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.Matchers.not
 import org.junit.Before

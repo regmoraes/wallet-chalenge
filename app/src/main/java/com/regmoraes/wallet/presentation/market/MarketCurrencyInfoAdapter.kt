@@ -9,7 +9,7 @@ import com.regmoraes.wallet.R
 import com.regmoraes.wallet.databinding.AdapterMarketItemBinding
 import com.wallet.core.currency.data.Currency
 import com.wallet.core.currency.data.CurrencyInfo
-import com.wallet.core.market.OperationType
+import com.wallet.core.market.data.OperationType
 
 
 /**

@@ -7,7 +7,7 @@
         <import type="java.math.BigDecimal"/>
         <variable
             name="receipt"
-            type="com.wallet.core.receipt.Receipt"/>
+            type="com.wallet.core.receipt.data.Receipt"/>
     </data>
 
     <android.support.constraint.ConstraintLayout

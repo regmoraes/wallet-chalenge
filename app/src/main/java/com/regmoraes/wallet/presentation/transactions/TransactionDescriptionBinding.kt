@@ -3,8 +3,8 @@ package com.regmoraes.wallet.presentation.transactions
 import android.databinding.BindingAdapter
 import android.widget.TextView
 import com.regmoraes.wallet.R
-import com.wallet.core.market.OperationType
-import com.wallet.core.receipt.Receipt
+import com.wallet.core.market.data.OperationType
+import com.wallet.core.receipt.data.Receipt
 
 
 /**

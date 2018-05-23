@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.regmoraes.wallet.BR
 import com.regmoraes.wallet.R
 import com.regmoraes.wallet.databinding.AdapterTransactionHistoryItemBinding
-import com.wallet.core.receipt.Receipt
+import com.wallet.core.receipt.data.Receipt
 
 
 /**

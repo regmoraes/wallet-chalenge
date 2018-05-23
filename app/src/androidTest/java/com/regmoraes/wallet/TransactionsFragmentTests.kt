@@ -12,8 +12,8 @@ import com.regmoraes.wallet.presentation.transactions.TransactionsHistoryViewMod
 import com.regmoraes.wallet.presentation.transactions.TransactionsHistoryViewModelFactory
 import com.wallet.core.currency.data.Currency
 import com.wallet.core.currency.data.CurrencyInfo
-import com.wallet.core.market.OperationType
-import com.wallet.core.receipt.Receipt
+import com.wallet.core.market.data.OperationType
+import com.wallet.core.receipt.data.Receipt
 import org.hamcrest.Matchers.not
 import org.junit.Before
 import org.junit.Rule
@@ -109,6 +109,6 @@ class TransactionsFragmentTests {
         val currencyToCreditAmount = BigDecimal(2)
 
         return Receipt(currencyToDebitInfo.currency, currencyToDebitAmount,
-            currencyToCreditInfo.currency, currencyToCreditAmount, OperationType.SELL, 0L)
+                currencyToCreditInfo.currency, currencyToCreditAmount, OperationType.SELL, 0L)
     }
 }

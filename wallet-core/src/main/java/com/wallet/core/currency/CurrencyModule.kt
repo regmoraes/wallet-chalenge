@@ -6,6 +6,7 @@ import com.wallet.api.brita.BritaApi
 import com.wallet.core.currency.data.Currency
 import com.wallet.core.currency.data.CurrencyApiManager
 import com.wallet.core.currency.data.CurrencyRepository
+import com.wallet.core.currency.domain.CurrencyManager
 import dagger.Module
 import dagger.Provides
 

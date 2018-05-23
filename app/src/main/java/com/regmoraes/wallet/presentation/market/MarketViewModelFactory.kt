@@ -2,8 +2,8 @@ package com.regmoraes.wallet.presentation.market
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-import com.wallet.core.currency.CurrencyManager
-import com.wallet.core.market.MarketManager
+import com.wallet.core.currency.domain.CurrencyManager
+import com.wallet.core.market.domain.MarketManager
 import timber.log.Timber
 import javax.inject.Inject
 

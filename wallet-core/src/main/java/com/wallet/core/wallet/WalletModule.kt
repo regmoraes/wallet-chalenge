@@ -2,6 +2,7 @@ package com.wallet.core.wallet
 
 import com.wallet.core.currency.data.Currency
 import com.wallet.core.wallet.data.WalletRepository
+import com.wallet.core.wallet.domain.WalletManager
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

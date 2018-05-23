@@ -1,7 +1,6 @@
 package com.wallet.core.currency.data
 
 import com.wallet.api.CurrencyApi
-import com.wallet.core.currency.toCurrencyEnum
 import io.reactivex.Flowable
 import io.reactivex.Single
 import java.util.*

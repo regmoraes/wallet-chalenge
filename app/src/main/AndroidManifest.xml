@@ -13,7 +13,7 @@
         android:theme="@style/WalletTheme" >
 
         <activity
-            android:name=".presentation.HomeActivity"
+            android:name=".presentation.home.HomeActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

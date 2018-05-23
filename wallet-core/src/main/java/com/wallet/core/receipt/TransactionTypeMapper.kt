@@ -1,6 +1,6 @@
 package com.wallet.core.receipt
 
-import com.wallet.core.market.OperationType
+import com.wallet.core.market.data.OperationType
 
 /**
  *   Copyright {2018} {Rômulo Eduardo G. Moraes}

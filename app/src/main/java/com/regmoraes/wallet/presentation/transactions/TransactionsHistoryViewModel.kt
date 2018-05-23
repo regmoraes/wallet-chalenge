@@ -4,8 +4,8 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.regmoraes.wallet.presentation.Resource
-import com.wallet.core.receipt.Receipt
-import com.wallet.core.receipt.ReceiptManager
+import com.wallet.core.receipt.data.Receipt
+import com.wallet.core.receipt.domain.ReceiptManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

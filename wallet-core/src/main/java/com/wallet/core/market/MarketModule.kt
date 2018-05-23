@@ -1,7 +1,9 @@
 package com.wallet.core.market
 
-import com.wallet.core.receipt.ReceiptManager
-import com.wallet.core.wallet.WalletManager
+import com.wallet.core.market.domain.ExchangeCalculator
+import com.wallet.core.market.domain.MarketManager
+import com.wallet.core.receipt.domain.ReceiptManager
+import com.wallet.core.wallet.domain.WalletManager
 import dagger.Module
 import dagger.Provides
 

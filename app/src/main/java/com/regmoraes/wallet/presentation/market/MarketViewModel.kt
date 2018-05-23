@@ -5,10 +5,10 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.regmoraes.wallet.presentation.Resource
 import com.regmoraes.wallet.presentation.SingleLiveEvent
-import com.wallet.core.currency.CurrencyManager
+import com.wallet.core.currency.domain.CurrencyManager
 import com.wallet.core.currency.data.Currency
 import com.wallet.core.currency.data.CurrencyInfo
-import com.wallet.core.market.MarketManager
+import com.wallet.core.market.domain.MarketManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

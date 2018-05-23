@@ -15,7 +15,7 @@ import timber.log.Timber
  **/
 open class WalletApp : Application(), ComponentProvider {
 
-    lateinit var appComponent: AppComponent
+    private lateinit var appComponent: AppComponent
 
     override fun onCreate() {
         super.onCreate()

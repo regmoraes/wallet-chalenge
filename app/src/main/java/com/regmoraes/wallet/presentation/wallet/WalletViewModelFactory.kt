@@ -2,7 +2,7 @@ package com.regmoraes.wallet.presentation.wallet
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-import com.wallet.core.wallet.WalletManager
+import com.wallet.core.wallet.domain.WalletManager
 import javax.inject.Inject
 
 /**

@@ -3,9 +3,12 @@ package com.wallet.core.market
 import com.wallet.core.BaseTest
 import com.wallet.core.currency.data.Currency
 import com.wallet.core.currency.data.CurrencyInfo
-import com.wallet.core.receipt.Receipt
-import com.wallet.core.receipt.ReceiptManager
-import com.wallet.core.wallet.WalletManager
+import com.wallet.core.market.data.OperationType
+import com.wallet.core.market.domain.ExchangeCalculator
+import com.wallet.core.market.domain.MarketManager
+import com.wallet.core.receipt.data.Receipt
+import com.wallet.core.receipt.domain.ReceiptManager
+import com.wallet.core.wallet.domain.WalletManager
 import io.reactivex.Completable
 import io.reactivex.Single
 import org.junit.Test
@@ -44,7 +47,7 @@ class MarketManagerTests : BaseTest() {
             exchangeCalculator.exchange(currencyToDebitInfo.price!!, currencyToCreditInfo.price!!, amountToExchange)
 
         val expectedReceipt = Receipt(currencyToDebitInfo.currency, currencyToDebitAmount,
-            currencyToCreditInfo.currency, currencyToCreditAmount, OperationType.EXCHANGE, 0L)
+                currencyToCreditInfo.currency, currencyToCreditAmount, OperationType.EXCHANGE, 0L)
 
         prepareTransactionFunMocks(currencyToDebitInfo.currency, currencyToDebitAmount,
             currencyToCreditInfo.currency, currencyToCreditAmount, OperationType.EXCHANGE, expectedReceipt)
@@ -102,7 +105,7 @@ class MarketManagerTests : BaseTest() {
         val currencyToCreditAmount = currencyToDebitInfo.price!! * currencyToDebitAmount
 
         val expectedReceipt = Receipt(currencyToDebitInfo.currency, currencyToDebitAmount,
-            currencyToCredit, currencyToCreditAmount, OperationType.SELL, 0L)
+                currencyToCredit, currencyToCreditAmount, OperationType.SELL, 0L)
 
         prepareTransactionFunMocks(currencyToDebitInfo.currency, currencyToDebitAmount,
             currencyToCredit, currencyToCreditAmount, OperationType.SELL, expectedReceipt)

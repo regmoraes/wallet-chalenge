@@ -15,10 +15,12 @@ import com.regmoraes.wallet.databinding.FragmentMarketBinding
 import com.regmoraes.wallet.di.ComponentProvider
 import com.regmoraes.wallet.di.component.ViewComponent
 import com.regmoraes.wallet.presentation.Status
+import com.regmoraes.wallet.presentation.transactions.PendingTransaction
+import com.regmoraes.wallet.presentation.transactions.TransactionConfirmationDialogFragment
 import com.wallet.core.currency.data.CurrencyInfo
-import com.wallet.core.currency.toCurrencyEnum
-import com.wallet.core.market.OperationType
-import com.wallet.core.wallet.InsufficientFundsException
+import com.wallet.core.currency.data.toCurrencyEnum
+import com.wallet.core.market.data.OperationType
+import com.wallet.core.wallet.exception.InsufficientFundsException
 import javax.inject.Inject
 
 /**
@@ -108,7 +110,7 @@ class MarketFragment : Fragment(), MarketCurrencyInfoAdapter.OnItemClickListener
     override fun onOperationClicked(currencyInfo: CurrencyInfo, operationType: OperationType) {
 
         pendingTransaction = PendingTransaction(currencyInfo = currencyInfo,
-            operationType = operationType)
+                operationType = operationType)
 
         val transactionDialog =
             TransactionConfirmationDialogFragment.newInstance(currencyInfo.currency.name, operationType.name)

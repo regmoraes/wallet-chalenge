@@ -4,6 +4,8 @@ import com.wallet.core.BaseTest
 import com.wallet.core.currency.data.Currency
 import com.wallet.core.wallet.data.Wallet
 import com.wallet.core.wallet.data.WalletRepository
+import com.wallet.core.wallet.domain.WalletManager
+import com.wallet.core.wallet.exception.InsufficientFundsException
 import io.reactivex.Completable
 import io.reactivex.Single
 import org.junit.Test

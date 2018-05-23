@@ -2,7 +2,7 @@ package com.regmoraes.wallet.presentation.transactions
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-import com.wallet.core.receipt.ReceiptManager
+import com.wallet.core.receipt.domain.ReceiptManager
 import javax.inject.Inject
 
 /**

@@ -1,5 +1,7 @@
 package com.wallet.core.receipt
 
+import com.wallet.core.receipt.data.ReceiptRepository
+import com.wallet.core.receipt.domain.ReceiptManager
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

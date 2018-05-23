@@ -14,7 +14,7 @@ import com.regmoraes.wallet.databinding.FragmentTransactionsHistoryBinding
 import com.regmoraes.wallet.di.ComponentProvider
 import com.regmoraes.wallet.di.component.ViewComponent
 import com.regmoraes.wallet.presentation.Status
-import com.wallet.core.receipt.Receipt
+import com.wallet.core.receipt.data.Receipt
 import javax.inject.Inject
 
 /**

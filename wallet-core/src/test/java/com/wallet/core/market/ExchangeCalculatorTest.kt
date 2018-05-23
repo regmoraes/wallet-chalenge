@@ -1,6 +1,7 @@
 package com.wallet.core.market
 
 import com.wallet.core.BaseTest
+import com.wallet.core.market.domain.ExchangeCalculator
 import org.junit.Test
 import java.math.BigDecimal
 import kotlin.test.assertEquals
