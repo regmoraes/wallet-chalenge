@@ -8,8 +8,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation reactivex.java
     implementation dagger2.base
-
-    api project(":wallet-api")
+    implementation project(":wallet-api")
 
     kapt dagger2.compiler
 
