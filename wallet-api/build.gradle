@@ -8,5 +8,5 @@ dependencies {
     implementation retrofit.values()
     implementation joda.java
 
-    testImplementation junit
+    testImplementation (junit, mockWebServer)
 }

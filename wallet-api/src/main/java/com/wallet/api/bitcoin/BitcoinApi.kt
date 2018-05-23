@@ -12,8 +12,6 @@ import okhttp3.HttpUrl
  **/
 class BitcoinApi: CurrencyApi {
 
-    private val currencyCode = "BITCOIN"
-
     private val retrofit = ApiConfiguration.buildRetrofit(baseUrl)
     private val baseRestService = retrofit.create(BitcoinRestService::class.java)
 
@@ -41,6 +39,8 @@ class BitcoinApi: CurrencyApi {
     }
 
     companion object {
+        const val currencyCode = "BITCOIN"
+
         var baseUrl = "https://www.mercadobitcoin.net/api/"
     }
 }

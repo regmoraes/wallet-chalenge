@@ -14,7 +14,6 @@ import org.joda.time.LocalDateTime
  **/
 class BritaApi: CurrencyApi {
 
-    private val currencyCode = "BRITA"
     private val retrofit = ApiConfiguration.buildRetrofit(baseUrl)
     private val baseRestService = retrofit.create(BritaRestService::class.java)
 
@@ -82,6 +81,7 @@ class BritaApi: CurrencyApi {
     }
 
     companion object {
+        const val currencyCode = "BRITA"
         const val DATE_TIME_QUERY_PATTERN = "MM-dd-yyyy"
         const val DATE_TIME_RESPONSE_PATTERN ="yyyy-MM-dd HH:mm:ss.SSS"
 
