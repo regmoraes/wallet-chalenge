@@ -16,8 +16,7 @@
 
         <TextView
             android:id="@+id/textView_currency_name"
-            style="@style/WalletTheme.TextViewCredit"
-            android:textColor="@color/textColorPrimary"
+            style="@style/WalletTheme.Market_CurrencyName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -34,7 +33,7 @@
 
         <TextView
             android:id="@+id/textView_currency_balance"
-            style="@style/WalletTheme.TextViewCredit"
+            style="@style/WalletTheme.Market_CurrencyPrice"
             android:textColor="@color/textColorPrimary"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -43,7 +42,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="@{wallet.amount.toPlainString()}"
+            android:text="@{@string/wallet_balance_format(wallet.amount.toPlainString())}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

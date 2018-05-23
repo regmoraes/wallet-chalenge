@@ -7,11 +7,11 @@
 
         <TextView
             android:id="@+id/textView_receipts_error_message"
+            style="@style/WalletTheme.Market_Error"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/empty_receipts"
-            tools:text="You have no transactions yet. Let's start shopping!"
+            android:text="@string/transaction_empty"
             android:visibility="gone"/>
 
         <android.support.v7.widget.RecyclerView

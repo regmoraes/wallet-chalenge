@@ -6,7 +6,9 @@
     <data>
         <import type="android.view.View"/>
         <import type="java.math.BigDecimal"/>
-        <import type="com.wallet.core.currency.data.Currency"/>
+        <variable
+            name="baseCurrency"
+            type="com.wallet.core.currency.data.Currency"/>
         <variable
             name="currencyInfo"
             type="com.wallet.core.currency.data.CurrencyInfo"/>
@@ -21,17 +23,19 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="@dimen/market_adapter_item_padding">
 
             <TextView
                 android:id="@+id/textView_currencyInfo_name"
+                style="@style/WalletTheme.Market_CurrencyName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="@{@string/currency_price_format(currencyInfo.currency.name, Currency.BRL)}"
+                android:text="@{@string/market_currency_title_format(currencyInfo.currency.name, baseCurrency.name)}"
                 android:textColor="@color/textColorPrimary"
                 app:layout_constraintBottom_toTopOf="@+id/textView_currencyInfo_price"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -40,17 +44,18 @@
                 app:layout_constraintVertical_chainStyle="spread"
                 tools:text="Currency Name" />
 
+            <!-- TODO Remove hardcoded $ string -->
             <TextView
                 android:id="@+id/textView_currencyInfo_price"
+                style="@style/WalletTheme.Market_CurrencyPrice"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:gravity="end"
-                android:text="@{currencyInfo.price.toPlainString()}"
+                android:text="@{@string/market_currency_price_format('$', currencyInfo.price.toPlainString())}"
                 android:visibility="@{currencyInfo.price != null ? View.VISIBLE : View.INVISIBLE}"
-                android:textColor="@color/textColorPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView_currencyInfo_name"
@@ -58,12 +63,11 @@
 
             <Button
                 android:id="@+id/button_exchange"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/WalletTheme.Market_Button"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="32dp"
                 android:text="@string/exchange"
                 android:visibility="@{currencyInfo.price != null ? View.VISIBLE : View.INVISIBLE}"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -74,8 +78,7 @@
 
             <Button
                 android:id="@+id/button_sell"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/WalletTheme.Market_Button"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:text="@string/sell"
@@ -87,8 +90,7 @@
 
             <Button
                 android:id="@+id/button_buy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/WalletTheme.Market_Button"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:text="@string/buy"
@@ -100,10 +102,11 @@
 
             <TextView
                 android:id="@+id/textView_currencyInfo_error"
+                style="@style/WalletTheme.Market_Error"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/currency_info_fetch_error"
+                android:text="@string/market_currency_fetch_error"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

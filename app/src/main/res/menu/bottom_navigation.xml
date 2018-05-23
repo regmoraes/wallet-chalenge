@@ -5,14 +5,12 @@
         android:id="@+id/action_transactions"
         android:enabled="true"
         android:icon="@drawable/ic_history"
-        app:itemIconTint="@color/colorAccent"
         android:title="Transactions"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_market"
         android:enabled="true"
         android:icon="@drawable/ic_shopping"
-        app:itemIconTint="@color/colorAccent"
         android:title="Market"
         app:showAsAction="ifRoom" />
 
@@ -20,7 +18,6 @@
         android:id="@+id/action_wallet"
         android:enabled="true"
         android:icon="@drawable/ic_account_balance_wallet"
-        app:itemIconTint="@color/colorAccent"
         android:title="Wallet"
         app:showAsAction="ifRoom" />
 </menu>

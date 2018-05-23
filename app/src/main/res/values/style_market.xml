@@ -1,0 +1,25 @@
+<resources>
+
+    <style name="WalletTheme.Market_CurrencyName">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="WalletTheme.Market_CurrencyPrice">
+        <item name="android:textColor">@color/textColorPrimary</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="WalletTheme.Market_Error">
+        <item name="android:textColor">@color/colorError</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="WalletTheme.Market_Button" parent="Base.Widget.AppCompat.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@null</item>
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <dimen name="market_adapter_item_padding">8dp</dimen>
+</resources>

@@ -1,0 +1,34 @@
+<resources>
+
+    <style name="WalletTheme.Transaction_ImageView_Credit">
+        <item name="android:tint">@color/colorCredit</item>
+        <item name="android:src">@drawable/ic_add</item>
+        <item name="android:adjustViewBounds">true</item>
+    </style>
+
+    <style name="WalletTheme.Transaction_TextView_Credit">
+        <item name="android:textColor">@color/colorCredit</item>
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="WalletTheme.Transaction_ImageView_Debit">
+        <item name="android:tint">@color/colorDebit</item>
+        <item name="android:src">@drawable/ic_remove</item>
+        <item name="android:adjustViewBounds">true</item>
+    </style>
+
+    <style name="WalletTheme.Transaction_TextView_Debit">
+        <item name="android:textColor">@color/colorDebit</item>
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="WalletTheme.Transaction_TextView_Empty">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <dimen name="transaction_adapter_item_padding">8dp</dimen>
+</resources>

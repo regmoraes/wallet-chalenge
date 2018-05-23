@@ -12,105 +12,101 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="@dimen/transaction_adapter_item_padding">
 
         <TextView
-            android:id="@+id/textView_transaction_type"
-            style="@style/WalletTheme.TextViewTransaction"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            databind:transactionDescription="@{receipt}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            databind:text="Transaction Type" />
-
-        <TextView
-            android:id="@+id/textView_currency_debited"
-            style="@style/WalletTheme.TextViewDebit"
+            android:id="@+id/textView_transaction_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView_credited"
+            databind:text="Transaction Type"
+            databind:transactionDescription="@{receipt}" />
+
+        <TextView
+            android:id="@+id/textView_currency_debited"
+            style="@style/WalletTheme.Transaction_TextView_Debit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:text="@{receipt.debitCurrency.name}"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView_debited"
-            app:layout_constraintEnd_toStartOf="@+id/textView_debited_amount"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/imageView_debited"
-            app:layout_constraintTop_toTopOf="@+id/imageView_debited"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView_debited_amount"
+            app:layout_constraintEnd_toEndOf="parent"
             databind:text="BRL" />
 
         <TextView
             android:id="@+id/textView_currency_credited"
-            style="@style/WalletTheme.TextViewCredit"
+            style="@style/WalletTheme.Transaction_TextView_Credit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:text="@{receipt.creditCurrency.name}"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView_credited"
-            app:layout_constraintStart_toEndOf="@+id/imageView_credited"
-            app:layout_constraintTop_toTopOf="@+id/imageView_credited"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView_credited_amount"
+            app:layout_constraintEnd_toEndOf="parent"
             databind:text="Bitcoin" />
 
         <TextView
             android:id="@+id/textView_date"
-            style="@style/WalletTheme.TextViewTransaction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView_transaction_title"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView_credited"
             databind:instant="@{receipt.date}"
             databind:text="dd/MM/yyyy" />
 
         <TextView
             android:id="@+id/textView_debited_amount"
-            style="@style/WalletTheme.TextViewDebit"
+            style="@style/WalletTheme.Transaction_TextView_Debit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:text="@{receipt.debitCurrencyAmount.toEngineeringString()}"
-            app:layout_constraintBaseline_toBaselineOf="@+id/textView_currency_debited"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textView_currency_debited"
-            databind:text="32290.0000" />
+            android:gravity="start"
+            android:text="@{@string/transaction_history_amount_format(receipt.debitCurrencyAmount.toEngineeringString())}"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView_debited"
+            app:layout_constraintEnd_toStartOf="@+id/textView_currency_debited"
+            app:layout_constraintStart_toEndOf="@+id/imageView_debited"
+            app:layout_constraintTop_toTopOf="@+id/imageView_debited"
+            databind:text="$ 32290.0000" />
 
         <TextView
             android:id="@+id/textView_credited_amount"
-            style="@style/WalletTheme.TextViewCredit"
+            style="@style/WalletTheme.Transaction_TextView_Credit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:text="@{receipt.creditCurrencyAmount.toEngineeringString()}"
-            app:layout_constraintBaseline_toBaselineOf="@+id/textView_currency_credited"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView_currency_credited"
-            databind:text="2" />
+            android:gravity="left"
+            android:text="@{@string/transaction_history_amount_format(receipt.creditCurrencyAmount.toEngineeringString())}"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView_credited"
+            app:layout_constraintEnd_toStartOf="@+id/textView_currency_credited"
+            app:layout_constraintStart_toEndOf="@+id/imageView_credited"
+            app:layout_constraintTop_toTopOf="@+id/imageView_credited"
+            databind:text="$ 2" />
 
         <ImageView
             android:id="@+id/imageView_debited"
-            style="@style/WalletTheme.ImageViewDebit"
+            style="@style/WalletTheme.Transaction_ImageView_Debit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_transaction_type"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imageView_credited"
-            style="@style/WalletTheme.ImageViewCredit"
+            style="@style/WalletTheme.Transaction_ImageView_Credit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView_debited"/>
+            app:layout_constraintTop_toBottomOf="@+id/imageView_debited" />
     </android.support.constraint.ConstraintLayout>
 </layout>

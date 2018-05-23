@@ -1,0 +1,17 @@
+<resources>
+
+    <string name="transaction_history_amount_format">\$ %s</string>
+
+    <string name="transaction_empty">You have no transactions yet. Let\'s start shopping!</string>
+
+    <string name="transaction_buy_format">Bought %1$s using %2$s</string>
+    <string name="transaction_sell_format">Sold %1$s for %2$s</string>
+    <string name="transaction_exchange_format">Exchanged %1$s for %2$s</string>
+
+    <string name="transaction_pending_buy_format">Buying %1$s</string>
+    <string name="transaction_pending_sell_format">Selling %1$s</string>
+    <string name="transaction_pending_exchange_format">Exchanging %1$s for %2$s</string>
+    <string name="transaction_pending_amount_hint_format">Quantity to %s</string>
+
+    <string name="transaction_invalid_amount_message">Please, enter a value greater than 0</string>
+</resources>

@@ -3,24 +3,18 @@ package com.regmoraes.wallet
 import android.arch.lifecycle.MutableLiveData
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.assertion.ViewAssertions.matches
-import android.support.test.espresso.matcher.ViewMatchers.*
+import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
+import android.support.test.espresso.matcher.ViewMatchers.withText
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import com.regmoraes.wallet.presentation.Resource
-import com.regmoraes.wallet.presentation.transactions.TransactionsHistoryFragment
-import com.regmoraes.wallet.presentation.transactions.TransactionsHistoryViewModel
-import com.regmoraes.wallet.presentation.transactions.TransactionsHistoryViewModelFactory
 import com.regmoraes.wallet.presentation.wallet.WalletFragment
 import com.regmoraes.wallet.presentation.wallet.WalletViewModel
 import com.regmoraes.wallet.presentation.wallet.WalletViewModelFactory
 import com.wallet.core.currency.data.Currency
-import com.wallet.core.currency.data.CurrencyInfo
-import com.wallet.core.market.OperationType
-import com.wallet.core.receipt.Receipt
 import com.wallet.core.wallet.data.Wallet
 import junit.framework.Assert.assertEquals
 import org.hamcrest.Matchers.allOf
-import org.hamcrest.Matchers.not
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -74,11 +68,16 @@ class WalletFragmentTests {
         assertEquals(2, recyclerViewMatcher.getItemsCount())
 
         val itemPosition = 1
+        val item = wallets[itemPosition]
 
         onView(recyclerViewMatcher.atPositionOnView(itemPosition, R.id.textView_currency_name))
-            .check(matches(allOf(withText(Currency.BRITA.name), isDisplayed())))
+            .check(matches(allOf(withText(item.currency.name), isDisplayed())))
+
+        val resources = activityTesRule.activity.resources
+        val expectedText = String.format(resources.getString(R.string.wallet_balance_format,
+            item.amount.toEngineeringString()))
 
         onView(recyclerViewMatcher.atPositionOnView(itemPosition, R.id.textView_currency_balance))
-            .check(matches(allOf(withText(BigDecimal(100).toEngineeringString()), isDisplayed())))
+            .check(matches(allOf(withText(expectedText), isDisplayed())))
     }
 }

@@ -16,6 +16,7 @@ import com.regmoraes.wallet.di.ComponentProvider
 import com.regmoraes.wallet.di.component.ViewComponent
 import com.regmoraes.wallet.presentation.HomeActivity
 import com.regmoraes.wallet.presentation.Status
+import com.wallet.core.currency.data.Currency
 import com.wallet.core.currency.data.CurrencyInfo
 import com.wallet.core.currency.toCurrencyEnum
 import com.wallet.core.market.OperationType
@@ -32,6 +33,7 @@ class MarketFragment : Fragment(), MarketCurrencyInfoAdapter.OnItemClickListener
     private lateinit var viewBinding: FragmentMarketBinding
 
     @Inject lateinit var viewModelFactory: MarketViewModelFactory
+
     lateinit var viewModel: MarketViewModel
     var adapter = MarketCurrencyInfoAdapter(this)
 
@@ -53,7 +55,6 @@ class MarketFragment : Fragment(), MarketCurrencyInfoAdapter.OnItemClickListener
 
         viewBinding.recyclerViewMarket.layoutManager = layoutManager
         viewBinding.recyclerViewMarket.adapter = adapter
-
         viewBinding.swipeRefreshMarket.setOnRefreshListener(this)
     }
 
@@ -77,25 +78,7 @@ class MarketFragment : Fragment(), MarketCurrencyInfoAdapter.OnItemClickListener
                 }
             }
         })
-
-        viewModel.getWalletBaseCurrencyAmountResource().observe(activity!!, Observer { resource ->
-
-            if(resource != null) {
-
-                when(resource.status) {
-
-                    Status.SUCCESS -> {
-                        (activity as HomeActivity).supportActionBar?.subtitle =
-                                String.format(getString(R.string.amount), resource.data.toString())
-                    }
-
-                    else -> {  (activity as HomeActivity).supportActionBar?.subtitle = null }
-                }
-            }
-        })
     }
-
-
 
     override fun onOperationClicked(currencyInfo: CurrencyInfo, operationType: OperationType) {
 

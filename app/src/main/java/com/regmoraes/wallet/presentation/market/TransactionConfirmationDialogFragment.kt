@@ -36,7 +36,7 @@ class TransactionConfirmationDialogFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val title = generateTitle()
-        val hint = String.format(getString(R.string.transaction_amount_hint_format), operationType)
+        val hint = String.format(getString(R.string.transaction_pending_amount_hint_format), operationType)
 
         viewBinding.textViewTitle.text = title
         viewBinding.editTextAmount.hint = hint
@@ -47,10 +47,10 @@ class TransactionConfirmationDialogFragment : DialogFragment() {
     private fun generateTitle(): String = when (operationType) {
 
         OperationType.BUY.name ->
-            String.format(getString(R.string.transaction_buying_format), currency)
+            String.format(getString(R.string.transaction_pending_buy_format), currency)
 
         OperationType.SELL.name ->
-            String.format(getString(R.string.transaction_selling_format), currency)
+            String.format(getString(R.string.transaction_pending_sell_format), currency)
 
         else -> {
 
@@ -61,7 +61,7 @@ class TransactionConfirmationDialogFragment : DialogFragment() {
             }
 
             String.format(
-                getString(R.string.transaction_exchanging_format), currency,
+                getString(R.string.transaction_pending_exchange_format), currency,
                 currencyExchangingFor
             )
         }

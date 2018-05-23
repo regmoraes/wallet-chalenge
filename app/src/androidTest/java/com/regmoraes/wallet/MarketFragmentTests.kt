@@ -59,21 +59,27 @@ class MarketFragmentTests {
     @Test
     fun show_correct_marketListItemInfo() {
 
+        val baseCurrencyInfo = CurrencyInfo(Currency.BRL, BigDecimal(1), 0L)
         val currencyInfo = CurrencyInfo(Currency.BRITA, BigDecimal(50), 0L)
 
         currenciesInfoResource.postValue(Resource.success(listOf(currencyInfo)))
 
-        val expectedText =
+        val expectedName =
                 String.format(
-                        activityTesRule.activity.getString(R.string.currency_price_format),
-                        currencyInfo.currency.name, Currency.BRL)
+                        activityTesRule.activity.getString(R.string.market_currency_title_format),
+                        currencyInfo.currency.name, baseCurrencyInfo.currency.name)
+
+        val expectedPrice =
+            String.format(
+                activityTesRule.activity.getString(R.string.market_currency_price_format),
+                '$', currencyInfo.price?.toEngineeringString())
 
         onView(withId(R.id.textView_currencyInfo_name))
-                .check(matches(withText(expectedText)))
+                .check(matches(withText(expectedName)))
                 .check(matches(isDisplayed()))
 
         onView(withId(R.id.textView_currencyInfo_price))
-                .check(matches(withText(currencyInfo.price?.toEngineeringString())))
+                .check(matches(withText(expectedPrice)))
                 .check(matches(isDisplayed()))
 
         onView(withId(R.id.button_sell))
@@ -96,7 +102,7 @@ class MarketFragmentTests {
         val currencyInfo = CurrencyInfo(Currency.BRITA, BigDecimal(50), 0L)
 
         val expectedHint =
-                String.format(resources.getString(R.string.transaction_amount_hint_format,
+                String.format(resources.getString(R.string.transaction_pending_amount_hint_format,
                         OperationType.BUY))
 
         currenciesInfoResource.postValue(Resource.success(listOf(currencyInfo)))
@@ -122,11 +128,11 @@ class MarketFragmentTests {
         currenciesInfoResource.postValue(Resource.success(listOf(currencyInfo)))
 
         val expectedTitle =
-                String.format(resources.getString(R.string.transaction_selling_format,
+                String.format(resources.getString(R.string.transaction_pending_sell_format,
                         currencyInfo.currency.name))
 
         val expectedHint =
-                String.format(resources.getString(R.string.transaction_amount_hint_format,
+                String.format(resources.getString(R.string.transaction_pending_amount_hint_format,
                         OperationType.SELL))
 
         onView(withId(R.id.button_sell)).perform(click())
@@ -154,11 +160,11 @@ class MarketFragmentTests {
         currenciesInfoResource.postValue(Resource.success(listOf(fromCurrencyInfo, toCurrencyInfo)))
 
         val expectedTitle =
-                String.format(resources.getString(R.string.transaction_exchanging_format,
+                String.format(resources.getString(R.string.transaction_pending_exchange_format,
                         fromCurrencyInfo.currency.name, toCurrencyInfo.currency.name))
 
         val expectedHint =
-                String.format(resources.getString(R.string.transaction_amount_hint_format,
+                String.format(resources.getString(R.string.transaction_pending_amount_hint_format,
                         OperationType.EXCHANGE))
 
         val itemPosition  = 0
@@ -206,7 +212,7 @@ class MarketFragmentTests {
         onView((RecyclerViewMatcher(R.id.recyclerView_market)
             .atPositionOnView(0, R.id.textView_currencyInfo_error)))
             .check(matches(allOf(
-                withText(R.string.currency_info_fetch_error),
+                withText(R.string.market_currency_fetch_error),
                 isDisplayed())))
     }
 }

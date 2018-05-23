@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.regmoraes.wallet.BR
 import com.regmoraes.wallet.R
 import com.regmoraes.wallet.databinding.AdapterMarketItemBinding
+import com.wallet.core.currency.data.Currency
 import com.wallet.core.currency.data.CurrencyInfo
 import com.wallet.core.market.OperationType
 
@@ -29,6 +30,7 @@ class MarketCurrencyInfoAdapter(private val listener: OnItemClickListener)
 
     override fun onBindViewHolder(holderListItem: ViewHolder, position: Int) {
 
+        holderListItem.binding.setVariable(BR.baseCurrency, Currency.BRL)
         holderListItem.binding.setVariable(BR.currencyInfo, currencies?.get(position))
         holderListItem.binding.executePendingBindings()
     }

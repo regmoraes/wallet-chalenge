@@ -31,9 +31,7 @@ open class MarketViewModel(private val marketManager: MarketManager,
     private val currenciesInfo = mutableListOf<CurrencyInfo>()
 
     init {
-
         getAllCurrenciesTodayPrice()
-        getWalletTotalAmount()
     }
 
     fun getAllCurrenciesTodayPrice() {
@@ -57,23 +55,6 @@ open class MarketViewModel(private val marketManager: MarketManager,
         )
     }
 
-    private fun getWalletTotalAmount() {
-
-        disposables.add(
-            walletManager.getBaseWallet()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    { baseWallet ->
-                        walletBaseCurrencyAmountResource
-                            .postValue(Resource.success(baseWallet.amount)) },
-                    { error ->
-                        walletBaseCurrencyAmountResource.postValue(Resource.error(error))
-                    }
-                )
-        )
-    }
-
     fun buy(currency: Currency, amount: String) {
 
         val currencyInfo = currenciesInfo.find { it.currency == currency }
@@ -85,7 +66,7 @@ open class MarketViewModel(private val marketManager: MarketManager,
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
-                        { getWalletTotalAmount() },
+                        {  },
                         { error -> walletBaseCurrencyAmountResource.postValue(Resource.error(error)) }
                     )
             )
@@ -103,7 +84,7 @@ open class MarketViewModel(private val marketManager: MarketManager,
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
-                        { getWalletTotalAmount() },
+                        {  },
                         { error -> walletBaseCurrencyAmountResource.postValue(Resource.error(error)) }
                     )
             )
@@ -122,7 +103,7 @@ open class MarketViewModel(private val marketManager: MarketManager,
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
-                        { getWalletTotalAmount() },
+                        {  },
                         { error -> walletBaseCurrencyAmountResource.postValue(Resource.error(error)) }
                     )
             )

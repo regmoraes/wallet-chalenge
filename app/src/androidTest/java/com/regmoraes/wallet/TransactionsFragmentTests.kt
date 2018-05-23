@@ -58,12 +58,16 @@ class TransactionsFragmentTests {
     @Test
     fun show_Transaction_Receipt_Correctly() {
 
+        val resources = activityTesRule.activity.resources
         val receipt = createFakeReceipt()
 
         receiptsResource.postValue(Resource.success(listOf(receipt)))
 
+
         onView(withId(R.id.textView_credited_amount))
-            .check(matches(withText(receipt.creditCurrencyAmount.toPlainString())))
+            .check(matches(withText(
+                String.format(resources.getString(R.string.transaction_history_amount_format),
+                receipt.creditCurrencyAmount.toPlainString()))))
             .check(matches(isDisplayed()))
 
         onView(withId(R.id.textView_currency_credited))
@@ -71,7 +75,9 @@ class TransactionsFragmentTests {
             .check(matches(isDisplayed()))
 
         onView(withId(R.id.textView_debited_amount))
-            .check(matches(withText(receipt.debitCurrencyAmount.toPlainString())))
+            .check(matches(withText(
+                String.format(resources.getString(R.string.transaction_history_amount_format),
+                    receipt.debitCurrencyAmount.toPlainString()))))
             .check(matches(isDisplayed()))
 
         onView(withId(R.id.textView_currency_debited))
@@ -84,7 +90,7 @@ class TransactionsFragmentTests {
 
         receiptsResource.postValue(Resource.success(emptyList()))
 
-        val errorText = activityTesRule.activity.getString(R.string.empty_receipts)
+        val errorText = activityTesRule.activity.getString(R.string.transaction_empty)
 
         onView(withId(R.id.recyclerView_receipts))
             .check(matches(not(isDisplayed())))
