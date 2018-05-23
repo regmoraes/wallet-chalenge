@@ -3,7 +3,7 @@ package com.regmoraes.wallet.di.module
 import android.content.Context
 import com.regmoraes.wallet.persistence.AppDatabase
 import com.regmoraes.wallet.persistence.wallet.RoomRepository
-import com.wallet.core.receipt.data.ReceiptRepository
+import com.wallet.core.transaction.data.TransactionRepository
 import com.wallet.core.wallet.data.WalletRepository
 import dagger.Module
 import dagger.Provides
@@ -31,7 +31,7 @@ open class DatabaseModule {
 
     @Provides
     @Singleton
-    open fun providesReceiptRepository(appDatabase: AppDatabase) : ReceiptRepository {
+    open fun providesTransactionsRepository(appDatabase: AppDatabase) : TransactionRepository {
 
         return com.regmoraes.wallet.persistence.transactions.RoomRepository(appDatabase.transactionsDao())
     }

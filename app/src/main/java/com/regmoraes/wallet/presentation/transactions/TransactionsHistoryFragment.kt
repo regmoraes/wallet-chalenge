@@ -14,7 +14,7 @@ import com.regmoraes.wallet.databinding.FragmentTransactionsHistoryBinding
 import com.regmoraes.wallet.di.ComponentProvider
 import com.regmoraes.wallet.di.component.ViewComponent
 import com.regmoraes.wallet.presentation.Status
-import com.wallet.core.receipt.data.Receipt
+import com.wallet.core.transaction.data.Transaction
 import javax.inject.Inject
 
 /**
@@ -44,11 +44,11 @@ class TransactionsHistoryFragment : Fragment() {
 
         val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         val itemDecoration: RecyclerView.ItemDecoration =
-            DividerItemDecoration(viewBinding.recyclerViewReceipts.context, layoutManager.orientation)
+            DividerItemDecoration(viewBinding.recyclerViewTransactions.context, layoutManager.orientation)
 
-        viewBinding.recyclerViewReceipts.layoutManager = layoutManager
-        viewBinding.recyclerViewReceipts.addItemDecoration(itemDecoration)
-        viewBinding.recyclerViewReceipts.adapter = transactionsHistoryAdapter
+        viewBinding.recyclerViewTransactions.layoutManager = layoutManager
+        viewBinding.recyclerViewTransactions.addItemDecoration(itemDecoration)
+        viewBinding.recyclerViewTransactions.adapter = transactionsHistoryAdapter
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -60,7 +60,7 @@ class TransactionsHistoryFragment : Fragment() {
         viewModel = ViewModelProviders.of(this, viewModelFactory)
             .get(TransactionsHistoryViewModel::class.java)
 
-        viewModel.getReceiptsResource().observe(this, Observer { resource ->
+        viewModel.getTransactionsResource().observe(this, Observer { resource ->
 
             if(resource != null) {
 
@@ -70,25 +70,25 @@ class TransactionsHistoryFragment : Fragment() {
                     Status.SUCCESS -> {
 
                         if(resource.data == null || resource.data.isEmpty())
-                            showEmptyReceiptsMessage()
+                            showEmptyTransactionsMessage()
                         else
-                            showReceipts(resource.data)
+                            showTransactions(resource.data)
                     }
-                    Status.ERROR -> showEmptyReceiptsMessage() }
+                    Status.ERROR -> showEmptyTransactionsMessage() }
             }
         })
     }
 
-    private fun showReceipts(receipt: List<Receipt>?) {
-        viewBinding.textViewReceiptsErrorMessage.visibility = View.GONE
-        viewBinding.recyclerViewReceipts.visibility = View.VISIBLE
+    private fun showTransactions(transaction: List<Transaction>?) {
+        viewBinding.textViewTransactionsErrorMessage.visibility = View.GONE
+        viewBinding.recyclerViewTransactions.visibility = View.VISIBLE
 
-        transactionsHistoryAdapter.setData(receipt)
+        transactionsHistoryAdapter.setData(transaction)
     }
 
-    private  fun showEmptyReceiptsMessage() {
-        viewBinding.textViewReceiptsErrorMessage.visibility = View.VISIBLE
-        viewBinding.recyclerViewReceipts.visibility = View.GONE
+    private  fun showEmptyTransactionsMessage() {
+        viewBinding.textViewTransactionsErrorMessage.visibility = View.VISIBLE
+        viewBinding.recyclerViewTransactions.visibility = View.GONE
     }
 
     override fun onDestroy() {

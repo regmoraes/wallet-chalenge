@@ -2,7 +2,7 @@ package com.wallet.core.market
 
 import com.wallet.core.market.domain.ExchangeCalculator
 import com.wallet.core.market.domain.MarketManager
-import com.wallet.core.receipt.domain.ReceiptManager
+import com.wallet.core.transaction.domain.TransactionManager
 import com.wallet.core.wallet.domain.WalletManager
 import dagger.Module
 import dagger.Provides
@@ -21,9 +21,9 @@ class MarketModule {
 
     @Provides
     fun providesMarketManager(walletManager: WalletManager,
-                              receiptManager: ReceiptManager,
+                              transactionManager: TransactionManager,
                               exchangeCalculator: ExchangeCalculator): MarketManager {
 
-        return MarketManager(walletManager, receiptManager, exchangeCalculator)
+        return MarketManager(walletManager, transactionManager, exchangeCalculator)
     }
 }

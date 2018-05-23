@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.regmoraes.wallet.BR
 import com.regmoraes.wallet.R
 import com.regmoraes.wallet.databinding.AdapterTransactionHistoryItemBinding
-import com.wallet.core.receipt.data.Receipt
+import com.wallet.core.transaction.data.Transaction
 
 
 /**
@@ -15,7 +15,7 @@ import com.wallet.core.receipt.data.Receipt
  **/
 class TransactionsHistoryAdapter : RecyclerView.Adapter<TransactionsHistoryAdapter.ViewHolder>() {
 
-    private var receipts: List<Receipt>? = null
+    private var transactions: List<Transaction>? = null
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
 
@@ -27,14 +27,14 @@ class TransactionsHistoryAdapter : RecyclerView.Adapter<TransactionsHistoryAdapt
 
     override fun onBindViewHolder(holderListItem: ViewHolder, position: Int) {
 
-        holderListItem.binding.setVariable(BR.receipt, receipts?.get(position))
+        holderListItem.binding.setVariable(BR.transaction, transactions?.get(position))
         holderListItem.binding.executePendingBindings()
     }
 
-    override fun getItemCount(): Int = receipts?.size ?: 0
+    override fun getItemCount(): Int = transactions?.size ?: 0
 
-    fun setData(data: List<Receipt>?) {
-        receipts = data
+    fun setData(data: List<Transaction>?) {
+        transactions = data
         notifyDataSetChanged()
     }
 

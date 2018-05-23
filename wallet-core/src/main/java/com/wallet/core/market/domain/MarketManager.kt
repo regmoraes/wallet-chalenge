@@ -3,8 +3,8 @@ package com.wallet.core.market.domain
 import com.wallet.core.currency.data.Currency
 import com.wallet.core.currency.data.CurrencyInfo
 import com.wallet.core.market.data.OperationType
-import com.wallet.core.receipt.data.Receipt
-import com.wallet.core.receipt.domain.ReceiptManager
+import com.wallet.core.transaction.data.Transaction
+import com.wallet.core.transaction.domain.TransactionManager
 import com.wallet.core.wallet.domain.WalletManager
 import io.reactivex.Single
 import java.math.BigDecimal
@@ -13,11 +13,11 @@ import java.math.BigDecimal
  *   Copyright {2018} {Rômulo Eduardo G. Moraes}
  **/
 class MarketManager(private val walletManager: WalletManager,
-                    private val receiptManager: ReceiptManager,
+                    private val transactionManager: TransactionManager,
                     private val exchangeCalculator: ExchangeCalculator) {
 
 
-    fun exchange(from: CurrencyInfo, to: CurrencyInfo, amount: BigDecimal): Single<Receipt> {
+    fun exchange(from: CurrencyInfo, to: CurrencyInfo, amount: BigDecimal): Single<Transaction> {
 
         return if(from.price != null && to.price != null) {
 
@@ -30,7 +30,7 @@ class MarketManager(private val walletManager: WalletManager,
         }
     }
 
-    fun buy(currencyInfo: CurrencyInfo, amount: BigDecimal): Single<Receipt> {
+    fun buy(currencyInfo: CurrencyInfo, amount: BigDecimal): Single<Transaction> {
 
         val valueToDebit = currencyInfo.price!! * amount
 
@@ -38,7 +38,7 @@ class MarketManager(private val walletManager: WalletManager,
             currencyInfo.currency, amount, OperationType.BUY)
     }
 
-    fun sell(currencyInfo: CurrencyInfo, amount: BigDecimal): Single<Receipt> {
+    fun sell(currencyInfo: CurrencyInfo, amount: BigDecimal): Single<Transaction> {
 
         val valueToCredit = currencyInfo.price!! * amount
 
@@ -48,11 +48,11 @@ class MarketManager(private val walletManager: WalletManager,
 
     private fun executeTransaction(currencyToDebit: Currency, amountToDebit: BigDecimal,
                                    currencyToCredit: Currency, amountToCredit: BigDecimal,
-                                   operationType: OperationType) : Single<Receipt> {
+                                   operationType: OperationType) : Single<Transaction> {
 
         return walletManager.debit(currencyToDebit, amountToDebit)
             .andThen(walletManager.credit(currencyToCredit, amountToCredit))
-            .andThen(receiptManager.createReceipt(currencyToDebit, amountToDebit, currencyToCredit,
+            .andThen(transactionManager.createTransactions(currencyToDebit, amountToDebit, currencyToCredit,
                 amountToCredit, operationType))
     }
 }

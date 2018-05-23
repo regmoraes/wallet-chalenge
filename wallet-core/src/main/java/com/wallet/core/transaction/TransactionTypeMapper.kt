@@ -1,4 +1,4 @@
-package com.wallet.core.receipt
+package com.wallet.core.transaction
 
 import com.wallet.core.market.data.OperationType
 

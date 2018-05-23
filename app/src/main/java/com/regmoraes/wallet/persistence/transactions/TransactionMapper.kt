@@ -1,8 +1,8 @@
 package com.regmoraes.wallet.persistence.transactions
 
 import com.wallet.core.currency.data.toCurrencyEnum
-import com.wallet.core.receipt.data.Receipt
-import com.wallet.core.receipt.toTransactionType
+import com.wallet.core.transaction.data.Transaction
+import com.wallet.core.transaction.toTransactionType
 import java.math.BigDecimal
 
 /**
@@ -11,21 +11,21 @@ import java.math.BigDecimal
 
 object TransactionMapper {
 
-    fun toReceipt(transaction: TransactionEntity): Receipt {
+    fun toTransactions(transaction: TransactionEntity): Transaction {
 
-        return Receipt(transaction.debitCurrency.toCurrencyEnum(), BigDecimal(transaction.debitAmount),
+        return Transaction(transaction.debitCurrency.toCurrencyEnum(), BigDecimal(transaction.debitAmount),
                 transaction.creditCurrency.toCurrencyEnum(), BigDecimal(transaction.creditAmount),
                 transaction.operationType.toTransactionType(), transaction.date)
     }
 
-    fun fromReceipt(receipt: Receipt): TransactionEntity {
+    fun fromTransactions(transaction: Transaction): TransactionEntity {
 
         return TransactionEntity(
-            debitCurrency = receipt.debitCurrency.name,
-            debitAmount = receipt.debitCurrencyAmount.toPlainString(),
-            creditCurrency = receipt.creditCurrency.name,
-            creditAmount = receipt.creditCurrencyAmount.toPlainString(),
-            operationType = receipt.operationType.name,
-            date = receipt.date)
+            debitCurrency = transaction.debitCurrency.name,
+            debitAmount = transaction.debitCurrencyAmount.toPlainString(),
+            creditCurrency = transaction.creditCurrency.name,
+            creditAmount = transaction.creditCurrencyAmount.toPlainString(),
+            operationType = transaction.operationType.name,
+            date = transaction.date)
     }
 }

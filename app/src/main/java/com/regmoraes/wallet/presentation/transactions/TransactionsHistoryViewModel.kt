@@ -4,8 +4,8 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.regmoraes.wallet.presentation.Resource
-import com.wallet.core.receipt.data.Receipt
-import com.wallet.core.receipt.domain.ReceiptManager
+import com.wallet.core.transaction.data.Transaction
+import com.wallet.core.transaction.domain.TransactionManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -13,31 +13,31 @@ import io.reactivex.schedulers.Schedulers
 /**
  *   Copyright {2018} {Rômulo Eduardo G. Moraes}
  **/
-open class TransactionsHistoryViewModel(private val receiptManager: ReceiptManager) : ViewModel() {
+open class TransactionsHistoryViewModel(private val transactionManager: TransactionManager) : ViewModel() {
 
     private val disposables = CompositeDisposable()
 
-    private val receiptsResource = MutableLiveData<Resource<List<Receipt>>>()
+    private val transactionsResource = MutableLiveData<Resource<List<Transaction>>>()
 
     init {
-        getReceipts()
+        getTransactions()
     }
 
-    fun getReceipts() {
+    fun getTransactions() {
 
         disposables.add(
-                receiptManager.getReceipts()
+                transactionManager.getTransactions()
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .doOnSubscribe { receiptsResource.postValue(Resource.loading()) }
+                        .doOnSubscribe { transactionsResource.postValue(Resource.loading()) }
                         .subscribe(
-                                { receipts -> receiptsResource.postValue(Resource.success(receipts)) },
-                                { error -> receiptsResource.postValue(Resource.error(error)) }
+                                { transactions -> transactionsResource.postValue(Resource.success(transactions)) },
+                                { error -> transactionsResource.postValue(Resource.error(error)) }
                         )
         )
     }
 
-    open fun getReceiptsResource(): LiveData<Resource<List<Receipt>>> = receiptsResource
+    open fun getTransactionsResource(): LiveData<Resource<List<Transaction>>> = transactionsResource
 
     override fun onCleared() {
         disposables.clear()

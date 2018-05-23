@@ -4,8 +4,8 @@ import com.wallet.core.currency.domain.CurrencyManager
 import com.wallet.core.currency.CurrencyModule
 import com.wallet.core.market.domain.MarketManager
 import com.wallet.core.market.MarketModule
-import com.wallet.core.receipt.domain.ReceiptManager
-import com.wallet.core.receipt.ReceiptModule
+import com.wallet.core.transaction.domain.TransactionManager
+import com.wallet.core.transaction.TransactionModule
 import com.wallet.core.wallet.domain.WalletManager
 import com.wallet.core.wallet.WalletModule
 import dagger.Component
@@ -16,7 +16,7 @@ import javax.inject.Singleton
  **/
 @Singleton
 @Component(modules = [WalletModule::class, CurrencyModule::class,
-    MarketModule::class, ReceiptModule::class])
+    MarketModule::class, TransactionModule::class])
 interface WalletCore {
 
     fun walletManager(): WalletManager
@@ -25,5 +25,5 @@ interface WalletCore {
 
     fun marketManager(): MarketManager
 
-    fun receiptManager(): ReceiptManager
+    fun transactionManager(): TransactionManager
 }

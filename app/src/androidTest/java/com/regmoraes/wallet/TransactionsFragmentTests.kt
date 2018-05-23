@@ -13,7 +13,7 @@ import com.regmoraes.wallet.presentation.transactions.TransactionsHistoryViewMod
 import com.wallet.core.currency.data.Currency
 import com.wallet.core.currency.data.CurrencyInfo
 import com.wallet.core.market.data.OperationType
-import com.wallet.core.receipt.data.Receipt
+import com.wallet.core.transaction.data.Transaction
 import org.hamcrest.Matchers.not
 import org.junit.Before
 import org.junit.Rule
@@ -33,7 +33,7 @@ import java.math.BigDecimal
 @RunWith(AndroidJUnit4::class)
 class TransactionsFragmentTests {
 
-    private val receiptsResource = MutableLiveData<Resource<List<Receipt>>>()
+    private val transactionsResource = MutableLiveData<Resource<List<Transaction>>>()
 
     @Rule
     @JvmField
@@ -48,7 +48,7 @@ class TransactionsFragmentTests {
         val viewModelMock = Mockito.mock(TransactionsHistoryViewModel::class.java)
 
         `when`(viewModelFactoryMock.create(TransactionsHistoryViewModel::class.java)).then { viewModelMock }
-        `when`(viewModelMock.getReceiptsResource()).then { receiptsResource }
+        `when`(viewModelMock.getTransactionsResource()).then { transactionsResource }
 
         fragment.viewModelFactory = viewModelFactoryMock
 
@@ -56,51 +56,51 @@ class TransactionsFragmentTests {
     }
 
     @Test
-    fun show_Transaction_Receipt_Correctly() {
+    fun show_Transaction_Transactions_Correctly() {
 
         val resources = activityTesRule.activity.resources
-        val receipt = createFakeReceipt()
+        val transaction = createFakeTransactions()
 
-        receiptsResource.postValue(Resource.success(listOf(receipt)))
+        transactionsResource.postValue(Resource.success(listOf(transaction)))
 
 
         onView(withId(R.id.textView_credited_amount))
             .check(matches(withText(
                 String.format(resources.getString(R.string.transaction_history_amount_format),
-                receipt.creditCurrencyAmount.toPlainString()))))
+                transaction.creditCurrencyAmount.toPlainString()))))
             .check(matches(isDisplayed()))
 
         onView(withId(R.id.textView_currency_credited))
-            .check(matches(withText(receipt.creditCurrency.name)))
+            .check(matches(withText(transaction.creditCurrency.name)))
             .check(matches(isDisplayed()))
 
         onView(withId(R.id.textView_debited_amount))
             .check(matches(withText(
                 String.format(resources.getString(R.string.transaction_history_amount_format),
-                    receipt.debitCurrencyAmount.toPlainString()))))
+                    transaction.debitCurrencyAmount.toPlainString()))))
             .check(matches(isDisplayed()))
 
         onView(withId(R.id.textView_currency_debited))
-            .check(matches(withText(receipt.debitCurrency.name)))
+            .check(matches(withText(transaction.debitCurrency.name)))
             .check(matches(isDisplayed()))
     }
 
     @Test
-    fun show_Message_When_Empty_Receipts() {
+    fun show_Message_When_Empty_Transactions() {
 
-        receiptsResource.postValue(Resource.success(emptyList()))
+        transactionsResource.postValue(Resource.success(emptyList()))
 
         val errorText = activityTesRule.activity.getString(R.string.transaction_empty)
 
-        onView(withId(R.id.recyclerView_receipts))
+        onView(withId(R.id.recyclerView_transactions))
             .check(matches(not(isDisplayed())))
 
-        onView(withId(R.id.textView_receipts_error_message))
+        onView(withId(R.id.textView_transactions_error_message))
             .check(matches(withText(errorText)))
             .check(matches(isDisplayed()))
     }
 
-    private fun createFakeReceipt(): Receipt {
+    private fun createFakeTransactions(): Transaction {
 
         val currencyToDebitInfo = CurrencyInfo(Currency.BRITA, BigDecimal(50), 0L)
         val currencyToDebitAmount = BigDecimal(1)
@@ -108,7 +108,7 @@ class TransactionsFragmentTests {
         val currencyToCreditInfo = CurrencyInfo(Currency.BITCOIN, BigDecimal(10), 0L)
         val currencyToCreditAmount = BigDecimal(2)
 
-        return Receipt(currencyToDebitInfo.currency, currencyToDebitAmount,
+        return Transaction(currencyToDebitInfo.currency, currencyToDebitAmount,
                 currencyToCreditInfo.currency, currencyToCreditAmount, OperationType.SELL, 0L)
     }
 }

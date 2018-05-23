@@ -4,7 +4,7 @@ import android.databinding.BindingAdapter
 import android.widget.TextView
 import com.regmoraes.wallet.R
 import com.wallet.core.market.data.OperationType
-import com.wallet.core.receipt.data.Receipt
+import com.wallet.core.transaction.data.Transaction
 
 
 /**
@@ -14,7 +14,7 @@ object TransactionDescriptionBinding {
 
     @JvmStatic
     @BindingAdapter("databind:transactionDescription")
-    fun bindDateTime(view: TextView, transaction: Receipt) {
+    fun bindDateTime(view: TextView, transaction: Transaction) {
 
         val context = view.context
 

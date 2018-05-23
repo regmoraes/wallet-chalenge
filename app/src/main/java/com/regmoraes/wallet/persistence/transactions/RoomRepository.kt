@@ -1,27 +1,27 @@
 package com.regmoraes.wallet.persistence.transactions
 
-import com.regmoraes.wallet.persistence.transactions.TransactionMapper.fromReceipt
-import com.regmoraes.wallet.persistence.transactions.TransactionMapper.toReceipt
-import com.wallet.core.receipt.data.Receipt
-import com.wallet.core.receipt.data.ReceiptRepository
+import com.regmoraes.wallet.persistence.transactions.TransactionMapper.fromTransactions
+import com.regmoraes.wallet.persistence.transactions.TransactionMapper.toTransactions
+import com.wallet.core.transaction.data.Transaction
+import com.wallet.core.transaction.data.TransactionRepository
 import io.reactivex.Completable
 import io.reactivex.Flowable
 
 /**
  *   Copyright {2018} {Rômulo Eduardo G. Moraes}
  **/
-class RoomRepository(private val transactionsDao: TransactionsDao) : ReceiptRepository {
+class RoomRepository(private val transactionsDao: TransactionsDao) : TransactionRepository {
 
-    override fun getReceipts(): Flowable<List<Receipt>> {
+    override fun getTransactions(): Flowable<List<Transaction>> {
 
         return transactionsDao.getTransactions()
-            .map { transactions -> transactions.map { it -> toReceipt(it) } }
+            .map { transactions -> transactions.map { it -> toTransactions(it) } }
     }
 
-    override fun saveReceipt(receipt: Receipt) : Completable {
+    override fun saveTransactions(transaction: Transaction) : Completable {
 
         return Completable.fromCallable {
-            transactionsDao.insertTransaction(fromReceipt(receipt))
+            transactionsDao.insertTransaction(fromTransactions(transaction))
         }
     }
 }

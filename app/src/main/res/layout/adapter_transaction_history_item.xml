@@ -6,8 +6,8 @@
     <data>
         <import type="java.math.BigDecimal"/>
         <variable
-            name="receipt"
-            type="com.wallet.core.receipt.data.Receipt"/>
+            name="transaction"
+            type="com.wallet.core.transaction.data.Transaction"/>
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -25,7 +25,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView_credited"
             databind:text="Transaction Type"
-            databind:transactionDescription="@{receipt}" />
+            databind:transactionDescription="@{transaction}" />
 
         <TextView
             android:id="@+id/textView_currency_debited"
@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:text="@{receipt.debitCurrency.name}"
+            android:text="@{transaction.debitCurrency.name}"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView_debited_amount"
             app:layout_constraintEnd_toEndOf="parent"
             databind:text="BRL" />
@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:text="@{receipt.creditCurrency.name}"
+            android:text="@{transaction.creditCurrency.name}"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView_credited_amount"
             app:layout_constraintEnd_toEndOf="parent"
             databind:text="Bitcoin" />
@@ -56,7 +56,7 @@
             android:layout_marginEnd="8dp"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView_transaction_title"
             app:layout_constraintEnd_toEndOf="parent"
-            databind:instant="@{receipt.date}"
+            databind:instant="@{transaction.date}"
             databind:text="dd/MM/yyyy" />
 
         <TextView
@@ -67,7 +67,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:gravity="start"
-            android:text="@{@string/transaction_history_amount_format(receipt.debitCurrencyAmount.toEngineeringString())}"
+            android:text="@{@string/transaction_history_amount_format(transaction.debitCurrencyAmount.toEngineeringString())}"
             app:layout_constraintBottom_toBottomOf="@+id/imageView_debited"
             app:layout_constraintEnd_toStartOf="@+id/textView_currency_debited"
             app:layout_constraintStart_toEndOf="@+id/imageView_debited"
@@ -82,7 +82,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:gravity="left"
-            android:text="@{@string/transaction_history_amount_format(receipt.creditCurrencyAmount.toEngineeringString())}"
+            android:text="@{@string/transaction_history_amount_format(transaction.creditCurrencyAmount.toEngineeringString())}"
             app:layout_constraintBottom_toBottomOf="@+id/imageView_credited"
             app:layout_constraintEnd_toStartOf="@+id/textView_currency_credited"
             app:layout_constraintStart_toEndOf="@+id/imageView_credited"
