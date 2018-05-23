@@ -7,6 +7,7 @@ import com.wallet.api.brita.data.toCurrencyInfo
 import com.wallet.api.toDateTimeString
 import io.reactivex.Single
 import okhttp3.HttpUrl
+import org.joda.time.LocalDateTime
 
 /**
  *   Copyright {2018} {Rômulo Eduardo G. Moraes}
@@ -19,18 +20,27 @@ class BritaApi: CurrencyApi {
 
     override fun getInfoByInstant(instant: Long): Single<CurrencyInfo> {
 
-        val dateTimeString = instant.toDateTimeString(DATE_TIME_QUERY_PATTERN)
+        val requestUrl = createRequestUrlForInstant(instant)
 
-        val url = HttpUrl.parse(baseUrl)!!
-                .newBuilder()
-                .addPathSegment("CotacaoMoedaDia(moeda=@moeda,dataCotacao=@dataCotacao)")
-                .addQueryParameter("@moeda", "'USD'")
-                .addQueryParameter("@dataCotacao","'$dateTimeString'")
-                .addQueryParameter("\$format", "json")
-                .build()
-                .toString()
+        return createGetCurrencyInfoSingle(requestUrl)
+                .onErrorResumeNext { error ->
 
-        return baseRestService.getInfo(url)
+                    when(error) {
+
+                        is IllegalStateException -> {
+
+                            val fallbackUrl = createFallbackRequestUrl()
+                            createGetCurrencyInfoSingle(fallbackUrl)
+                        }
+
+                        else ->Single.just(CurrencyInfo(currencyCode, null, null))
+                    }
+                }
+    }
+
+    private fun createGetCurrencyInfoSingle(requestUrl: String): Single<CurrencyInfo> {
+
+        return baseRestService.getInfo(requestUrl)
                 .map { response ->
 
                     if(response.isSuccessful) {
@@ -39,7 +49,36 @@ class BritaApi: CurrencyApi {
                     } else
                         CurrencyInfo(currencyCode, null, null)
                 }
-                .onErrorReturn { CurrencyInfo(currencyCode, null, null) }
+    }
+
+    private fun createRequestUrlForInstant(instant: Long): String {
+
+        val dateTimeString = instant.toDateTimeString(DATE_TIME_QUERY_PATTERN)
+
+        return HttpUrl.parse(baseUrl)!!
+                .newBuilder()
+                .addPathSegment("CotacaoMoedaDia(moeda=@moeda,dataCotacao=@dataCotacao)")
+                .addQueryParameter("@moeda", "'USD'")
+                .addQueryParameter("@dataCotacao","'$dateTimeString'")
+                .addQueryParameter("\$format", "json")
+                .build()
+                .toString()
+    }
+
+    /**
+     * Fallback method when no values are returned by BRITA currency API.
+     *
+     * Sometimes the API used for BRITA currency info fetching does not respond with updated values
+     * for the provided day (as instant). By calling this method, a new request will be made
+     * to the API, but it will ask for info from the PREVIOUS DAY.
+     *
+     * @return The request URL
+     */
+    private fun createFallbackRequestUrl(): String {
+
+        val yesterdayInstant = LocalDateTime.now().minusDays(1).toDateTime().millis
+
+        return createRequestUrlForInstant(yesterdayInstant)
     }
 
     companion object {
