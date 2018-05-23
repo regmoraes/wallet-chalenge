@@ -15,7 +15,7 @@ dependencies {
 
     testImplementation junit
     testImplementation kotlin_test
-    testImplementation mockito.values()
+    testImplementation mockito.core
 }
 repositories {
     mavenCentral()
