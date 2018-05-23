@@ -12,8 +12,8 @@ import org.mockito.junit.MockitoJUnitRunner
 
 
 /**
- * Copyright PEBMED Apps 2018
- */
+ *   Copyright {2018} {Rômulo Eduardo G. Moraes}
+ **/
 @RunWith(MockitoJUnitRunner::class)
 abstract class BaseTest {
 

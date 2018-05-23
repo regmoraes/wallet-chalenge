@@ -7,8 +7,8 @@ import dagger.Provides
 import javax.inject.Singleton
 
 /**
- * Copyright PEBMED Apps 2018
- */
+ *   Copyright {2018} {Rômulo Eduardo G. Moraes}
+ **/
 @Module
 class ReceiptModule(private val receiptRepository: ReceiptRepository) {
 

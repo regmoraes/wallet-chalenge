@@ -4,8 +4,8 @@ import java.math.BigDecimal
 import java.math.MathContext
 
 /**
- * Copyright PEBMED Apps 2018
- */
+ *   Copyright {2018} {Rômulo Eduardo G. Moraes}
+ **/
 class ExchangeCalculator {
 
     fun exchange(fromCurrencyPrice: BigDecimal,
