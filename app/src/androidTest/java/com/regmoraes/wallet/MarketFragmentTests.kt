@@ -15,6 +15,7 @@ import com.wallet.core.currency.data.Currency
 import com.wallet.core.currency.data.CurrencyInfo
 import com.wallet.core.market.OperationType
 import org.hamcrest.Matchers.allOf
+import org.hamcrest.Matchers.not
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -177,5 +178,35 @@ class MarketFragmentTests {
 
         onView(withId(R.id.button_confirm))
                 .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun show_errorMessageIf_currencyInfo_fetchFails() {
+
+        val currencyInfo = CurrencyInfo(Currency.BITCOIN, null, null)
+
+        currenciesInfoResource.postValue(Resource.success(listOf(currencyInfo)))
+
+        onView((RecyclerViewMatcher(R.id.recyclerView_market)
+            .atPositionOnView(0, R.id.button_exchange)))
+            .check(matches(not(isDisplayed())))
+
+        onView((RecyclerViewMatcher(R.id.recyclerView_market)
+            .atPositionOnView(0, R.id.button_buy)))
+            .check(matches(not(isDisplayed())))
+
+        onView((RecyclerViewMatcher(R.id.recyclerView_market)
+            .atPositionOnView(0, R.id.button_sell)))
+            .check(matches(not(isDisplayed())))
+
+        onView((RecyclerViewMatcher(R.id.recyclerView_market)
+            .atPositionOnView(0, R.id.textView_currencyInfo_price)))
+            .check(matches(not(isDisplayed())))
+
+        onView((RecyclerViewMatcher(R.id.recyclerView_market)
+            .atPositionOnView(0, R.id.textView_currencyInfo_error)))
+            .check(matches(allOf(
+                withText(R.string.currency_info_fetch_error),
+                isDisplayed())))
     }
 }

@@ -6,6 +6,7 @@
     <string name="exchange">Exchange</string>
 
     <string name="currency_price_format">%1$s/%2$s</string>
+    <string name="currency_info_fetch_error">Cannot fetch currency info</string>
 
     <string name="transaction_buy_format">Bought %1$s using %2$s</string>
     <string name="transaction_sell_format">Sold %1$s for %2$s</string>
