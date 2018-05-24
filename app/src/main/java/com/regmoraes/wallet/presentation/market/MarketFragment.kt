@@ -33,16 +33,19 @@ class MarketFragment : Fragment(), MarketCurrencyInfoAdapter.OnItemClickListener
     private var component: ViewComponent? = null
     private lateinit var viewBinding: FragmentMarketBinding
 
-    @Inject lateinit var viewModelFactory: MarketViewModelFactory
+    @Inject
+    lateinit var viewModelFactory: MarketViewModelFactory
 
     lateinit var viewModel: MarketViewModel
     var adapter = MarketCurrencyInfoAdapter(this)
 
     private lateinit var pendingTransaction: PendingTransaction
 
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         viewBinding = FragmentMarketBinding.inflate(inflater, container, false)
 
@@ -65,43 +68,61 @@ class MarketFragment : Fragment(), MarketCurrencyInfoAdapter.OnItemClickListener
         component = (activity?.application as ComponentProvider).getViewComponent()
         component?.inject(this)
 
-        viewModel = ViewModelProviders.of(activity!!, viewModelFactory).get(MarketViewModel::class.java)
+        viewModel =
+                ViewModelProviders.of(activity!!, viewModelFactory).get(MarketViewModel::class.java)
 
         viewModel.getCurrencyInfoResource().observe(activity!!, Observer { resource ->
 
-            if(resource != null) {
+            if (resource != null) {
 
                 when (resource.status) {
 
                     Status.LOADING -> showLoadingCurrenciesProgress()
                     Status.SUCCESS -> showCurrenciesInfo(resource.data)
-                    else -> Toast.makeText(context, resource.error?.message, Toast.LENGTH_SHORT).show()
+                    else -> Toast.makeText(
+                        context,
+                        resource.error?.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         })
 
         viewModel.getTransactionFinishedEvent().observe(activity!!, Observer { resource ->
 
-            if(resource != null) {
+            if (resource != null) {
 
                 when (resource.status) {
 
                     Status.SUCCESS ->
-                        Toast.makeText(context, R.string.transaction_finished_successfully, Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            context,
+                            R.string.transaction_finished_successfully,
+                            Toast.LENGTH_LONG
+                        ).show()
 
                     Status.ERROR -> {
 
                         when (resource.error) {
 
                             is InsufficientFundsException ->
-                                Toast.makeText(context, R.string.transaction_finished_no_funds, Toast.LENGTH_LONG).show()
+                                Toast.makeText(
+                                    context,
+                                    R.string.transaction_finished_no_funds,
+                                    Toast.LENGTH_LONG
+                                ).show()
 
                             else ->
-                                Toast.makeText(context, R.string.transaction_finished_no_funds, Toast.LENGTH_LONG).show()
+                                Toast.makeText(
+                                    context,
+                                    R.string.transaction_finished_no_funds,
+                                    Toast.LENGTH_LONG
+                                ).show()
                         }
                     }
 
-                    Status.LOADING -> {}
+                    Status.LOADING -> {
+                    }
                 }
             }
         })
@@ -109,14 +130,21 @@ class MarketFragment : Fragment(), MarketCurrencyInfoAdapter.OnItemClickListener
 
     override fun onOperationClicked(currencyInfo: CurrencyInfo, transactionType: TransactionType) {
 
-        pendingTransaction = PendingTransaction(currencyInfo = currencyInfo,
-                transactionType = transactionType)
+        pendingTransaction = PendingTransaction(
+            currencyInfo = currencyInfo,
+            transactionType = transactionType
+        )
 
         val transactionDialog =
-            TransactionConfirmationDialogFragment.newInstance(currencyInfo.currency.name, transactionType.name)
+            TransactionConfirmationDialogFragment.newInstance(
+                currencyInfo.currency.name,
+                transactionType.name
+            )
         transactionDialog.setTargetFragment(this, 300)
-        transactionDialog.show(activity!!.supportFragmentManager,
-            TransactionConfirmationDialogFragment::class.java.simpleName)
+        transactionDialog.show(
+            activity!!.supportFragmentManager,
+            TransactionConfirmationDialogFragment::class.java.simpleName
+        )
 
     }
 
@@ -127,9 +155,9 @@ class MarketFragment : Fragment(), MarketCurrencyInfoAdapter.OnItemClickListener
         val currencyInfo = pendingTransaction.currencyInfo
         val operationType = pendingTransaction.transactionType
 
-        if(currencyInfo != null && operationType != null) {
+        if (currencyInfo != null && operationType != null) {
 
-            if(operationType == TransactionType.SELL)
+            if (operationType == TransactionType.SELL)
                 viewModel.sell(currencyInfo.currency, amount)
             else
                 viewModel.buy(currencyInfo.currency, amount)
@@ -143,7 +171,7 @@ class MarketFragment : Fragment(), MarketCurrencyInfoAdapter.OnItemClickListener
         val fromCurrency = pendingTransaction.currencyInfo?.currency
         val operationType = pendingTransaction.transactionType
 
-        if(fromCurrency != null && operationType != null)
+        if (fromCurrency != null && operationType != null)
             viewModel.exchange(fromCurrency, toCurrency.toCurrencyEnum(), amount)
     }
 

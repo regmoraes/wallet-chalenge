@@ -11,17 +11,17 @@ import javax.inject.Singleton
  *   Copyright {2016} {Rômulo Eduardo G. Moraes}
  **/
 @Module
-class AndroidModule(private val context: Context){
+class AndroidModule(private val context: Context) {
 
     @Provides
     @Singleton
-    fun providesApplicationContext() : Context {
+    fun providesApplicationContext(): Context {
         return context
     }
 
     @Provides
     @Singleton
-    fun providesSharedPreferences(context: Context) : SharedPreferences {
+    fun providesSharedPreferences(context: Context): SharedPreferences {
 
         return context.getSharedPreferences("wallet", MODE_PRIVATE)
     }

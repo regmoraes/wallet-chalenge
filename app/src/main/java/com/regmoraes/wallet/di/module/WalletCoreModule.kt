@@ -21,44 +21,46 @@ class WalletCoreModule {
 
     @Provides
     @ViewScope
-    fun providesBaseCurrency() : Currency {
+    fun providesBaseCurrency(): Currency {
 
         return Currency.BRL
     }
 
     @Provides
     @ViewScope
-    fun providesWalletCore(baseCurrency: Currency,
-                           walletRepository: WalletRepository,
-                           transactionRepository: TransactionRepository) : WalletCore {
+    fun providesWalletCore(
+        baseCurrency: Currency,
+        walletRepository: WalletRepository,
+        transactionRepository: TransactionRepository
+    ): WalletCore {
 
         return WalletCoreCreator.create(baseCurrency, walletRepository, transactionRepository)
     }
 
     @Provides
     @ViewScope
-    fun provideMarketModule(walletCore: WalletCore) : MarketManager {
+    fun provideMarketModule(walletCore: WalletCore): MarketManager {
 
         return walletCore.marketManager()
     }
 
     @Provides
     @ViewScope
-    fun providesWalletManager(walletCore: WalletCore) : WalletManager {
+    fun providesWalletManager(walletCore: WalletCore): WalletManager {
 
         return walletCore.walletManager()
     }
 
     @Provides
     @ViewScope
-    fun provideCurrencyManager(walletCore: WalletCore) : CurrencyManager {
+    fun provideCurrencyManager(walletCore: WalletCore): CurrencyManager {
 
         return walletCore.currencyManager()
     }
 
     @Provides
     @ViewScope
-    fun providesTransactionsManager(walletCore: WalletCore) : TransactionManager {
+    fun providesTransactionsManager(walletCore: WalletCore): TransactionManager {
 
         return walletCore.transactionManager()
     }

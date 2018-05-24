@@ -11,8 +11,10 @@ import javax.inject.Inject
  * Copyright {2018} {Rômulo Eduardo G. Moraes}
  */
 open class MarketViewModelFactory @Inject
-    constructor(private val marketManager: MarketManager,
-                private val currencyManager: CurrencyManager) : ViewModelProvider.Factory {
+constructor(
+    private val marketManager: MarketManager,
+    private val currencyManager: CurrencyManager
+) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MarketViewModel::class.java)) {

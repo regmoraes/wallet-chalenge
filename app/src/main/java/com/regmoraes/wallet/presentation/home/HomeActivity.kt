@@ -29,7 +29,7 @@ class HomeActivity : AppCompatActivity() {
 
         val marketFragment =
             MarketFragment.newInstance()
-        val walletFragment =  WalletFragment.newInstance()
+        val walletFragment = WalletFragment.newInstance()
         val transactionsHistoryFragment = TransactionsHistoryFragment.newInstance()
 
         viewBinding.bottomNavigation.selectedItemId = R.id.action_market

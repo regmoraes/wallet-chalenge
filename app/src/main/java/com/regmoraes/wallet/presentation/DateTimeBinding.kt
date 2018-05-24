@@ -12,8 +12,7 @@ import org.joda.time.format.DateTimeFormatter
  **/
 object DateTimeBinding {
 
-    private val outDateTimeFormatter: DateTimeFormatter
-            = DateTimeFormat.forPattern("dd/MM/YYYY")
+    private val outDateTimeFormatter: DateTimeFormatter = DateTimeFormat.forPattern("dd/MM/YYYY")
 
     @JvmStatic
     @BindingAdapter("databind:instant")

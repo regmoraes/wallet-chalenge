@@ -5,9 +5,9 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.regmoraes.wallet.presentation.Resource
 import com.regmoraes.wallet.presentation.SingleLiveEvent
-import com.wallet.core.currency.domain.CurrencyManager
 import com.wallet.core.currency.data.Currency
 import com.wallet.core.currency.data.CurrencyInfo
+import com.wallet.core.currency.domain.CurrencyManager
 import com.wallet.core.market.domain.MarketManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -18,8 +18,10 @@ import java.util.*
 /**
  *   Copyright {2018} {Rômulo Eduardo G. Moraes}
  **/
-open class MarketViewModel(private val marketManager: MarketManager,
-                           private val currencyManager: CurrencyManager) : ViewModel() {
+open class MarketViewModel(
+    private val marketManager: MarketManager,
+    private val currencyManager: CurrencyManager
+) : ViewModel() {
 
     private val disposables = CompositeDisposable()
 
@@ -57,7 +59,7 @@ open class MarketViewModel(private val marketManager: MarketManager,
 
         val currencyInfo = currenciesInfo.find { it.currency == currency }
 
-        if(currencyInfo != null) {
+        if (currencyInfo != null) {
 
             disposables.add(
                 marketManager.buy(currencyInfo, amount.toBigDecimal())
@@ -75,7 +77,7 @@ open class MarketViewModel(private val marketManager: MarketManager,
 
         val currencyInfo = currenciesInfo.find { it.currency == currency }
 
-        if(currencyInfo != null) {
+        if (currencyInfo != null) {
 
             disposables.add(
                 marketManager.sell(currencyInfo, amount.toBigDecimal())
@@ -94,7 +96,7 @@ open class MarketViewModel(private val marketManager: MarketManager,
         val fromCurrencyInfo = currenciesInfo.find { it.currency == fromCurrency }
         val toCurrencyInfo = currenciesInfo.find { it.currency == toCurrency }
 
-        if(fromCurrencyInfo != null && toCurrencyInfo != null) {
+        if (fromCurrencyInfo != null && toCurrencyInfo != null) {
 
             marketManager.exchange(fromCurrencyInfo, toCurrencyInfo, amount.toBigDecimal())
                 .subscribeOn(Schedulers.io())
@@ -106,8 +108,10 @@ open class MarketViewModel(private val marketManager: MarketManager,
         }
     }
 
-    open fun getCurrencyInfoResource() : LiveData<Resource<List<CurrencyInfo>>> = currenciesInfoResource
-    open fun getTransactionFinishedEvent() : LiveData<Resource<Boolean>> = transactionFinishedEvent
+    open fun getCurrencyInfoResource(): LiveData<Resource<List<CurrencyInfo>>> =
+        currenciesInfoResource
+
+    open fun getTransactionFinishedEvent(): LiveData<Resource<Boolean>> = transactionFinishedEvent
 
 
     override fun onCleared() {

@@ -11,13 +11,15 @@ import java.math.BigDecimal
  *   Copyright {2018} {Rômulo Eduardo G. Moraes}
  **/
 @Entity(tableName = "wallets")
-data class WalletEntity(@PrimaryKey
-                        @NotNull
-                        @ColumnInfo(name = "code")
-                        val currency: Currency,
+data class WalletEntity(
+    @PrimaryKey
+    @NotNull
+    @ColumnInfo(name = "code")
+    val currency: Currency,
 
-                        @ColumnInfo(name = "amount")
-                        val amount: BigDecimal) {
+    @ColumnInfo(name = "amount")
+    val amount: BigDecimal
+) {
 
     companion object {
 

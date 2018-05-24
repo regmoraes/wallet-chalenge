@@ -21,17 +21,23 @@ object TransactionDescriptionBinding {
         val creditCurrencyName = transaction.creditCurrency.name
         val debitCurrencyName = transaction.debitCurrency.name
 
-        view.text = when(transaction.transactionType) {
+        view.text = when (transaction.transactionType) {
 
             TransactionType.BUY ->
-                String.format(context.getString(R.string.transaction_buy_format),
-                    creditCurrencyName, debitCurrencyName)
+                String.format(
+                    context.getString(R.string.transaction_buy_format),
+                    creditCurrencyName, debitCurrencyName
+                )
 
-            TransactionType.SELL -> String.format(context.getString(R.string.transaction_sell_format),
-                debitCurrencyName, creditCurrencyName)
+            TransactionType.SELL -> String.format(
+                context.getString(R.string.transaction_sell_format),
+                debitCurrencyName, creditCurrencyName
+            )
 
-            TransactionType.EXCHANGE -> String.format(context.getString(R.string.transaction_exchange_format),
-                debitCurrencyName, creditCurrencyName)
+            TransactionType.EXCHANGE -> String.format(
+                context.getString(R.string.transaction_exchange_format),
+                debitCurrencyName, creditCurrencyName
+            )
         }
     }
 }

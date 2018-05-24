@@ -10,9 +10,11 @@ object EntityMapper {
 
     fun toTransactions(transaction: TransactionEntity): Transaction {
 
-        return Transaction(transaction.debitCurrency, transaction.debitAmount,
-                transaction.creditCurrency, transaction.creditAmount,
-                transaction.transactionType, transaction.date)
+        return Transaction(
+            transaction.debitCurrency, transaction.debitAmount,
+            transaction.creditCurrency, transaction.creditAmount,
+            transaction.transactionType, transaction.date
+        )
     }
 
     fun fromTransactions(transaction: Transaction): TransactionEntity {
@@ -23,6 +25,7 @@ object EntityMapper {
             creditCurrency = transaction.creditCurrency,
             creditAmount = transaction.creditCurrencyAmount,
             transactionType = transaction.transactionType,
-            date = transaction.date)
+            date = transaction.date
+        )
     }
 }

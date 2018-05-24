@@ -13,7 +13,8 @@ import io.reactivex.schedulers.Schedulers
 /**
  *   Copyright {2018} {Rômulo Eduardo G. Moraes}
  **/
-open class TransactionsHistoryViewModel(private val transactionManager: TransactionManager) : ViewModel() {
+open class TransactionsHistoryViewModel(private val transactionManager: TransactionManager) :
+    ViewModel() {
 
     private val disposables = CompositeDisposable()
 
@@ -26,14 +27,14 @@ open class TransactionsHistoryViewModel(private val transactionManager: Transact
     fun getTransactions() {
 
         disposables.add(
-                transactionManager.getTransactions()
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .doOnSubscribe { transactionsResource.postValue(Resource.loading()) }
-                        .subscribe(
-                                { transactions -> transactionsResource.postValue(Resource.success(transactions)) },
-                                { error -> transactionsResource.postValue(Resource.error(error)) }
-                        )
+            transactionManager.getTransactions()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { transactionsResource.postValue(Resource.loading()) }
+                .subscribe(
+                    { transactions -> transactionsResource.postValue(Resource.success(transactions)) },
+                    { error -> transactionsResource.postValue(Resource.error(error)) }
+                )
         )
     }
 

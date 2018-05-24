@@ -34,8 +34,8 @@ class WalletsAdapter : RecyclerView.Adapter<WalletsAdapter.ViewHolder>() {
         notifyDataSetChanged()
     }
 
-    inner class ViewHolder(private val viewBinding: AdapterWalletItemBinding)
-        : RecyclerView.ViewHolder(viewBinding.root) {
+    inner class ViewHolder(private val viewBinding: AdapterWalletItemBinding) :
+        RecyclerView.ViewHolder(viewBinding.root) {
 
         fun bind(wallet: Wallet?) {
             viewBinding.wallet = wallet

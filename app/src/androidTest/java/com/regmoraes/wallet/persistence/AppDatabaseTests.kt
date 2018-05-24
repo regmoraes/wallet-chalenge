@@ -4,7 +4,6 @@ import android.support.test.runner.AndroidJUnit4
 import com.regmoraes.wallet.persistence.wallet.WalletEntity
 import com.regmoraes.wallet.persistence.wallet.WalletsDao
 import com.wallet.core.currency.data.Currency
-import com.wallet.core.wallet.data.Wallet
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

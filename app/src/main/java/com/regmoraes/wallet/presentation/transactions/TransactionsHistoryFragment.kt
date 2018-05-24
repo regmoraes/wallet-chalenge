@@ -25,14 +25,17 @@ class TransactionsHistoryFragment : Fragment() {
     private var component: ViewComponent? = null
     private lateinit var viewBinding: FragmentTransactionsHistoryBinding
 
-    @Inject lateinit var viewModelFactory: TransactionsHistoryViewModelFactory
+    @Inject
+    lateinit var viewModelFactory: TransactionsHistoryViewModelFactory
     private lateinit var viewModel: TransactionsHistoryViewModel
 
     private val transactionsHistoryAdapter by lazy { TransactionsHistoryAdapter() }
 
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         viewBinding = FragmentTransactionsHistoryBinding.inflate(inflater, container, false)
 
@@ -44,7 +47,10 @@ class TransactionsHistoryFragment : Fragment() {
 
         val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         val itemDecoration: RecyclerView.ItemDecoration =
-            DividerItemDecoration(viewBinding.recyclerViewTransactions.context, layoutManager.orientation)
+            DividerItemDecoration(
+                viewBinding.recyclerViewTransactions.context,
+                layoutManager.orientation
+            )
 
         viewBinding.recyclerViewTransactions.layoutManager = layoutManager
         viewBinding.recyclerViewTransactions.addItemDecoration(itemDecoration)
@@ -62,19 +68,21 @@ class TransactionsHistoryFragment : Fragment() {
 
         viewModel.getTransactionsResource().observe(this, Observer { resource ->
 
-            if(resource != null) {
+            if (resource != null) {
 
-                when(resource.status) {
+                when (resource.status) {
 
-                    Status.LOADING -> {}
+                    Status.LOADING -> {
+                    }
                     Status.SUCCESS -> {
 
-                        if(resource.data == null || resource.data.isEmpty())
+                        if (resource.data == null || resource.data.isEmpty())
                             showEmptyTransactionsMessage()
                         else
                             showTransactions(resource.data)
                     }
-                    Status.ERROR -> showEmptyTransactionsMessage() }
+                    Status.ERROR -> showEmptyTransactionsMessage()
+                }
             }
         })
     }
@@ -86,7 +94,7 @@ class TransactionsHistoryFragment : Fragment() {
         transactionsHistoryAdapter.setData(transaction)
     }
 
-    private  fun showEmptyTransactionsMessage() {
+    private fun showEmptyTransactionsMessage() {
         viewBinding.textViewTransactionsErrorMessage.visibility = View.VISIBLE
         viewBinding.recyclerViewTransactions.visibility = View.GONE
     }

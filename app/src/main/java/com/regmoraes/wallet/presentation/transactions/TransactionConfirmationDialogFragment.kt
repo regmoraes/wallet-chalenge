@@ -36,7 +36,8 @@ class TransactionConfirmationDialogFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val title = generateTitle()
-        val hint = String.format(getString(R.string.transaction_pending_amount_hint_format), operationType)
+        val hint =
+            String.format(getString(R.string.transaction_pending_amount_hint_format), operationType)
 
         viewBinding.textViewTitle.text = title
         viewBinding.editTextAmount.hint = hint
@@ -71,14 +72,14 @@ class TransactionConfirmationDialogFragment : DialogFragment() {
 
         val amount = viewBinding.editTextAmount.text.toString()
 
-        if(amount.isBlank()) {
+        if (amount.isBlank()) {
             viewBinding.editTextAmount.error =
                     getString(R.string.transaction_invalid_amount_message)
         } else {
 
             val listener = (targetFragment as OnDialogFragmentClicked)
 
-            when(operationType) {
+            when (operationType) {
 
                 TransactionType.EXCHANGE.name -> {
 
@@ -118,9 +119,12 @@ class TransactionConfirmationDialogFragment : DialogFragment() {
         const val ARG_OPERATION_TYPE = "operation-type"
         const val ARG_CURRENCY = "currency"
 
-        fun newInstance(currency: String, operationType: String): TransactionConfirmationDialogFragment {
+        fun newInstance(
+            currency: String,
+            operationType: String
+        ): TransactionConfirmationDialogFragment {
             val frag =
-                    TransactionConfirmationDialogFragment()
+                TransactionConfirmationDialogFragment()
             val args = Bundle()
             args.putString(ARG_OPERATION_TYPE, operationType)
             args.putString(ARG_CURRENCY, currency)

@@ -24,14 +24,17 @@ class WalletFragment : Fragment() {
     private var component: ViewComponent? = null
     private lateinit var viewBinding: FragmentWalletBinding
 
-    @Inject lateinit var viewModelFactory: WalletViewModelFactory
+    @Inject
+    lateinit var viewModelFactory: WalletViewModelFactory
     private lateinit var viewModel: WalletViewModel
 
     private val walletsAdapter by lazy { WalletsAdapter() }
 
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         viewBinding = FragmentWalletBinding.inflate(inflater, container, false)
 
@@ -43,7 +46,10 @@ class WalletFragment : Fragment() {
 
         val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         val itemDecoration: RecyclerView.ItemDecoration =
-            DividerItemDecoration(viewBinding.recyclerViewWallets.context, layoutManager.orientation)
+            DividerItemDecoration(
+                viewBinding.recyclerViewWallets.context,
+                layoutManager.orientation
+            )
 
         viewBinding.recyclerViewWallets.layoutManager = layoutManager
         viewBinding.recyclerViewWallets.addItemDecoration(itemDecoration)
@@ -60,7 +66,7 @@ class WalletFragment : Fragment() {
 
         viewModel.getWalletsResource().observe(this, Observer { resource ->
 
-            if(resource != null && resource.status == Status.SUCCESS) {
+            if (resource != null && resource.status == Status.SUCCESS) {
                 walletsAdapter.setData(resource.data)
             }
         })

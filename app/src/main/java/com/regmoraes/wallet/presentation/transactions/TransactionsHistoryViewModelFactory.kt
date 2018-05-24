@@ -9,7 +9,7 @@ import javax.inject.Inject
  * Copyright {2018} {Rômulo Eduardo G. Moraes}
  */
 open class TransactionsHistoryViewModelFactory @Inject
-    constructor(private val transactionManager: TransactionManager) : ViewModelProvider.Factory {
+constructor(private val transactionManager: TransactionManager) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(TransactionsHistoryViewModel::class.java)) {

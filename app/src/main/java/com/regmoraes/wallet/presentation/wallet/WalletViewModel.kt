@@ -4,8 +4,8 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.regmoraes.wallet.presentation.Resource
-import com.wallet.core.wallet.domain.WalletManager
 import com.wallet.core.wallet.data.Wallet
+import com.wallet.core.wallet.domain.WalletManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -26,14 +26,14 @@ open class WalletViewModel(private val walletManager: WalletManager) : ViewModel
     private fun getWallets() {
 
         disposables.add(
-                walletManager.getWallets()
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .doOnSubscribe { walletsResource.setValue(Resource.loading()) }
-                        .subscribe(
-                                { wallets -> walletsResource.setValue(Resource.success(wallets)) },
-                                { error -> walletsResource.setValue(Resource.error(error)) }
-                        )
+            walletManager.getWallets()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { walletsResource.setValue(Resource.loading()) }
+                .subscribe(
+                    { wallets -> walletsResource.setValue(Resource.success(wallets)) },
+                    { error -> walletsResource.setValue(Resource.error(error)) }
+                )
         )
     }
 

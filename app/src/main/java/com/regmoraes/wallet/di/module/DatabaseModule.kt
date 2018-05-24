@@ -17,21 +17,21 @@ open class DatabaseModule {
 
     @Provides
     @Singleton
-    fun providesAppDatabase(context: Context) : AppDatabase {
+    fun providesAppDatabase(context: Context): AppDatabase {
 
         return AppDatabase.getInstance(context)
     }
 
     @Provides
     @Singleton
-    fun providesWalletRepository(appDatabase: AppDatabase) : WalletRepository {
+    fun providesWalletRepository(appDatabase: AppDatabase): WalletRepository {
 
         return RoomRepository(appDatabase.walletsDao())
     }
 
     @Provides
     @Singleton
-    open fun providesTransactionsRepository(appDatabase: AppDatabase) : TransactionRepository {
+    open fun providesTransactionsRepository(appDatabase: AppDatabase): TransactionRepository {
 
         return com.regmoraes.wallet.persistence.transactions.RoomRepository(appDatabase.transactionsDao())
     }

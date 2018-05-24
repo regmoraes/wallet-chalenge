@@ -9,7 +9,7 @@ import javax.inject.Inject
  * Copyright {2018} {Rômulo Eduardo G. Moraes}
  */
 open class WalletViewModelFactory @Inject
-    constructor(private val walletManager: WalletManager) : ViewModelProvider.Factory {
+constructor(private val walletManager: WalletManager) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(WalletViewModel::class.java)) {

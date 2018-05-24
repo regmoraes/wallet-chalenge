@@ -15,8 +15,8 @@ import com.wallet.core.market.data.TransactionType
 /**
  *   Copyright {2018} {Rômulo Eduardo G. Moraes}
  **/
-class MarketCurrencyInfoAdapter(private val listener: OnItemClickListener)
-    : RecyclerView.Adapter<MarketCurrencyInfoAdapter.ViewHolder>() {
+class MarketCurrencyInfoAdapter(private val listener: OnItemClickListener) :
+    RecyclerView.Adapter<MarketCurrencyInfoAdapter.ViewHolder>() {
 
     private var currencies: List<CurrencyInfo>? = null
 
@@ -42,7 +42,8 @@ class MarketCurrencyInfoAdapter(private val listener: OnItemClickListener)
         notifyDataSetChanged()
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+        View.OnClickListener {
 
         val binding: AdapterMarketItemBinding = AdapterMarketItemBinding.bind(itemView)
 
@@ -56,15 +57,19 @@ class MarketCurrencyInfoAdapter(private val listener: OnItemClickListener)
 
             val currencyInfo = currencies?.get(adapterPosition)
 
-            if(currencyInfo != null) {
+            if (currencyInfo != null) {
                 when (view?.id) {
 
                     R.id.button_sell -> listener.onOperationClicked(
                         currencyInfo,
                         TransactionType.SELL
                     )
-                    R.id.button_buy -> listener.onOperationClicked(currencyInfo, TransactionType.BUY)
-                    R.id.button_exchange -> listener.onOperationClicked(currencyInfo, TransactionType.EXCHANGE
+                    R.id.button_buy -> listener.onOperationClicked(
+                        currencyInfo,
+                        TransactionType.BUY
+                    )
+                    R.id.button_exchange -> listener.onOperationClicked(
+                        currencyInfo, TransactionType.EXCHANGE
                     )
                 }
             }

@@ -18,7 +18,7 @@ class RoomRepository(private val transactionsDao: TransactionsDao) : Transaction
             .map { transactions -> transactions.map { it -> toTransactions(it) } }
     }
 
-    override fun saveTransactions(transaction: Transaction) : Completable {
+    override fun saveTransactions(transaction: Transaction): Completable {
 
         return Completable.fromCallable {
             transactionsDao.insert(fromTransactions(transaction))
