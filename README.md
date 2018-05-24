@@ -45,8 +45,7 @@ Because the *app* module depends on the *wallet-core*, the above structure looks
 
 ### Tests
 
-Foram implemetados testes unitários e instrumentais. Os testes visavam tratar os fluxos de sucesso e excessão para 
-os casos de uso dos seguintes elementos:
+Unit and instrumental tests were implemented. The tests were intended to deal with the majority of success and error scenarios of use cases of the following elements:
 
 - Managers from wallet-core
 - Concrete APIs implementations from wallet-api
@@ -58,4 +57,4 @@ os casos de uso dos seguintes elementos:
 in instrumentation tests. There are a few ways to work around this problem, but due to the time, it was decided
 simply to change the visibility of some classes and methods to *open*.
 
-Also, no layouts were generated for bigger resolutions and some styles and resourceswere declared directly in layouts, not on its own files.
+2. No layouts were generated for bigger resolutions and some styles and resourceswere declared directly in layouts, not on its own files.
