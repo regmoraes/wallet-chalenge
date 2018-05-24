@@ -14,19 +14,19 @@ import java.math.BigDecimal
 data class WalletEntity(@PrimaryKey
                         @NotNull
                         @ColumnInfo(name = "code")
-                        val currency: String,
+                        val currency: Currency,
 
                         @ColumnInfo(name = "amount")
-                        val amount: String) {
+                        val amount: BigDecimal) {
 
     companion object {
 
         fun defaultData(): Array<WalletEntity> {
 
             return arrayOf(
-                WalletEntity(Currency.BRL.name, BigDecimal(100000).toString()),
-                WalletEntity(Currency.BRITA.name, BigDecimal(0).toString()),
-                WalletEntity(Currency.BITCOIN.name, BigDecimal(0).toString())
+                WalletEntity(Currency.BRL, BigDecimal(100000)),
+                WalletEntity(Currency.BRITA, BigDecimal(0)),
+                WalletEntity(Currency.BITCOIN, BigDecimal(0))
             )
         }
     }

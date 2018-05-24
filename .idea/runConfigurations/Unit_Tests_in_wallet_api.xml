@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Unit Tests in wallet-api" type="AndroidJUnit" factoryName="Android JUnit">
+  <configuration default="false" name="Unit Tests in wallet-api" type="AndroidJUnit" factoryName="Android JUnit" singleton="true">
     <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
       <pattern>
         <option name="PATTERN" value="com.wallet.api.*" />

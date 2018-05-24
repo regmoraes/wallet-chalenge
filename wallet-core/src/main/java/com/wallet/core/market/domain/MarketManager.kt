@@ -2,7 +2,7 @@ package com.wallet.core.market.domain
 
 import com.wallet.core.currency.data.Currency
 import com.wallet.core.currency.data.CurrencyInfo
-import com.wallet.core.market.data.OperationType
+import com.wallet.core.market.data.TransactionType
 import com.wallet.core.transaction.data.Transaction
 import com.wallet.core.transaction.domain.TransactionManager
 import com.wallet.core.wallet.domain.WalletManager
@@ -23,7 +23,7 @@ class MarketManager(private val walletManager: WalletManager,
 
             val exchangedAmount = exchangeCalculator.exchange(from.price, to.price, amount)
 
-            executeTransaction(from.currency, amount, to.currency, exchangedAmount, OperationType.EXCHANGE)
+            executeTransaction(from.currency, amount, to.currency, exchangedAmount, TransactionType.EXCHANGE)
 
         } else {
             Single.error(IllegalArgumentException("All prices must be != null"))
@@ -35,7 +35,7 @@ class MarketManager(private val walletManager: WalletManager,
         val valueToDebit = currencyInfo.price!! * amount
 
         return executeTransaction(Currency.BRL, valueToDebit,
-            currencyInfo.currency, amount, OperationType.BUY)
+            currencyInfo.currency, amount, TransactionType.BUY)
     }
 
     fun sell(currencyInfo: CurrencyInfo, amount: BigDecimal): Single<Transaction> {
@@ -43,16 +43,16 @@ class MarketManager(private val walletManager: WalletManager,
         val valueToCredit = currencyInfo.price!! * amount
 
         return executeTransaction(currencyInfo.currency, amount, Currency.BRL, valueToCredit,
-                OperationType.SELL)
+                TransactionType.SELL)
     }
 
     private fun executeTransaction(currencyToDebit: Currency, amountToDebit: BigDecimal,
                                    currencyToCredit: Currency, amountToCredit: BigDecimal,
-                                   operationType: OperationType) : Single<Transaction> {
+                                   transactionType: TransactionType) : Single<Transaction> {
 
         return walletManager.debit(currencyToDebit, amountToDebit)
             .andThen(walletManager.credit(currencyToCredit, amountToCredit))
             .andThen(transactionManager.createTransactions(currencyToDebit, amountToDebit, currencyToCredit,
-                amountToCredit, operationType))
+                amountToCredit, transactionType))
     }
 }

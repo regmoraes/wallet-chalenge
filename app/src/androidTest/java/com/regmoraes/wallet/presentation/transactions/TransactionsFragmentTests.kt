@@ -11,7 +11,7 @@ import com.regmoraes.wallet.SingleFragmentActivity
 import com.regmoraes.wallet.presentation.Resource
 import com.wallet.core.currency.data.Currency
 import com.wallet.core.currency.data.CurrencyInfo
-import com.wallet.core.market.data.OperationType
+import com.wallet.core.market.data.TransactionType
 import com.wallet.core.transaction.data.Transaction
 import org.hamcrest.Matchers.not
 import org.junit.Before
@@ -108,6 +108,6 @@ class TransactionsFragmentTests {
         val currencyToCreditAmount = BigDecimal(2)
 
         return Transaction(currencyToDebitInfo.currency, currencyToDebitAmount,
-                currencyToCreditInfo.currency, currencyToCreditAmount, OperationType.SELL, 0L)
+                currencyToCreditInfo.currency, currencyToCreditAmount, TransactionType.SELL, 0L)
     }
 }

@@ -14,7 +14,7 @@ import com.regmoraes.wallet.presentation.Resource
 import com.regmoraes.wallet.presentation.SingleLiveEvent
 import com.wallet.core.currency.data.Currency
 import com.wallet.core.currency.data.CurrencyInfo
-import com.wallet.core.market.data.OperationType
+import com.wallet.core.market.data.TransactionType
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.Matchers.not
 import org.junit.Before
@@ -106,7 +106,7 @@ class MarketFragmentTests {
         val expectedHint =
                 String.format(resources.getString(
                     R.string.transaction_pending_amount_hint_format,
-                        OperationType.BUY))
+                        TransactionType.BUY))
 
         currenciesInfoResource.postValue(Resource.success(listOf(currencyInfo)))
 
@@ -138,7 +138,7 @@ class MarketFragmentTests {
         val expectedHint =
                 String.format(resources.getString(
                     R.string.transaction_pending_amount_hint_format,
-                        OperationType.SELL))
+                        TransactionType.SELL))
 
         onView(withId(R.id.button_sell)).perform(click())
 
@@ -172,7 +172,7 @@ class MarketFragmentTests {
         val expectedHint =
                 String.format(resources.getString(
                     R.string.transaction_pending_amount_hint_format,
-                        OperationType.EXCHANGE))
+                        TransactionType.EXCHANGE))
 
         val itemPosition  = 0
 

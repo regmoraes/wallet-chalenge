@@ -9,9 +9,12 @@ import io.reactivex.Flowable
 @Dao
 interface TransactionsDao {
 
-    @Query("SELECT * FROM transactions")
+    @Query("SELECT * FROM transactions ORDER BY uid DESC")
     fun getTransactions(): Flowable<List<TransactionEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertTransaction(transaction: TransactionEntity)
+    fun insert(transaction: TransactionEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(transaction: Array<TransactionEntity>)
 }

@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import com.regmoraes.wallet.R
 import com.regmoraes.wallet.databinding.FragmentDialogTransactionBinding
 import com.wallet.core.currency.data.Currency
-import com.wallet.core.market.data.OperationType
+import com.wallet.core.market.data.TransactionType
 
 
 /**
@@ -46,10 +46,10 @@ class TransactionConfirmationDialogFragment : DialogFragment() {
 
     private fun generateTitle(): String = when (operationType) {
 
-        OperationType.BUY.name ->
+        TransactionType.BUY.name ->
             String.format(getString(R.string.transaction_pending_buy_format), currency)
 
-        OperationType.SELL.name ->
+        TransactionType.SELL.name ->
             String.format(getString(R.string.transaction_pending_sell_format), currency)
 
         else -> {
@@ -80,7 +80,7 @@ class TransactionConfirmationDialogFragment : DialogFragment() {
 
             when(operationType) {
 
-                OperationType.EXCHANGE.name -> {
+                TransactionType.EXCHANGE.name -> {
 
                     val a = getCurrencyExchangingFor()
 

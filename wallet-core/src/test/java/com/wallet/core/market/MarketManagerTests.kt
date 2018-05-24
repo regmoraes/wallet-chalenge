@@ -3,7 +3,7 @@ package com.wallet.core.market
 import com.wallet.core.BaseTest
 import com.wallet.core.currency.data.Currency
 import com.wallet.core.currency.data.CurrencyInfo
-import com.wallet.core.market.data.OperationType
+import com.wallet.core.market.data.TransactionType
 import com.wallet.core.market.domain.ExchangeCalculator
 import com.wallet.core.market.domain.MarketManager
 import com.wallet.core.transaction.data.Transaction
@@ -47,10 +47,10 @@ class MarketManagerTests : BaseTest() {
             exchangeCalculator.exchange(currencyToDebitInfo.price!!, currencyToCreditInfo.price!!, amountToExchange)
 
         val expectedTransactions = Transaction(currencyToDebitInfo.currency, currencyToDebitAmount,
-                currencyToCreditInfo.currency, currencyToCreditAmount, OperationType.EXCHANGE, 0L)
+                currencyToCreditInfo.currency, currencyToCreditAmount, TransactionType.EXCHANGE, 0L)
 
         prepareTransactionFunMocks(currencyToDebitInfo.currency, currencyToDebitAmount,
-            currencyToCreditInfo.currency, currencyToCreditAmount, OperationType.EXCHANGE, expectedTransactions)
+            currencyToCreditInfo.currency, currencyToCreditAmount, TransactionType.EXCHANGE, expectedTransactions)
 
         marketManager.exchange(currencyToDebitInfo, currencyToCreditInfo, amountToExchange)
             .test()
@@ -60,7 +60,7 @@ class MarketManagerTests : BaseTest() {
             .assertComplete()
 
         verifyTransactionExecutedCorrectly(currencyToDebitInfo.currency, currencyToDebitAmount,
-            currencyToCreditInfo.currency, currencyToCreditAmount, OperationType.EXCHANGE)
+            currencyToCreditInfo.currency, currencyToCreditAmount, TransactionType.EXCHANGE)
     }
 
     @Test
@@ -76,10 +76,10 @@ class MarketManagerTests : BaseTest() {
         val currencyToDebitAmount = currencyToCreditInfo.price!! * currencyToCreditAmount
 
         val expectedTransactions = Transaction(currencyToDebit, currencyToDebitAmount,
-                currencyToCreditInfo.currency, currencyToCreditAmount, OperationType.BUY, 0L)
+                currencyToCreditInfo.currency, currencyToCreditAmount, TransactionType.BUY, 0L)
 
         prepareTransactionFunMocks(currencyToDebit, currencyToDebitAmount,
-            currencyToCreditInfo.currency, currencyToCreditAmount, OperationType.BUY, expectedTransactions)
+            currencyToCreditInfo.currency, currencyToCreditAmount, TransactionType.BUY, expectedTransactions)
 
         marketManager.buy(currencyToCreditInfo, currencyToCreditAmount)
                 .test()
@@ -89,7 +89,7 @@ class MarketManagerTests : BaseTest() {
                 .assertComplete()
 
         verifyTransactionExecutedCorrectly(currencyToDebit, currencyToDebitAmount,
-            currencyToCreditInfo.currency, currencyToCreditAmount, OperationType.BUY)
+            currencyToCreditInfo.currency, currencyToCreditAmount, TransactionType.BUY)
     }
 
     @Test
@@ -105,10 +105,10 @@ class MarketManagerTests : BaseTest() {
         val currencyToCreditAmount = currencyToDebitInfo.price!! * currencyToDebitAmount
 
         val expectedTransactions = Transaction(currencyToDebitInfo.currency, currencyToDebitAmount,
-                currencyToCredit, currencyToCreditAmount, OperationType.SELL, 0L)
+                currencyToCredit, currencyToCreditAmount, TransactionType.SELL, 0L)
 
         prepareTransactionFunMocks(currencyToDebitInfo.currency, currencyToDebitAmount,
-            currencyToCredit, currencyToCreditAmount, OperationType.SELL, expectedTransactions)
+            currencyToCredit, currencyToCreditAmount, TransactionType.SELL, expectedTransactions)
 
         marketManager.sell(currencyToDebitInfo, currencyToDebitAmount)
             .test()
@@ -118,28 +118,28 @@ class MarketManagerTests : BaseTest() {
             .assertComplete()
 
         verifyTransactionExecutedCorrectly(currencyToDebitInfo.currency, currencyToDebitAmount,
-            currencyToCredit, currencyToCreditAmount, OperationType.SELL)
+            currencyToCredit, currencyToCreditAmount, TransactionType.SELL)
     }
 
     private fun prepareTransactionFunMocks(currencyToDebit: Currency, amountToDebit: BigDecimal,
                                            currencyToCredit: Currency, amountToCredit: BigDecimal,
-                                           operationType: OperationType, transaction: Transaction) {
+                                           transactionType: TransactionType, transaction: Transaction) {
 
         `when`(walletManagerMock.debit(currencyToDebit, amountToDebit)).then { Completable.complete() }
         `when`(walletManagerMock.credit(currencyToCredit, amountToCredit)).then { Completable.complete() }
 
         `when`(transactionManager.createTransactions(currencyToDebit, amountToDebit,
-            currencyToCredit, amountToCredit, operationType)).then { Single.just(transaction) }
+            currencyToCredit, amountToCredit, transactionType)).then { Single.just(transaction) }
 
     }
 
     private fun verifyTransactionExecutedCorrectly(currencyToDebit: Currency, amountToDebit: BigDecimal,
                                                    currencyToCredit: Currency, amountToCredit: BigDecimal,
-                                                   operationType: OperationType) {
+                                                   transactionType: TransactionType) {
 
         verify(transactionManager, times(1))
             .createTransactions(currencyToDebit, amountToDebit,
-                currencyToCredit, amountToCredit, operationType)
+                currencyToCredit, amountToCredit, transactionType)
         verify(walletManagerMock, times(1)).debit(currencyToDebit, amountToDebit)
         verify(walletManagerMock, times(1)).credit(currencyToCredit, amountToCredit)
     }

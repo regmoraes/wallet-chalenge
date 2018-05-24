@@ -3,7 +3,7 @@ package com.regmoraes.wallet.presentation.transactions
 import android.databinding.BindingAdapter
 import android.widget.TextView
 import com.regmoraes.wallet.R
-import com.wallet.core.market.data.OperationType
+import com.wallet.core.market.data.TransactionType
 import com.wallet.core.transaction.data.Transaction
 
 
@@ -21,16 +21,16 @@ object TransactionDescriptionBinding {
         val creditCurrencyName = transaction.creditCurrency.name
         val debitCurrencyName = transaction.debitCurrency.name
 
-        view.text = when(transaction.operationType) {
+        view.text = when(transaction.transactionType) {
 
-            OperationType.BUY ->
+            TransactionType.BUY ->
                 String.format(context.getString(R.string.transaction_buy_format),
                     creditCurrencyName, debitCurrencyName)
 
-            OperationType.SELL -> String.format(context.getString(R.string.transaction_sell_format),
+            TransactionType.SELL -> String.format(context.getString(R.string.transaction_sell_format),
                 debitCurrencyName, creditCurrencyName)
 
-            OperationType.EXCHANGE -> String.format(context.getString(R.string.transaction_exchange_format),
+            TransactionType.EXCHANGE -> String.format(context.getString(R.string.transaction_exchange_format),
                 debitCurrencyName, creditCurrencyName)
         }
     }

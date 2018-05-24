@@ -19,7 +19,7 @@ import com.regmoraes.wallet.presentation.transactions.PendingTransaction
 import com.regmoraes.wallet.presentation.transactions.TransactionConfirmationDialogFragment
 import com.wallet.core.currency.data.CurrencyInfo
 import com.wallet.core.currency.data.toCurrencyEnum
-import com.wallet.core.market.data.OperationType
+import com.wallet.core.market.data.TransactionType
 import com.wallet.core.wallet.exception.InsufficientFundsException
 import javax.inject.Inject
 
@@ -107,13 +107,13 @@ class MarketFragment : Fragment(), MarketCurrencyInfoAdapter.OnItemClickListener
         })
     }
 
-    override fun onOperationClicked(currencyInfo: CurrencyInfo, operationType: OperationType) {
+    override fun onOperationClicked(currencyInfo: CurrencyInfo, transactionType: TransactionType) {
 
         pendingTransaction = PendingTransaction(currencyInfo = currencyInfo,
-                operationType = operationType)
+                transactionType = transactionType)
 
         val transactionDialog =
-            TransactionConfirmationDialogFragment.newInstance(currencyInfo.currency.name, operationType.name)
+            TransactionConfirmationDialogFragment.newInstance(currencyInfo.currency.name, transactionType.name)
         transactionDialog.setTargetFragment(this, 300)
         transactionDialog.show(activity!!.supportFragmentManager,
             TransactionConfirmationDialogFragment::class.java.simpleName)
@@ -125,11 +125,11 @@ class MarketFragment : Fragment(), MarketCurrencyInfoAdapter.OnItemClickListener
         pendingTransaction.amount = amount
 
         val currencyInfo = pendingTransaction.currencyInfo
-        val operationType = pendingTransaction.operationType
+        val operationType = pendingTransaction.transactionType
 
         if(currencyInfo != null && operationType != null) {
 
-            if(operationType == OperationType.SELL)
+            if(operationType == TransactionType.SELL)
                 viewModel.sell(currencyInfo.currency, amount)
             else
                 viewModel.buy(currencyInfo.currency, amount)
@@ -141,7 +141,7 @@ class MarketFragment : Fragment(), MarketCurrencyInfoAdapter.OnItemClickListener
         pendingTransaction.amount = amount
 
         val fromCurrency = pendingTransaction.currencyInfo?.currency
-        val operationType = pendingTransaction.operationType
+        val operationType = pendingTransaction.transactionType
 
         if(fromCurrency != null && operationType != null)
             viewModel.exchange(fromCurrency, toCurrency.toCurrencyEnum(), amount)

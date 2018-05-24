@@ -1,7 +1,7 @@
 package com.regmoraes.wallet.persistence.transactions
 
-import com.regmoraes.wallet.persistence.transactions.TransactionMapper.fromTransactions
-import com.regmoraes.wallet.persistence.transactions.TransactionMapper.toTransactions
+import com.regmoraes.wallet.persistence.transactions.EntityMapper.fromTransactions
+import com.regmoraes.wallet.persistence.transactions.EntityMapper.toTransactions
 import com.wallet.core.transaction.data.Transaction
 import com.wallet.core.transaction.data.TransactionRepository
 import io.reactivex.Completable
@@ -21,7 +21,7 @@ class RoomRepository(private val transactionsDao: TransactionsDao) : Transaction
     override fun saveTransactions(transaction: Transaction) : Completable {
 
         return Completable.fromCallable {
-            transactionsDao.insertTransaction(fromTransactions(transaction))
+            transactionsDao.insert(fromTransactions(transaction))
         }
     }
 }

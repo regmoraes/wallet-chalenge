@@ -9,7 +9,7 @@ import com.regmoraes.wallet.R
 import com.regmoraes.wallet.databinding.AdapterMarketItemBinding
 import com.wallet.core.currency.data.Currency
 import com.wallet.core.currency.data.CurrencyInfo
-import com.wallet.core.market.data.OperationType
+import com.wallet.core.market.data.TransactionType
 
 
 /**
@@ -61,10 +61,10 @@ class MarketCurrencyInfoAdapter(private val listener: OnItemClickListener)
 
                     R.id.button_sell -> listener.onOperationClicked(
                         currencyInfo,
-                        OperationType.SELL
+                        TransactionType.SELL
                     )
-                    R.id.button_buy -> listener.onOperationClicked(currencyInfo, OperationType.BUY)
-                    R.id.button_exchange -> listener.onOperationClicked(currencyInfo, OperationType.EXCHANGE
+                    R.id.button_buy -> listener.onOperationClicked(currencyInfo, TransactionType.BUY)
+                    R.id.button_exchange -> listener.onOperationClicked(currencyInfo, TransactionType.EXCHANGE
                     )
                 }
             }
@@ -74,6 +74,6 @@ class MarketCurrencyInfoAdapter(private val listener: OnItemClickListener)
 
     interface OnItemClickListener {
 
-        fun onOperationClicked(currencyInfo: CurrencyInfo, operationType: OperationType)
+        fun onOperationClicked(currencyInfo: CurrencyInfo, transactionType: TransactionType)
     }
 }

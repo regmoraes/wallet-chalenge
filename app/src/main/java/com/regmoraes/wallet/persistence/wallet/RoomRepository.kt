@@ -14,14 +14,14 @@ class RoomRepository(private val walletsDao: WalletsDao) : WalletRepository {
 
     override fun getWallet(currency: Currency): Single<Wallet> {
 
-        return walletsDao.getWalletByCurrency(currency.name)
-            .map { walletEntity -> WalletMapper.toWallet(walletEntity) }
+        return walletsDao.getWalletByCurrency(currency)
+            .map { EntityMapper.toWallet(it) }
     }
 
     override fun getWallets(): Single<List<Wallet>> {
 
         return walletsDao.getWallets().map { walletEntities ->
-            walletEntities.map { it -> WalletMapper.toWallet(it) }
+            walletEntities.map { EntityMapper.toWallet(it) }
         }
     }
 
@@ -31,7 +31,7 @@ class RoomRepository(private val walletsDao: WalletsDao) : WalletRepository {
 
             val updatedBalance = wallet.amount.plus(value)
 
-            val walletEntity = WalletEntity(currency.name, updatedBalance.toPlainString())
+            val walletEntity = WalletEntity(currency, updatedBalance)
 
             Completable.fromCallable { walletsDao.insert(walletEntity) }
         }
@@ -43,7 +43,7 @@ class RoomRepository(private val walletsDao: WalletsDao) : WalletRepository {
 
             val updatedBalance = wallet.amount.minus(value)
 
-            val walletEntity = WalletEntity(currency.name, updatedBalance.toPlainString())
+            val walletEntity = WalletEntity(currency, updatedBalance)
 
             Completable.fromCallable { walletsDao.insert(walletEntity) }
         }
