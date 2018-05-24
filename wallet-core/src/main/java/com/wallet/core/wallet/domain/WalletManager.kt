@@ -5,16 +5,17 @@ import com.wallet.core.wallet.data.Wallet
 import com.wallet.core.wallet.data.WalletRepository
 import com.wallet.core.wallet.exception.InsufficientFundsException
 import io.reactivex.Completable
+import io.reactivex.Flowable
 import io.reactivex.Single
 import java.math.BigDecimal
 
 /**
  *   Copyright {2018} {Rômulo Eduardo G. Moraes}
  **/
-class WalletManager (private val baseCurrency: Currency,
-                     private val walletRepository: WalletRepository) {
+open class WalletManager (private val baseCurrency: Currency,
+                          private val walletRepository: WalletRepository) {
 
-    fun getWallets(): Single<List<Wallet>> {
+    open fun getWallets(): Flowable<List<Wallet>> {
 
         return walletRepository.getWallets()
     }

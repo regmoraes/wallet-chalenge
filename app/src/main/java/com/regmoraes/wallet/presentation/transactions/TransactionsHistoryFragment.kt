@@ -85,6 +85,9 @@ class TransactionsHistoryFragment : Fragment() {
                 }
             }
         })
+
+        if(viewModel.getTransactionsResource().value == null)
+            viewModel.getTransactions()
     }
 
     private fun showTransactions(transaction: List<Transaction>?) {

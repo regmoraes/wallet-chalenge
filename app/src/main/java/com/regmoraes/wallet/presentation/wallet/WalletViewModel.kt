@@ -19,20 +19,16 @@ open class WalletViewModel(private val walletManager: WalletManager) : ViewModel
 
     private val walletsResource = MutableLiveData<Resource<List<Wallet>>>()
 
-    init {
-        getWallets()
-    }
-
-    private fun getWallets() {
+    open fun getWallets() {
 
         disposables.add(
             walletManager.getWallets()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { walletsResource.setValue(Resource.loading()) }
+                .doOnSubscribe { walletsResource.postValue(Resource.loading()) }
                 .subscribe(
-                    { wallets -> walletsResource.setValue(Resource.success(wallets)) },
-                    { error -> walletsResource.setValue(Resource.error(error)) }
+                    { wallets -> walletsResource.postValue(Resource.success(wallets)) },
+                    { error -> walletsResource.postValue(Resource.error(error)) }
                 )
         )
     }

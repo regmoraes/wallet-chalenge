@@ -37,7 +37,6 @@ class MarketFragmentTests {
     private val currenciesInfoResource = MutableLiveData<Resource<List<CurrencyInfo>>>()
     private val transactionFinishedEvent = SingleLiveEvent<Resource<Boolean>>()
 
-
     @Rule
     @JvmField
     val activityTesRule = ActivityTestRule<SingleFragmentActivity>(SingleFragmentActivity::class.java)

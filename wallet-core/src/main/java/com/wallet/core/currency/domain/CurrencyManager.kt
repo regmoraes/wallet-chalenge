@@ -9,14 +9,14 @@ import io.reactivex.Single
 /**
  *   Copyright {2018} {Rômulo Eduardo G. Moraes}
  **/
-class CurrencyManager(private val currencyRepository: CurrencyRepository.Remote) {
+open class CurrencyManager(private val currencyRepository: CurrencyRepository.Remote) {
 
     fun getCurrencyInfoByInstant(currency: Currency, instant: Long): Single<CurrencyInfo> {
 
         return currencyRepository.getInfoByDate(currency, instant)
     }
 
-    fun getAllCurrenciesInfo(instant: Long): Flowable<CurrencyInfo> {
+    open fun getAllCurrenciesInfo(instant: Long): Flowable<CurrencyInfo> {
 
         return currencyRepository.getAllCurrenciesInfo(instant)
     }

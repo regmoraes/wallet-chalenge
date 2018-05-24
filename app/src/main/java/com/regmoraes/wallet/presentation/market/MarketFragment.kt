@@ -126,6 +126,10 @@ class MarketFragment : Fragment(), MarketCurrencyInfoAdapter.OnItemClickListener
                 }
             }
         })
+
+        if(viewModel.getCurrencyInfoResource().value == null) {
+            viewModel.getAllCurrenciesTodayPrice()
+        }
     }
 
     override fun onOperationClicked(currencyInfo: CurrencyInfo, transactionType: TransactionType) {

@@ -70,6 +70,10 @@ class WalletFragment : Fragment() {
                 walletsAdapter.setData(resource.data)
             }
         })
+
+        if(viewModel.getWalletsResource().value == null){
+            viewModel.getWallets()
+        }
     }
 
     override fun onDestroy() {

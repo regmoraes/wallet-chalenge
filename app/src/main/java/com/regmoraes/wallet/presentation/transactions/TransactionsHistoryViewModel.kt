@@ -20,11 +20,7 @@ open class TransactionsHistoryViewModel(private val transactionManager: Transact
 
     private val transactionsResource = MutableLiveData<Resource<List<Transaction>>>()
 
-    init {
-        getTransactions()
-    }
-
-    fun getTransactions() {
+    open fun getTransactions() {
 
         disposables.add(
             transactionManager.getTransactions()

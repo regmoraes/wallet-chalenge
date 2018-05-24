@@ -2,6 +2,7 @@ package com.wallet.core.wallet.data
 
 import com.wallet.core.currency.data.Currency
 import io.reactivex.Completable
+import io.reactivex.Flowable
 import io.reactivex.Single
 import java.math.BigDecimal
 
@@ -12,7 +13,7 @@ interface WalletRepository {
 
     fun getWallet(currency: Currency): Single<Wallet>
 
-    fun getWallets(): Single<List<Wallet>>
+    fun getWallets(): Flowable<List<Wallet>>
 
     fun credit(currency: Currency, value: BigDecimal): Completable
 

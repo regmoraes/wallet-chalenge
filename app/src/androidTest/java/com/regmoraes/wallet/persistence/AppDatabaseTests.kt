@@ -1,12 +1,10 @@
 package com.regmoraes.wallet.persistence
 
-import android.arch.core.executor.testing.InstantTaskExecutorRule
 import android.support.test.runner.AndroidJUnit4
 import com.regmoraes.wallet.persistence.wallet.WalletEntity
 import com.regmoraes.wallet.persistence.wallet.WalletsDao
 import com.wallet.core.currency.data.Currency
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.math.BigDecimal

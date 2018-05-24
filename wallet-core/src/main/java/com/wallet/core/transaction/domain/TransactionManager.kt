@@ -12,16 +12,14 @@ import java.util.*
 /**
  *   Copyright {2018} {Rômulo Eduardo G. Moraes}
  **/
-class TransactionManager(private val transactionRepository: TransactionRepository) {
+open class TransactionManager(private val transactionRepository: TransactionRepository) {
 
-    fun getTransactions(): Flowable<List<Transaction>> {
+    open fun getTransactions(): Flowable<List<Transaction>> {
 
         return transactionRepository.getTransactions()
     }
 
-
-
-    fun createTransactions(debitCurrency: Currency,
+    open fun createTransactions(debitCurrency: Currency,
                            debitCurrencyAmount: BigDecimal,
                            creditCurrency: Currency,
                            creditCurrencyAmount: BigDecimal,

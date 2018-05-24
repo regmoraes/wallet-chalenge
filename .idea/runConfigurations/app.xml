@@ -46,6 +46,7 @@
     <method>
       <option name="RunConfigurationTask" enabled="true" run_configuration_name="Unit Tests in wallet-api" run_configuration_type="AndroidJUnit" />
       <option name="RunConfigurationTask" enabled="true" run_configuration_name="Unit Tests in wallet-core" run_configuration_type="AndroidJUnit" />
+      <option name="RunConfigurationTask" enabled="true" run_configuration_name="Unit Tests in app" run_configuration_type="AndroidJUnit" />
       <option name="RunConfigurationTask" enabled="true" run_configuration_name="Instrumentation Tests in app" run_configuration_type="AndroidTestRunConfigurationType" />
     </method>
   </configuration>

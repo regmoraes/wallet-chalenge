@@ -20,7 +20,7 @@ package com.regmoraes.wallet.presentation
  * A generic class that holds a value with its loading status.
  * @param <T>
 </T> */
-class Resource<out T>(val status: Status, val data: T?, val error: Throwable?) {
+data class Resource<out T>(val status: Status, val data: T?, val error: Throwable?) {
 
     companion object {
 

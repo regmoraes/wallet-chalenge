@@ -11,6 +11,12 @@ android {
         targetCompatibility 1.8
     }
 
+    testOptions {
+        unitTests {
+            returnDefaultValues true
+        }
+    }
+
     dataBinding {
         enabled = true
     }
@@ -54,6 +60,7 @@ dependencies {
     testImplementation junit
     testImplementation kotlin_test
     testImplementation mockito.core
+    testImplementation archComponents.test
 
     androidTestImplementation (
             mockito.android,

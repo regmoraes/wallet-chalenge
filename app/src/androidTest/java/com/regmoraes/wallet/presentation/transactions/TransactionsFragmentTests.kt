@@ -62,7 +62,6 @@ class TransactionsFragmentTests {
 
         transactionsResource.postValue(Resource.success(listOf(transaction)))
 
-
         onView(withId(R.id.textView_credited_amount))
             .check(matches(withText(
                 String.format(resources.getString(R.string.transaction_history_amount_format),

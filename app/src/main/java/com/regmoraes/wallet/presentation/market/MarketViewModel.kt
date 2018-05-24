@@ -23,18 +23,12 @@ open class MarketViewModel(
     private val currencyManager: CurrencyManager
 ) : ViewModel() {
 
-    private val disposables = CompositeDisposable()
+    private val disposables by lazy { CompositeDisposable() }
+    private val currenciesInfoResource by lazy { MutableLiveData<Resource<List<CurrencyInfo>>>() }
+    private val transactionFinishedEvent by lazy { SingleLiveEvent<Resource<Boolean>>() }
+    private val currenciesInfo by lazy { mutableListOf<CurrencyInfo>() }
 
-    private val currenciesInfoResource = MutableLiveData<Resource<List<CurrencyInfo>>>()
-    private val transactionFinishedEvent = SingleLiveEvent<Resource<Boolean>>()
-
-    private val currenciesInfo = mutableListOf<CurrencyInfo>()
-
-    init {
-        getAllCurrenciesTodayPrice()
-    }
-
-    fun getAllCurrenciesTodayPrice() {
+    open fun getAllCurrenciesTodayPrice() {
 
         currenciesInfo.clear()
 

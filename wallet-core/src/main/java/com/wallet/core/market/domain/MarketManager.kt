@@ -12,7 +12,7 @@ import java.math.BigDecimal
 /**
  *   Copyright {2018} {Rômulo Eduardo G. Moraes}
  **/
-class MarketManager(private val walletManager: WalletManager,
+open class MarketManager(private val walletManager: WalletManager,
                     private val transactionManager: TransactionManager,
                     private val exchangeCalculator: ExchangeCalculator) {
 

@@ -4,6 +4,7 @@ import com.wallet.core.currency.data.Currency
 import com.wallet.core.wallet.data.Wallet
 import com.wallet.core.wallet.data.WalletRepository
 import io.reactivex.Completable
+import io.reactivex.Flowable
 import io.reactivex.Single
 import java.math.BigDecimal
 
@@ -18,7 +19,7 @@ class RoomRepository(private val walletsDao: WalletsDao) : WalletRepository {
             .map { EntityMapper.toWallet(it) }
     }
 
-    override fun getWallets(): Single<List<Wallet>> {
+    override fun getWallets(): Flowable<List<Wallet>> {
 
         return walletsDao.getWallets().map { walletEntities ->
             walletEntities.map { EntityMapper.toWallet(it) }
