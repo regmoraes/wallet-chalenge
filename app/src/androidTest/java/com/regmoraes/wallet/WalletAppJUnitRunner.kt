@@ -12,7 +12,7 @@ import io.reactivex.plugins.RxJavaPlugins
 class WalletAppJUnitRunner: AndroidJUnitRunner() {
 
     override fun newApplication(cl: ClassLoader?, className: String?, context: Context?): Application {
-        return super.newApplication(cl, TestApp::class.java.name, context)
+        return super.newApplication(cl, WalletTestApp::class.java.name, context)
     }
 
     override fun onStart() {

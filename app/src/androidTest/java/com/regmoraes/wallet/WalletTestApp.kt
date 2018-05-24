@@ -6,7 +6,7 @@ import com.regmoraes.wallet.di.component.ViewComponent
 import net.danlew.android.joda.JodaTimeAndroid
 import org.mockito.Mockito.mock
 
-class TestApp : Application(), ComponentProvider {
+class WalletTestApp : Application(), ComponentProvider {
 
     override fun onCreate() {
         super.onCreate()

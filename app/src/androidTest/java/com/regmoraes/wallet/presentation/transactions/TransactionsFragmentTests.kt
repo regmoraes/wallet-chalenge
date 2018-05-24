@@ -1,4 +1,4 @@
-package com.regmoraes.wallet
+package com.regmoraes.wallet.presentation.transactions
 
 import android.arch.lifecycle.MutableLiveData
 import android.support.test.espresso.Espresso.onView
@@ -6,10 +6,9 @@ import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers.*
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
+import com.regmoraes.wallet.R
+import com.regmoraes.wallet.SingleFragmentActivity
 import com.regmoraes.wallet.presentation.Resource
-import com.regmoraes.wallet.presentation.transactions.TransactionsHistoryFragment
-import com.regmoraes.wallet.presentation.transactions.TransactionsHistoryViewModel
-import com.regmoraes.wallet.presentation.transactions.TransactionsHistoryViewModelFactory
 import com.wallet.core.currency.data.Currency
 import com.wallet.core.currency.data.CurrencyInfo
 import com.wallet.core.market.data.OperationType

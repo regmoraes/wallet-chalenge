@@ -1,4 +1,4 @@
-package com.regmoraes.wallet
+package com.regmoraes.wallet.presentation.market
 
 import android.arch.lifecycle.MutableLiveData
 import android.support.test.espresso.Espresso.onView
@@ -7,11 +7,11 @@ import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers.*
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
+import com.regmoraes.wallet.R
+import com.regmoraes.wallet.RecyclerViewMatcher
+import com.regmoraes.wallet.SingleFragmentActivity
 import com.regmoraes.wallet.presentation.Resource
 import com.regmoraes.wallet.presentation.SingleLiveEvent
-import com.regmoraes.wallet.presentation.market.MarketFragment
-import com.regmoraes.wallet.presentation.market.MarketViewModel
-import com.regmoraes.wallet.presentation.market.MarketViewModelFactory
 import com.wallet.core.currency.data.Currency
 import com.wallet.core.currency.data.CurrencyInfo
 import com.wallet.core.market.data.OperationType
@@ -104,7 +104,8 @@ class MarketFragmentTests {
         val currencyInfo = CurrencyInfo(Currency.BRITA, BigDecimal(50), 0L)
 
         val expectedHint =
-                String.format(resources.getString(R.string.transaction_pending_amount_hint_format,
+                String.format(resources.getString(
+                    R.string.transaction_pending_amount_hint_format,
                         OperationType.BUY))
 
         currenciesInfoResource.postValue(Resource.success(listOf(currencyInfo)))
@@ -130,11 +131,13 @@ class MarketFragmentTests {
         currenciesInfoResource.postValue(Resource.success(listOf(currencyInfo)))
 
         val expectedTitle =
-                String.format(resources.getString(R.string.transaction_pending_sell_format,
+                String.format(resources.getString(
+                    R.string.transaction_pending_sell_format,
                         currencyInfo.currency.name))
 
         val expectedHint =
-                String.format(resources.getString(R.string.transaction_pending_amount_hint_format,
+                String.format(resources.getString(
+                    R.string.transaction_pending_amount_hint_format,
                         OperationType.SELL))
 
         onView(withId(R.id.button_sell)).perform(click())
@@ -162,11 +165,13 @@ class MarketFragmentTests {
         currenciesInfoResource.postValue(Resource.success(listOf(fromCurrencyInfo, toCurrencyInfo)))
 
         val expectedTitle =
-                String.format(resources.getString(R.string.transaction_pending_exchange_format,
+                String.format(resources.getString(
+                    R.string.transaction_pending_exchange_format,
                         fromCurrencyInfo.currency.name, toCurrencyInfo.currency.name))
 
         val expectedHint =
-                String.format(resources.getString(R.string.transaction_pending_amount_hint_format,
+                String.format(resources.getString(
+                    R.string.transaction_pending_amount_hint_format,
                         OperationType.EXCHANGE))
 
         val itemPosition  = 0
