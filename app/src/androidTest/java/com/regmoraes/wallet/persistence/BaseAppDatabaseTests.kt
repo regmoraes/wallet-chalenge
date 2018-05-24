@@ -1,10 +1,12 @@
 package com.regmoraes.wallet.persistence
 
+import android.arch.core.executor.testing.InstantTaskExecutorRule
 import android.arch.persistence.room.Room
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
 import org.junit.After
 import org.junit.Before
+import org.junit.Rule
 import org.junit.runner.RunWith
 import java.io.IOException
 
@@ -16,6 +18,9 @@ import java.io.IOException
 abstract class BaseAppDatabaseTests {
 
     protected lateinit var appDatabase: AppDatabase
+
+    @JvmField @Rule
+    val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Before
     open fun setUp() {

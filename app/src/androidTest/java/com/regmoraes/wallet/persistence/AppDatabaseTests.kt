@@ -1,10 +1,12 @@
 package com.regmoraes.wallet.persistence
 
+import android.arch.core.executor.testing.InstantTaskExecutorRule
 import android.support.test.runner.AndroidJUnit4
 import com.regmoraes.wallet.persistence.wallet.WalletEntity
 import com.regmoraes.wallet.persistence.wallet.WalletsDao
 import com.wallet.core.currency.data.Currency
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.math.BigDecimal
@@ -34,17 +36,14 @@ class AppDatabaseTests : BaseAppDatabaseTests() {
 
         walletsDao.getWalletByCurrency(Currency.BRL)
             .test()
-            .await()
             .assertValue { it.amount == expectedBrlStartBalance }
 
         walletsDao.getWalletByCurrency(Currency.BRITA)
             .test()
-            .await()
             .assertValue { it.amount == expectedOtherCurrenciesStartBalance }
 
         walletsDao.getWalletByCurrency(Currency.BITCOIN)
             .test()
-            .await()
             .assertValue { it.amount == expectedOtherCurrenciesStartBalance }
     }
 }

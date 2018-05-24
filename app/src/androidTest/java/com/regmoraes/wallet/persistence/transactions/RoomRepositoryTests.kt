@@ -2,9 +2,9 @@ package com.regmoraes.wallet.persistence.transactions
 
 import android.support.test.runner.AndroidJUnit4
 import com.regmoraes.wallet.persistence.BaseAppDatabaseTests
-import com.regmoraes.wallet.persistence.wallet.WalletEntity
-import com.regmoraes.wallet.persistence.wallet.WalletsDao
 import com.wallet.core.currency.data.Currency
+import com.wallet.core.currency.data.CurrencyInfo
+import com.wallet.core.market.data.TransactionType
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -16,25 +16,42 @@ import java.math.BigDecimal
 @RunWith(AndroidJUnit4::class)
 class RoomRepositoryTests : BaseAppDatabaseTests() {
 
-    private lateinit var walletsDao: WalletsDao
+    private lateinit var transactionsDao: TransactionsDao
 
     @Before
     override fun setUp() {
         super.setUp()
-        walletsDao = appDatabase.walletsDao()
+        transactionsDao = appDatabase.transactionsDao()
     }
 
     @Test
-    fun getWalletByCurrency_returnsWallet_correctly() {
+    fun getTransactions_OrderedBy_LatestFirst() {
 
-        val wallet = WalletEntity(Currency.BRL, BigDecimal(0))
-        val expectedWallet = WalletEntity(Currency.BRITA, BigDecimal(0))
+        val transactionOne =
+                createFakeTransaction(
+                        1, TransactionType.SELL, BigDecimal(0), BigDecimal(10)
+                )
+        val transactionTwo =
+                createFakeTransaction(
+                        2, TransactionType.SELL, BigDecimal(0), BigDecimal(10)
+                )
 
-        walletsDao.insertAll(arrayOf(wallet, expectedWallet))
+        transactionsDao.insertAll(arrayOf(transactionOne, transactionTwo))
 
-        walletsDao.getWalletByCurrency(Currency.BRITA)
-            .test()
-            .await()
-            .assertValue(expectedWallet)
+        transactionsDao.getTransactions()
+                .test()
+                .assertValue(listOf(transactionTwo, transactionOne))
+    }
+
+    private fun createFakeTransaction(id: Long, transactionType: TransactionType,
+                                      toDebitAmount: BigDecimal,
+                                      toCreditAmount: BigDecimal): TransactionEntity {
+
+        val currencyToDebitInfo = CurrencyInfo(Currency.BRITA, BigDecimal(50), 0L)
+        val currencyToCreditInfo = CurrencyInfo(Currency.BITCOIN, BigDecimal(10), 0L)
+
+        return TransactionEntity(id, currencyToDebitInfo.currency, toDebitAmount,
+                currencyToCreditInfo.currency, toCreditAmount,
+                transactionType, 0L)
     }
 }
