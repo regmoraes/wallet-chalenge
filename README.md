@@ -59,6 +59,7 @@ Unit and instrumental tests were implemented. The tests were intended to deal wi
 - Managers from wallet-core
 - Concrete APIs implementations from wallet-api
 - Transaction history, wallet and market Fragments
+- ViewModels
 
 ### Notes
 
@@ -66,4 +67,4 @@ Unit and instrumental tests were implemented. The tests were intended to deal wi
 in instrumentation tests. There are a few ways to work around this problem, but due to the time, it was decided
 simply to change the visibility of some classes and methods to *open*.
 
-2. No layouts were generated for bigger resolutions and some styles and resourceswere declared directly in layouts, not on its own files.
+2. No layouts were generated for bigger resolutions and some styles and resources were declared directly in layouts, not on its own files.
