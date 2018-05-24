@@ -36,6 +36,7 @@ class RoomRepositoryTests : BaseAppDatabaseTests() {
 
         transactionsDao.getTransactions()
             .test()
+            .await()
             .assertValue(listOf(transactionTwo, transactionOne))
     }
 

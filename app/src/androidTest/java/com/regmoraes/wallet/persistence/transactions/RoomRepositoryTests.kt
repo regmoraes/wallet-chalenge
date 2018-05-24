@@ -34,6 +34,7 @@ class RoomRepositoryTests : BaseAppDatabaseTests() {
 
         walletsDao.getWalletByCurrency(Currency.BRITA)
             .test()
+            .await()
             .assertValue(expectedWallet)
     }
 }
