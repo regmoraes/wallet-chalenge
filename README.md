@@ -1,6 +1,17 @@
+## Crypto Wallet
+
 Project for the [Stone's Mobile Challenge](https://github.com/stone-payments/desafio-mobile/blob/master/wallet/README.md)
 
-## Crypto Wallet 
+### Screenshots
+
+<p float="left">
+<img width="40%" vspace="20" hspace="20" src="https://user-images.githubusercontent.com/4440882/40471021-c19f90aa-5f0b-11e8-8c6a-9c5c56863e52.png" />
+<img width="40%" vspace="20" hspace="20" src="https://user-images.githubusercontent.com/4440882/40471025-c1e5c070-5f0b-11e8-81d2-07f436cada35.png" />
+<img width="40%" vspace="20" hspace="20" src="https://user-images.githubusercontent.com/4440882/40471026-c2092574-5f0b-11e8-8823-7ea81a7d7e18.png" />
+<img width="40%" vspace="20" hspace="20" src="https://user-images.githubusercontent.com/4440882/40471023-c1c5b12c-5f0b-11e8-840a-0700f232d39e.png" />
+</p>
+
+### Project Structure
 
 The application was created using the Kotlin language and sought to follow the concepts and practices of:
 
@@ -8,8 +19,6 @@ The application was created using the Kotlin language and sought to follow the c
 - [Component Based Architecture](https://www.tutorialspoint.com/software_architecture_design/component_based_architecture.htm)
 - MVVM (Model-View-ViewModel)
 - Reactive Programming
- 
- ### Project Structure
  
 The project was divided into 3 modules, each one responsible for a software layer. The dependencies 
 are unidirectional and non-transitive, from 1 to 3:
